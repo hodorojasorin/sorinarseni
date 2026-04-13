@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sorin Arseni</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #3a6fa0;
+    --bg-dark: #2d5a84;
+    --text: #ffffff;
+    --text-muted: rgba(255,255,255,0.65);
+    --card-bg: rgba(255,255,255,0.12);
+    --card-hover: rgba(255,255,255,0.22);
+    --card-border: rgba(255,255,255,0.2);
+    --accent: #f0e6c8;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+  }
+
+  /* Noise texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page { position: relative; z-index: 1; width: 100%; max-width: 560px; padding: 60px 24px 80px; }
+
+  /* Header */
+  .header { text-align: center; margin-bottom: 20px; }
+
+  .name {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(3rem, 10vw, 5.5rem);
+    line-height: 1;
+    letter-spacing: -1px;
+    color: var(--text);
+    animation: fadeDown 0.6s ease both;
+  }
+
+  .name span {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .tagline {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 10px;
+    animation: fadeDown 0.6s 0.1s ease both;
+  }
+
+  /* Divider */
+  .divider {
+    width: 40px;
+    height: 1px;
+    background: rgba(255,255,255,0.3);
+    margin: 28px auto;
+    animation: fadeIn 0.6s 0.2s ease both;
+  }
+
+  /* Subtitle */
+  .subtitle {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 44px;
+    animation: fadeIn 0.6s 0.25s ease both;
+    font-style: italic;
+  }
+
+  /* Links */
+  .links { display: flex; flex-direction: column; gap: 12px; }
+
+  .link-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 10px;
+    padding: 16px 20px;
+    text-decoration: none;
+    color: var(--text);
+    transition: background 0.2s, transform 0.18s, border-color 0.2s;
+    animation: fadeUp 0.5s ease both;
+    cursor: pointer;
+  }
+
+  .link-card:hover {
+    background: var(--card-hover);
+    transform: translateX(4px);
+    border-color: rgba(255,255,255,0.4);
+  }
+
+  .link-card:active { transform: translateX(2px) scale(0.99); }
+
+  .link-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 18px;
+  }
+
+  .link-info { flex: 1; }
+
+  .link-platform {
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .link-label {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.05rem;
+    margin-top: 1px;
+  }
+
+  .link-arrow {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    transition: transform 0.2s;
+  }
+
+  .link-card:hover .link-arrow { transform: translateX(3px); color: var(--text); }
+
+  /* Stagger delays */
+  .link-card:nth-child(1) { animation-delay: 0.3s; }
+  .link-card:nth-child(2) { animation-delay: 0.37s; }
+  .link-card:nth-child(3) { animation-delay: 0.44s; }
+  .link-card:nth-child(4) { animation-delay: 0.51s; }
+  .link-card:nth-child(5) { animation-delay: 0.58s; }
+  .link-card:nth-child(6) { animation-delay: 0.65s; }
+
+  /* Ticker */
+  .ticker-wrap {
+    width: 100%;
+    overflow: hidden;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    padding: 14px 0;
+    margin: 44px 0 0;
+    animation: fadeIn 0.6s 0.7s ease both;
+  }
+
+  .ticker {
+    display: flex;
+    gap: 48px;
+    width: max-content;
+    animation: ticker 18s linear infinite;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .ticker span { white-space: nowrap; }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    margin-top: 44px;
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.3);
+    animation: fadeIn 0.6s 0.8s ease both;
+  }
+
+  /* Animations */
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-16px); }
+    to { opacity: 1; transform: none; }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: none; }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* SVG icons inline */
+  .ico-ig { fill: none; stroke: white; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .ico-yt { fill: white; }
+  .ico-tt { fill: white; }
+  .ico-tw { fill: white; }
+  .ico-gh { fill: white; }
+  .ico-li { fill: white; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="header">
+    <h1 class="name">Sorin <span>Arseni</span></h1>
+    <p class="tagline">prezent pe internet · absent în viața reală</p>
+  </header>
+
+  <div class="divider"></div>
+
+  <p class="subtitle">
+    Bine ai venit. Găsești toate linkurile de mai jos.<br>
+    Te rog să nu mă găsești pe stradă.
+  </p>
+
+  <div class="links">
+
+    <a class="link-card" href="https://instagram.com/" target="_blank">
+      <div class="link-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <rect x="2" y="2" width="20" height="20" rx="5" class="ico-ig"/>
+          <circle cx="12" cy="12" r="4.5" class="ico-ig"/>
+          <circle cx="17.5" cy="6.5" r="1" fill="white"/>
+        </svg>
+      </div>
+      <div class="link-info">
+        <div class="link-platform">Instagram</div>
+        <div class="link-label">@sorinarseni</div>
+      </div>
+      <div class="link-arrow">→</div>
+    </a>
+
+    <a class="link-card" href="https://tiktok.com/" target="_blank">
+      <div class="link-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24">
+          <path class="ico-tt" d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.25 8.25 0 004.84 1.55V6.79a4.85 4.85 0 01-1.07-.1z"/>
+        </svg>
+      </div>
+      <div class="link-info">
+        <div class="link-platform">TikTok</div>
+        <div class="link-label">@sorinarseni</div>
+      </div>
+      <div class="link-arrow">→</div>
+    </a>
+
+    <a class="link-card" href="https://youtube.com/" target="_blank">
+      <div class="link-icon">
+        <svg width="22" height="16" viewBox="0 0 22 16">
+          <path class="ico-yt" d="M21.54 2.5A2.77 2.77 0 0019.6.56C17.9 0 11 0 11 0S4.1 0 2.4.56A2.77 2.77 0 00.46 2.5 29.1 29.1 0 000 8a29.1 29.1 0 00.46 5.5A2.77 2.77 0 002.4 15.44C4.1 16 11 16 11 16s6.9 0 8.6-.56a2.77 2.77 0 001.94-1.94A29.1 29.1 0 0022 8a29.1 29.1 0 00-.46-5.5zM8.75 11.38V4.62L14.5 8l-5.75 3.38z"/>
+        </svg>
+      </div>
+      <div class="link-info">
+        <div class="link-platform">YouTube</div>
+        <div class="link-label">Sorin Arseni</div>
+      </div>
+      <div class="link-arrow">→</div>
+    </a>
+
+    <a class="link-card" href="https://twitter.com/" target="_blank">
+      <div class="link-icon">
+        <svg width="20" height="18" viewBox="0 0 20 18">
+          <path class="ico-tw" d="M17.316 0h3.274l-7.15 8.17L22 18h-6.587l-5.16-6.746L4.35 18H1.072l7.65-8.742L0 0h6.754l4.664 6.167L17.316 0zm-1.149 16.17h1.814L3.916 1.856H1.97L16.167 16.17z"/>
+        </svg>
+      </div>
+      <div class="link-info">
+        <div class="link-platform">X / Twitter</div>
+        <div class="link-label">@sorinarseni</div>
+      </div>
+      <div class="link-arrow">→</div>
+    </a>
+
+    <a class="link-card" href="https://github.com/" target="_blank">
+      <div class="link-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24">
+          <path class="ico-gh" d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.1.82-.26.82-.57v-2c-3.34.72-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .1-.78.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.93 0-1.3.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 013-.4c1.02 0 2.04.13 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.22.68.83.57C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/>
+        </svg>
+      </div>
+      <div class="link-info">
+        <div class="link-platform">GitHub</div>
+        <div class="link-label">sorinarseni</div>
+      </div>
+      <div class="link-arrow">→</div>
+    </a>
+
+    <a class="link-card" href="https://linkedin.com/" target="_blank">
+      <div class="link-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24">
+          <path class="ico-li" d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+        </svg>
+      </div>
+      <div class="link-info">
+        <div class="link-platform">LinkedIn</div>
+        <div class="link-label">Sorin Arseni</div>
+      </div>
+      <div class="link-arrow">→</div>
+    </a>
+
+  </div>
+
+  <div class="ticker-wrap">
+    <div class="ticker">
+      <span>Instagram</span>
+      <span>·</span>
+      <span>TikTok</span>
+      <span>·</span>
+      <span>YouTube</span>
+      <span>·</span>
+      <span>Twitter</span>
+      <span>·</span>
+      <span>GitHub</span>
+      <span>·</span>
+      <span>LinkedIn</span>
+      <span>·</span>
+      <span>Sorin Arseni</span>
+      <span>·</span>
+      <span>Instagram</span>
+      <span>·</span>
+      <span>TikTok</span>
+      <span>·</span>
+      <span>YouTube</span>
+      <span>·</span>
+      <span>Twitter</span>
+      <span>·</span>
+      <span>GitHub</span>
+      <span>·</span>
+      <span>LinkedIn</span>
+      <span>·</span>
+      <span>Sorin Arseni</span>
+      <span>·</span>
+    </div>
+  </div>
+
+  <footer class="footer">
+    © 2026 Sorin Arseni · fă un follow, nu mușcă
+  </footer>
+
+</div>
+</body>
+</html>
