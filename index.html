@@ -1,495 +1,736 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ro">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sorin Arseni</title>
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Permanent+Marker&family=Special+Elite&family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
-<style>
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sorin Arseni</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Permanent+Marker&family=Special+Elite&family=Kalam:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-body {
-  background-color: #d6cfc4;
-  background-image:
-    radial-gradient(circle at 20% 30%, rgba(180,160,130,0.3) 0%, transparent 50%),
-    radial-gradient(circle at 80% 70%, rgba(160,140,110,0.25) 0%, transparent 50%),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
-  min-height: 100vh;
-  font-family: 'Kalam', cursive;
-  overflow-x: hidden;
-}
+      body {
+        background-color: #d6cfc4;
+        background-image:
+          radial-gradient(
+            circle at 20% 30%,
+            rgba(180, 160, 130, 0.3) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 80% 70%,
+            rgba(160, 140, 110, 0.25) 0%,
+            transparent 50%
+          ),
+          url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+        min-height: 100vh;
+        font-family: "Kalam", cursive;
+        overflow-x: hidden;
+      }
 
-.page {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 32px 16px 60px;
-}
+      .page {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 32px 16px 60px;
+      }
 
-/* ===== TORN EDGE ===== */
-.torn { position: relative; }
-.torn::after {
-  content: '';
-  position: absolute;
-  bottom: -13px; left: 0; right: 0;
-  height: 15px;
-  background: inherit;
-  clip-path: polygon(0% 0%,3% 100%,6% 20%,9% 90%,12% 10%,15% 80%,18% 5%,21% 85%,24% 15%,27% 95%,30% 0%,33% 80%,36% 20%,39% 100%,42% 0%,45% 90%,48% 10%,51% 80%,54% 0%,57% 100%,60% 15%,63% 85%,66% 5%,69% 95%,72% 20%,75% 80%,78% 0%,81% 90%,84% 10%,87% 100%,90% 5%,93% 80%,96% 20%,100% 0%,100% 0%);
-}
+      /* ===== TORN EDGE ===== */
+      .torn {
+        position: relative;
+      }
+      .torn::after {
+        content: "";
+        position: absolute;
+        bottom: -13px;
+        left: 0;
+        right: 0;
+        height: 15px;
+        background: inherit;
+        clip-path: polygon(
+          0% 0%,
+          3% 100%,
+          6% 20%,
+          9% 90%,
+          12% 10%,
+          15% 80%,
+          18% 5%,
+          21% 85%,
+          24% 15%,
+          27% 95%,
+          30% 0%,
+          33% 80%,
+          36% 20%,
+          39% 100%,
+          42% 0%,
+          45% 90%,
+          48% 10%,
+          51% 80%,
+          54% 0%,
+          57% 100%,
+          60% 15%,
+          63% 85%,
+          66% 5%,
+          69% 95%,
+          72% 20%,
+          75% 80%,
+          78% 0%,
+          81% 90%,
+          84% 10%,
+          87% 100%,
+          90% 5%,
+          93% 80%,
+          96% 20%,
+          100% 0%,
+          100% 0%
+        );
+      }
 
-/* ===== HEADER ===== */
-.header-card {
-  background: #f5f0e8;
-  border: 1px solid rgba(0,0,0,0.08);
-  box-shadow: 4px 5px 0 rgba(0,0,0,0.18), 2px 2px 12px rgba(0,0,0,0.1);
-  padding: 24px 20px 28px;
-  transform: rotate(-1deg);
-  position: relative;
-  margin-bottom: 20px;
-  animation: dropIn 0.5s ease both;
-}
-.header-card::before {
-  content: '';
-  position: absolute;
-  top: -11px; left: 50%;
-  transform: translateX(-50%) rotate(-2deg);
-  width: 70px; height: 22px;
-  background: rgba(255,220,100,0.55);
-  border: 1px solid rgba(200,170,50,0.3);
-}
+      /* ===== HEADER ===== */
+      .header-card {
+        background: #f5f0e8;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        box-shadow:
+          4px 5px 0 rgba(0, 0, 0, 0.18),
+          2px 2px 12px rgba(0, 0, 0, 0.1);
+        padding: 24px 20px 28px;
+        transform: rotate(-1deg);
+        position: relative;
+        margin-bottom: 20px;
+        animation: dropIn 0.5s ease both;
+      }
+      .header-card::before {
+        content: "";
+        position: absolute;
+        top: -11px;
+        left: 50%;
+        transform: translateX(-50%) rotate(-2deg);
+        width: 70px;
+        height: 22px;
+        background: rgba(255, 220, 100, 0.55);
+        border: 1px solid rgba(200, 170, 50, 0.3);
+      }
 
-.header-top {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 12px;
-}
+      .header-top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+      }
 
-.name-big {
-  font-family: 'Permanent Marker', cursive;
-  font-size: clamp(2.4rem, 11vw, 4.5rem);
-  line-height: 1;
-  color: #1a1a1a;
-  letter-spacing: -1px;
-  flex: 1;
-}
-.name-big .hl {
-  display: inline;
-  background: linear-gradient(to right, #f7c842, #f7c842) no-repeat bottom;
-  background-size: 100% 5px;
-  padding-bottom: 1px;
-}
+      .name-big {
+        font-family: "Permanent Marker", cursive;
+        font-size: clamp(2.4rem, 11vw, 4.5rem);
+        line-height: 1;
+        color: #1a1a1a;
+        letter-spacing: -1px;
+        flex: 1;
+      }
+      .name-big .hl {
+        display: inline;
+        background: linear-gradient(to right, #f7c842, #f7c842) no-repeat bottom;
+        background-size: 100% 5px;
+        padding-bottom: 1px;
+      }
 
-.stamp {
-  width: 58px;
-  height: 58px;
-  min-width: 58px;
-  flex-shrink: 0;
-  border: 3px solid #c0392b;
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  color: #c0392b;
-  font-family: 'Special Elite', serif;
-  font-size: 0.42rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  transform: rotate(12deg);
-  opacity: 0.75;
-  line-height: 1.4;
-  padding: 4px;
-  position: relative;
-  margin-top: 4px;
-}
-.stamp::before {
-  content: '';
-  position: absolute;
-  inset: 3px;
-  border: 1px solid #c0392b;
-  border-radius: 2px;
-}
+      .stamp {
+        width: 58px;
+        height: 58px;
+        min-width: 58px;
+        flex-shrink: 0;
+        border: 3px solid #c0392b;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: #c0392b;
+        font-family: "Special Elite", serif;
+        font-size: 0.42rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        transform: rotate(12deg);
+        opacity: 0.75;
+        line-height: 1.4;
+        padding: 4px;
+        position: relative;
+        margin-top: 4px;
+      }
+      .stamp::before {
+        content: "";
+        position: absolute;
+        inset: 3px;
+        border: 1px solid #c0392b;
+        border-radius: 2px;
+      }
 
-.header-sub {
-  font-family: 'Special Elite', serif;
-  font-size: 0.78rem;
-  color: #555;
-  margin-top: 8px;
-  letter-spacing: 0.04em;
-}
+      .header-sub {
+        font-family: "Special Elite", serif;
+        font-size: 0.78rem;
+        color: #555;
+        margin-top: 8px;
+        letter-spacing: 0.04em;
+      }
 
-.barcode-row {
-  margin-top: 12px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.barcode {
-  display: flex;
-  gap: 2px;
-  align-items: flex-end;
-  height: 28px;
-  flex-shrink: 0;
-}
-.barcode span { display: block; background: #1a1a1a; }
-.barcode-label {
-  font-family: 'Special Elite', serif;
-  font-size: 0.55rem;
-  color: #888;
-  letter-spacing: 0.04em;
-  line-height: 1.6;
-}
+      .barcode-row {
+        margin-top: 12px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .barcode {
+        display: flex;
+        gap: 2px;
+        align-items: flex-end;
+        height: 28px;
+        flex-shrink: 0;
+      }
+      .barcode span {
+        display: block;
+        background: #1a1a1a;
+      }
+      .barcode-label {
+        font-family: "Special Elite", serif;
+        font-size: 0.55rem;
+        color: #888;
+        letter-spacing: 0.04em;
+        line-height: 1.6;
+      }
 
-/* ===== STICKY NOTES ROW ===== */
-.stickies-row {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin: 12px 0 0;
-}
+      /* ===== STICKY NOTES ROW ===== */
+      .stickies-row {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 12px 0 0;
+      }
 
-.sticky {
-  background: #f9e84a;
-  box-shadow: 3px 4px 0 rgba(0,0,0,0.15);
-  padding: 10px 14px 14px;
-  font-family: 'Caveat', cursive;
-  font-size: 0.92rem;
-  color: #333;
-  line-height: 1.5;
-  position: relative;
-  flex: 1;
-  min-width: 90px;
-}
-.sticky::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 4px;
-  background: rgba(0,0,0,0.06);
-}
-.sticky.pink   { background: #ffb3c6; }
-.sticky.blue   { background: #a8d8ea; }
-.sticky.green  { background: #b8f0c0; }
-.sticky.orange { background: #ffc87a; }
-.sticky.rot-l  { transform: rotate(-2.5deg); }
-.sticky.rot-r  { transform: rotate(2deg); }
+      .sticky {
+        background: #f9e84a;
+        box-shadow: 3px 4px 0 rgba(0, 0, 0, 0.15);
+        padding: 10px 14px 14px;
+        font-family: "Caveat", cursive;
+        font-size: 0.92rem;
+        color: #333;
+        line-height: 1.5;
+        position: relative;
+        flex: 1;
+        min-width: 90px;
+      }
+      .sticky::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: rgba(0, 0, 0, 0.06);
+      }
+      .sticky.pink {
+        background: #ffb3c6;
+      }
+      .sticky.blue {
+        background: #a8d8ea;
+      }
+      .sticky.green {
+        background: #b8f0c0;
+      }
+      .sticky.orange {
+        background: #ffc87a;
+      }
+      .sticky.rot-l {
+        transform: rotate(-2.5deg);
+      }
+      .sticky.rot-r {
+        transform: rotate(2deg);
+      }
 
-/* ===== WASHI TAPE ===== */
-.washi {
-  height: 20px;
-  background: repeating-linear-gradient(
-    90deg,
-    rgba(255,100,100,0.4) 0px, rgba(255,150,50,0.4) 8px,
-    rgba(255,200,50,0.4) 16px, rgba(100,200,100,0.4) 24px,
-    rgba(50,150,255,0.4) 32px, rgba(150,50,255,0.4) 40px,
-    rgba(255,100,100,0.4) 48px
-  );
-  border-top: 1px solid rgba(0,0,0,0.08);
-  border-bottom: 1px solid rgba(0,0,0,0.08);
-  transform: rotate(-0.8deg);
-  width: calc(100% + 32px);
-  margin-left: -16px;
-  margin-top: 28px;
-  margin-bottom: 28px;
-}
+      /* ===== WASHI TAPE ===== */
+      .washi {
+        height: 20px;
+        background: repeating-linear-gradient(
+          90deg,
+          rgba(255, 100, 100, 0.4) 0px,
+          rgba(255, 150, 50, 0.4) 8px,
+          rgba(255, 200, 50, 0.4) 16px,
+          rgba(100, 200, 100, 0.4) 24px,
+          rgba(50, 150, 255, 0.4) 32px,
+          rgba(150, 50, 255, 0.4) 40px,
+          rgba(255, 100, 100, 0.4) 48px
+        );
+        border-top: 1px solid rgba(0, 0, 0, 0.08);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        transform: rotate(-0.8deg);
+        width: calc(100% + 32px);
+        margin-left: -16px;
+        margin-top: 28px;
+        margin-bottom: 28px;
+      }
 
-/* ===== SECTION LABEL ===== */
-.section-label {
-  font-family: 'Permanent Marker', cursive;
-  font-size: 1.4rem;
-  color: #1a1a1a;
-  margin: 0 0 14px;
-  display: inline-block;
-  background: #f7c842;
-  padding: 2px 10px;
-  transform: rotate(-1.2deg);
-  box-shadow: 2px 2px 0 rgba(0,0,0,0.2);
-}
+      /* ===== SECTION LABEL ===== */
+      .section-label {
+        font-family: "Permanent Marker", cursive;
+        font-size: 1.4rem;
+        color: #1a1a1a;
+        margin: 0 0 14px;
+        display: inline-block;
+        background: #f7c842;
+        padding: 2px 10px;
+        transform: rotate(-1.2deg);
+        box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
+      }
 
-/* ===== LINKS ===== */
-.links-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
+      /* ===== LINKS ===== */
+      .links-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
 
-.link-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  background: #f5f0e8;
-  border: 1.5px solid rgba(0,0,0,0.12);
-  padding: 13px 16px;
-  text-decoration: none;
-  color: #1a1a1a;
-  box-shadow: 3px 3px 0 rgba(0,0,0,0.2);
-  position: relative;
-  overflow: visible;
-  animation: slideIn 0.4s ease both;
-  -webkit-tap-highlight-color: rgba(247,200,66,0.2);
-  transition: transform 0.12s, box-shadow 0.12s;
-  min-height: 62px;
-}
+      .link-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: #f5f0e8;
+        border: 1.5px solid rgba(0, 0, 0, 0.12);
+        padding: 13px 16px;
+        text-decoration: none;
+        color: #1a1a1a;
+        box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2);
+        position: relative;
+        overflow: visible;
+        animation: slideIn 0.4s ease both;
+        -webkit-tap-highlight-color: rgba(247, 200, 66, 0.2);
+        transition:
+          transform 0.12s,
+          box-shadow 0.12s;
+        min-height: 62px;
+      }
 
-.link-item:nth-child(odd)  { transform: rotate(0.4deg); }
-.link-item:nth-child(even) { transform: rotate(-0.5deg); }
+      .link-item:nth-child(odd) {
+        transform: rotate(0.4deg);
+      }
+      .link-item:nth-child(even) {
+        transform: rotate(-0.5deg);
+      }
 
-.link-item:active {
-  transform: rotate(0deg) translate(2px,2px) !important;
-  box-shadow: 1px 1px 0 rgba(0,0,0,0.15) !important;
-}
-@media (hover: hover) {
-  .link-item:hover {
-    transform: translate(-2px,-3px) rotate(-0.3deg) !important;
-    box-shadow: 5px 6px 0 rgba(0,0,0,0.25) !important;
-  }
-}
+      .link-item:active {
+        transform: rotate(0deg) translate(2px, 2px) !important;
+        box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.15) !important;
+      }
+      @media (hover: hover) {
+        .link-item:hover {
+          transform: translate(-2px, -3px) rotate(-0.3deg) !important;
+          box-shadow: 5px 6px 0 rgba(0, 0, 0, 0.25) !important;
+        }
+      }
 
-.link-item.taped::after {
-  content: '';
-  position: absolute;
-  top: -9px; right: 18px;
-  width: 32px; height: 15px;
-  background: rgba(255,220,100,0.65);
-  border: 1px solid rgba(200,170,50,0.3);
-  transform: rotate(1deg);
-  pointer-events: none;
-}
+      .link-item.taped::after {
+        content: "";
+        position: absolute;
+        top: -9px;
+        right: 18px;
+        width: 32px;
+        height: 15px;
+        background: rgba(255, 220, 100, 0.65);
+        border: 1px solid rgba(200, 170, 50, 0.3);
+        transform: rotate(1deg);
+        pointer-events: none;
+      }
 
-.link-item:nth-child(1) { animation-delay: 0.28s; }
-.link-item:nth-child(2) { animation-delay: 0.36s; }
-.link-item:nth-child(3) { animation-delay: 0.44s; }
-.link-item:nth-child(4) { animation-delay: 0.52s; }
-.link-item:nth-child(5) { animation-delay: 0.60s; }
-.link-item:nth-child(6) { animation-delay: 0.68s; }
+      .link-item:nth-child(1) {
+        animation-delay: 0.28s;
+      }
+      .link-item:nth-child(2) {
+        animation-delay: 0.36s;
+      }
+      .link-item:nth-child(3) {
+        animation-delay: 0.44s;
+      }
+      .link-item:nth-child(4) {
+        animation-delay: 0.52s;
+      }
+      .link-item:nth-child(5) {
+        animation-delay: 0.6s;
+      }
+      .link-item:nth-child(6) {
+        animation-delay: 0.68s;
+      }
 
-.link-badge {
-  width: 44px;
-  height: 44px;
-  min-width: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid #1a1a1a;
-  background: white;
-}
+      .link-badge {
+        width: 44px;
+        height: 44px;
+        min-width: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid #1a1a1a;
+        background: white;
+      }
 
-.link-text { flex: 1; min-width: 0; }
+      .link-text {
+        flex: 1;
+        min-width: 0;
+      }
 
-.link-platform-name {
-  font-family: 'Special Elite', serif;
-  font-size: 0.65rem;
-  color: #777;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
+      .link-platform-name {
+        font-family: "Special Elite", serif;
+        font-size: 0.65rem;
+        color: #777;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
 
-.link-handle {
-  font-family: 'Caveat', cursive;
-  font-weight: 700;
-  font-size: 1.15rem;
-  color: #1a1a1a;
-  line-height: 1.15;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+      .link-handle {
+        font-family: "Caveat", cursive;
+        font-weight: 700;
+        font-size: 1.15rem;
+        color: #1a1a1a;
+        line-height: 1.15;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
 
-.link-arrow {
-  font-family: 'Permanent Marker', cursive;
-  font-size: 1.2rem;
-  color: #1a1a1a;
-  flex-shrink: 0;
-}
+      .link-arrow {
+        font-family: "Permanent Marker", cursive;
+        font-size: 1.2rem;
+        color: #1a1a1a;
+        flex-shrink: 0;
+      }
 
-/* ===== BOTTOM STICKIES ===== */
-.bottom-stickies {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-top: 28px;
-}
-.bottom-stickies .sticky { flex: 1; min-width: 130px; }
+      /* ===== BOTTOM STICKIES ===== */
+      .bottom-stickies {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 28px;
+      }
+      .bottom-stickies .sticky {
+        flex: 1;
+        min-width: 130px;
+      }
 
-/* ===== FOOTER ===== */
-.footer-strip {
-  margin-top: 40px;
-  text-align: center;
-  background: #1a1a1a;
-  color: #f5f0e8;
-  padding: 12px 16px;
-  font-family: 'Special Elite', serif;
-  font-size: 0.62rem;
-  letter-spacing: 0.08em;
-  transform: rotate(-0.4deg);
-  box-shadow: 3px 3px 0 rgba(0,0,0,0.3);
-  line-height: 1.8;
-}
+      /* ===== FOOTER ===== */
+      .footer-strip {
+        margin-top: 40px;
+        text-align: center;
+        background: #1a1a1a;
+        color: #f5f0e8;
+        padding: 12px 16px;
+        font-family: "Special Elite", serif;
+        font-size: 0.62rem;
+        letter-spacing: 0.08em;
+        transform: rotate(-0.4deg);
+        box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.3);
+        line-height: 1.8;
+      }
 
-/* ===== ANIMATIONS ===== */
-@keyframes dropIn {
-  from { opacity: 0; transform: rotate(-1deg) translateY(-18px); }
-  to   { opacity: 1; transform: rotate(-1deg); }
-}
-@keyframes slideIn {
-  from { opacity: 0; transform: translateX(-10px); }
-  to   { opacity: 1; }
-}
-@keyframes popIn {
-  0%   { opacity: 0; transform: scale(0.75) rotate(var(--r,0deg)); }
-  65%  { transform: scale(1.04) rotate(var(--r,0deg)); }
-  100% { opacity: 1; transform: scale(1) rotate(var(--r,0deg)); }
-}
-.pop { animation: popIn 0.4s ease both; }
+      /* ===== ANIMATIONS ===== */
+      @keyframes dropIn {
+        from {
+          opacity: 0;
+          transform: rotate(-1deg) translateY(-18px);
+        }
+        to {
+          opacity: 1;
+          transform: rotate(-1deg);
+        }
+      }
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateX(-10px);
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      @keyframes popIn {
+        0% {
+          opacity: 0;
+          transform: scale(0.75) rotate(var(--r, 0deg));
+        }
+        65% {
+          transform: scale(1.04) rotate(var(--r, 0deg));
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1) rotate(var(--r, 0deg));
+        }
+      }
+      .pop {
+        animation: popIn 0.4s ease both;
+      }
 
-svg.ico { display: block; }
-</style>
-</head>
-<body>
-<div class="page">
+      svg.ico {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <!-- HEADER -->
+      <div class="header-card torn">
+        <div class="header-top">
+          <h1 class="name-big"><span class="hl">Sorin</span><br />Arseni</h1>
+          <div class="stamp">INTERNET<br />PERSON<br />★ ★ ★</div>
+        </div>
+        <p class="header-sub">prezent online · absent în viața reală</p>
+        <div class="barcode-row">
+          <div class="barcode" id="bc"></div>
+          <span class="barcode-label"
+            >LOCATION: CHIȘINĂU, MOLDOVA<br />STATUS: ONLINE</span
+          >
+        </div>
+      </div>
 
-  <!-- HEADER -->
-  <div class="header-card torn">
-    <div class="header-top">
-      <h1 class="name-big"><span class="hl">Sorin</span><br>Arseni</h1>
-      <div class="stamp">INTERNET<br>PERSON<br>★ ★ ★</div>
+      <!-- STICKY NOTES -->
+      <div class="stickies-row">
+        <div
+          class="sticky rot-l pop"
+          style="--r: -2.5deg; animation-delay: 0.5s"
+        >
+          găsește-mă<br />pe net 👇<br /><small
+            style="font-size: 0.75rem; color: #555"
+            >dar nu în persoană</small
+          >
+        </div>
+        <div
+          class="sticky blue rot-r pop"
+          style="--r: 2deg; animation-delay: 0.58s; font-size: 0.88rem"
+        >
+          100% real<br />0% bot<br /><em style="font-size: 0.78rem"
+            >(probabil)</em
+          >
+        </div>
+        <div
+          class="sticky pink rot-l pop"
+          style="--r: -2deg; animation-delay: 0.66s; font-size: 0.88rem"
+        >
+          ✦ follow<br />pls ✦
+        </div>
+      </div>
+
+      <!-- WASHI -->
+      <div class="washi"></div>
+
+      <!-- SECTION -->
+      <div class="section-label">// socials //</div>
+
+      <!-- LINKS -->
+      <div class="links-grid">
+        <a
+          class="link-item taped"
+          href="https://instagram.com/"
+          target="_blank"
+          rel="noopener"
+        >
+          <div class="link-badge" style="border-color: #c13584">
+            <svg
+              class="ico"
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <rect
+                x="2"
+                y="2"
+                width="20"
+                height="20"
+                rx="5"
+                stroke="#c13584"
+                stroke-width="2"
+              />
+              <circle
+                cx="12"
+                cy="12"
+                r="4.5"
+                stroke="#c13584"
+                stroke-width="2"
+              />
+              <circle cx="17.5" cy="6.5" r="1.2" fill="#c13584" />
+            </svg>
+          </div>
+          <div class="link-text">
+            <div class="link-platform-name">Instagram</div>
+            <div class="link-handle">@sorinarseni</div>
+          </div>
+          <div class="link-arrow">→</div>
+        </a>
+
+        <a
+          class="link-item"
+          href="https://tiktok.com/"
+          target="_blank"
+          rel="noopener"
+        >
+          <div class="link-badge">
+            <svg
+              class="ico"
+              width="20"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="#010101"
+            >
+              <path
+                d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 00-.79-.05 6.34 6.34 0 100 12.68 6.34 6.34 0 006.33-6.34V8.69a8.25 8.25 0 004.84 1.55V6.79a4.85 4.85 0 01-1.07-.1z"
+              />
+            </svg>
+          </div>
+          <div class="link-text">
+            <div class="link-platform-name">TikTok</div>
+            <div class="link-handle">@suorinarseni</div>
+          </div>
+          <div class="link-arrow">→</div>
+        </a>
+
+        <a
+          class="link-item taped"
+          href="https://youtube.com/"
+          target="_blank"
+          rel="noopener"
+        >
+          <div class="link-badge" style="border-color: #ff0000">
+            <svg
+              class="ico"
+              width="22"
+              height="16"
+              viewBox="0 0 22 16"
+              fill="#ff0000"
+            >
+              <path
+                d="M21.54 2.5A2.77 2.77 0 0019.6.56C17.9 0 11 0 11 0S4.1 0 2.4.56A2.77 2.77 0 00.46 2.5 29.1 29.1 0 000 8a29.1 29.1 0 00.46 5.5A2.77 2.77 0 002.4 15.44C4.1 16 11 16 11 16s6.9 0 8.6-.56a2.77 2.77 0 001.94-1.94A29.1 29.1 0 0022 8a29.1 29.1 0 00-.46-5.5zM8.75 11.38V4.62L14.5 8l-5.75 3.38z"
+              />
+            </svg>
+          </div>
+          <div class="link-text">
+            <div class="link-platform-name">YouTube</div>
+            <div class="link-handle">Sorin Arseni</div>
+          </div>
+          <div class="link-arrow">→</div>
+        </a>
+
+        <a
+          class="link-item"
+          href="https://twitter.com/"
+          target="_blank"
+          rel="noopener"
+        >
+          <div class="link-badge">
+            <svg
+              class="ico"
+              width="18"
+              height="17"
+              viewBox="0 0 20 18"
+              fill="#000"
+            >
+              <path
+                d="M17.316 0h3.274l-7.15 8.17L22 18h-6.587l-5.16-6.746L4.35 18H1.072l7.65-8.742L0 0h6.754l4.664 6.167L17.316 0zm-1.149 16.17h1.814L3.916 1.856H1.97L16.167 16.17z"
+              />
+            </svg>
+          </div>
+          <div class="link-text">
+            <div class="link-platform-name">X / Twitter</div>
+            <div class="link-handle">@sorinarseni</div>
+          </div>
+          <div class="link-arrow">→</div>
+        </a>
+
+        <a
+          class="link-item taped"
+          href="https://github.com/"
+          target="_blank"
+          rel="noopener"
+        >
+          <div class="link-badge">
+            <svg
+              class="ico"
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="#1a1a1a"
+            >
+              <path
+                d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.1.82-.26.82-.57v-2c-3.34.72-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .1-.78.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.93 0-1.3.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 013-.4c1.02 0 2.04.13 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.22.68.83.57C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"
+              />
+            </svg>
+          </div>
+          <div class="link-text">
+            <div class="link-platform-name">GitHub</div>
+            <div class="link-handle">sorinarseni</div>
+          </div>
+          <div class="link-arrow">→</div>
+        </a>
+
+        <a
+          class="link-item"
+          href="https://linkedin.com/"
+          target="_blank"
+          rel="noopener"
+        >
+          <div class="link-badge" style="border-color: #0077b5">
+            <svg
+              class="ico"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="#0077b5"
+            >
+              <path
+                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+              />
+            </svg>
+          </div>
+          <div class="link-text">
+            <div class="link-platform-name">LinkedIn</div>
+            <div class="link-handle">Sorin Arseni</div>
+          </div>
+          <div class="link-arrow">→</div>
+        </a>
+      </div>
+
+      <!-- BOTTOM STICKIES -->
+      <div class="bottom-stickies">
+        <div
+          class="sticky orange rot-r pop"
+          style="--r: 2deg; animation-delay: 0.78s; font-size: 0.85rem"
+        >
+          ⚠️ nu mă căuta<br />în persoană.<br />îmi e frică de oameni.
+        </div>
+        <div
+          class="sticky green rot-l pop"
+          style="--r: -2.5deg; animation-delay: 0.86s; font-size: 0.85rem"
+        >
+          ✓ follow<br />✓ like<br />✓ share<br />✗ stalk
+        </div>
+      </div>
+
+      <!-- FOOTER -->
+      <div class="footer-strip">
+        © 2026 SORIN ARSENI · HANDCRAFTED ON THE INTERNET · ALL RIGHTS WHATEVER
+      </div>
     </div>
-    <p class="header-sub">prezent online · absent în viața reală</p>
-    <div class="barcode-row">
-      <div class="barcode" id="bc"></div>
-      <span class="barcode-label">LOC: INTERNET<br>STATUS: ONLINE</span>
-    </div>
-  </div>
 
-  <!-- STICKY NOTES -->
-  <div class="stickies-row">
-    <div class="sticky rot-l pop" style="--r:-2.5deg; animation-delay:0.5s;">
-      găsește-mă<br>pe net 👇<br><small style="font-size:0.75rem;color:#555;">dar nu în persoană</small>
-    </div>
-    <div class="sticky blue rot-r pop" style="--r:2deg; animation-delay:0.58s; font-size:0.88rem;">
-      100% real<br>0% bot<br><em style="font-size:0.78rem;">(probabil)</em>
-    </div>
-    <div class="sticky pink rot-l pop" style="--r:-2deg; animation-delay:0.66s; font-size:0.88rem;">
-      ✦ follow<br>pls ✦
-    </div>
-  </div>
-
-  <!-- WASHI -->
-  <div class="washi"></div>
-
-  <!-- SECTION -->
-  <div class="section-label">// socialuri //</div>
-
-  <!-- LINKS -->
-  <div class="links-grid">
-
-    <a class="link-item taped" href="https://instagram.com/" target="_blank" rel="noopener">
-      <div class="link-badge" style="border-color:#c13584;">
-        <svg class="ico" width="22" height="22" viewBox="0 0 24 24" fill="none">
-          <rect x="2" y="2" width="20" height="20" rx="5" stroke="#c13584" stroke-width="2"/>
-          <circle cx="12" cy="12" r="4.5" stroke="#c13584" stroke-width="2"/>
-          <circle cx="17.5" cy="6.5" r="1.2" fill="#c13584"/>
-        </svg>
-      </div>
-      <div class="link-text">
-        <div class="link-platform-name">Instagram</div>
-        <div class="link-handle">@sorinarseni</div>
-      </div>
-      <div class="link-arrow">→</div>
-    </a>
-
-    <a class="link-item" href="https://tiktok.com/" target="_blank" rel="noopener">
-      <div class="link-badge">
-        <svg class="ico" width="20" height="22" viewBox="0 0 24 24" fill="#010101">
-          <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 00-.79-.05 6.34 6.34 0 100 12.68 6.34 6.34 0 006.33-6.34V8.69a8.25 8.25 0 004.84 1.55V6.79a4.85 4.85 0 01-1.07-.1z"/>
-        </svg>
-      </div>
-      <div class="link-text">
-        <div class="link-platform-name">TikTok</div>
-        <div class="link-handle">@sorinarseni</div>
-      </div>
-      <div class="link-arrow">→</div>
-    </a>
-
-    <a class="link-item taped" href="https://youtube.com/" target="_blank" rel="noopener">
-      <div class="link-badge" style="border-color:#ff0000;">
-        <svg class="ico" width="22" height="16" viewBox="0 0 22 16" fill="#ff0000">
-          <path d="M21.54 2.5A2.77 2.77 0 0019.6.56C17.9 0 11 0 11 0S4.1 0 2.4.56A2.77 2.77 0 00.46 2.5 29.1 29.1 0 000 8a29.1 29.1 0 00.46 5.5A2.77 2.77 0 002.4 15.44C4.1 16 11 16 11 16s6.9 0 8.6-.56a2.77 2.77 0 001.94-1.94A29.1 29.1 0 0022 8a29.1 29.1 0 00-.46-5.5zM8.75 11.38V4.62L14.5 8l-5.75 3.38z"/>
-        </svg>
-      </div>
-      <div class="link-text">
-        <div class="link-platform-name">YouTube</div>
-        <div class="link-handle">Sorin Arseni</div>
-      </div>
-      <div class="link-arrow">→</div>
-    </a>
-
-    <a class="link-item" href="https://twitter.com/" target="_blank" rel="noopener">
-      <div class="link-badge">
-        <svg class="ico" width="18" height="17" viewBox="0 0 20 18" fill="#000">
-          <path d="M17.316 0h3.274l-7.15 8.17L22 18h-6.587l-5.16-6.746L4.35 18H1.072l7.65-8.742L0 0h6.754l4.664 6.167L17.316 0zm-1.149 16.17h1.814L3.916 1.856H1.97L16.167 16.17z"/>
-        </svg>
-      </div>
-      <div class="link-text">
-        <div class="link-platform-name">X / Twitter</div>
-        <div class="link-handle">@sorinarseni</div>
-      </div>
-      <div class="link-arrow">→</div>
-    </a>
-
-    <a class="link-item taped" href="https://github.com/" target="_blank" rel="noopener">
-      <div class="link-badge">
-        <svg class="ico" width="22" height="22" viewBox="0 0 24 24" fill="#1a1a1a">
-          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.1.82-.26.82-.57v-2c-3.34.72-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .1-.78.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.93 0-1.3.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 013-.4c1.02 0 2.04.13 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.22.68.83.57C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/>
-        </svg>
-      </div>
-      <div class="link-text">
-        <div class="link-platform-name">GitHub</div>
-        <div class="link-handle">sorinarseni</div>
-      </div>
-      <div class="link-arrow">→</div>
-    </a>
-
-    <a class="link-item" href="https://linkedin.com/" target="_blank" rel="noopener">
-      <div class="link-badge" style="border-color:#0077b5;">
-        <svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="#0077b5">
-          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-        </svg>
-      </div>
-      <div class="link-text">
-        <div class="link-platform-name">LinkedIn</div>
-        <div class="link-handle">Sorin Arseni</div>
-      </div>
-      <div class="link-arrow">→</div>
-    </a>
-
-  </div>
-
-  <!-- BOTTOM STICKIES -->
-  <div class="bottom-stickies">
-    <div class="sticky orange rot-r pop" style="--r:2deg; animation-delay:0.78s; font-size:0.85rem;">
-      ⚠️ nu mă căuta<br>în persoană.<br>îmi e frică de oameni.
-    </div>
-    <div class="sticky green rot-l pop" style="--r:-2.5deg; animation-delay:0.86s; font-size:0.85rem;">
-      ✓ follow<br>✓ like<br>✓ share<br>✗ stalk
-    </div>
-  </div>
-
-  <!-- FOOTER -->
-  <div class="footer-strip">
-    © 2026 SORIN ARSENI · HANDCRAFTED ON THE INTERNET · ALL RIGHTS WHATEVER
-  </div>
-
-</div>
-
-<script>
-const bc = document.getElementById('bc');
-[28,18,32,14,28,20,32,16,28,24,18,32,20,28,14,32,18,26,32,22,16,28].forEach((h,i) => {
-  const s = document.createElement('span');
-  s.style.height = h + 'px';
-  s.style.width = (i % 3 === 0 ? 3 : 2) + 'px';
-  bc.appendChild(s);
-});
-</script>
-</body>
+    <script>
+      const bc = document.getElementById("bc");
+      [
+        28, 18, 32, 14, 28, 20, 32, 16, 28, 24, 18, 32, 20, 28, 14, 32, 18, 26,
+        32, 22, 16, 28,
+      ].forEach((h, i) => {
+        const s = document.createElement("span");
+        s.style.height = h + "px";
+        s.style.width = (i % 3 === 0 ? 3 : 2) + "px";
+        bc.appendChild(s);
+      });
+    </script>
+  </body>
 </html>
