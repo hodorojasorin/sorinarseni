@@ -1,6 +1,61 @@
 <!doctype html>
 <html lang="ro">
   <head>
+    <!--
+  ============================================================================
+  Project: Personal Links / Social Landing Page
+  Author: Sorin Arseni Hodoroja
+  Website: https://sorinarseni.com
+  Year: 2026
+
+  Description:
+  This project is a custom personal landing page created to present the online
+  identity, social presence, and creative branding of Sorin Arseni Hodoroja.
+  The design, structure, visual composition, text styling, animations, and
+  interactive elements were handcrafted to reflect a playful scrapbook-inspired
+  aesthetic while preserving usability, responsiveness, and accessibility
+  across modern devices and browsers.
+
+  Purpose:
+  The purpose of this project is to serve as a centralized digital profile
+  where visitors can quickly access social media platforms, discover personal
+  branding elements, and interact with a visually distinctive web experience.
+  This project is intended both as a functional public-facing page and as a
+  creative expression of personal identity.
+
+  Intellectual Property Notice:
+  All original source code, layout concepts, visual styling, written text,
+  branding elements, and custom creative decisions contained in this project
+  are the intellectual property of Sorin Arseni Hodoroja unless otherwise
+  stated. Any unauthorized reproduction, redistribution, modification, public
+  display, or commercial use of this work, in whole or in part, without
+  explicit prior written permission from the author is strictly prohibited.
+
+  Copyright:
+  Copyright (c) 2026 Sorin Arseni Hodoroja.
+  All rights reserved.
+
+  License:
+  This source code is provided for viewing and portfolio presentation purposes
+  only. Permission is not granted to copy, reuse, modify, distribute, publish,
+  sublicense, or sell any portion of this project without the author's written
+  consent.
+
+  Third-Party Resources:
+  This project may include third-party assets such as fonts, icons, libraries,
+  or embedded media that remain the property of their respective owners and are
+  subject to their own licenses and terms of use.
+
+  Disclaimer:
+  This project is provided "as is", without warranty of any kind, express or
+  implied, including but not limited to the warranties of merchantability,
+  fitness for a particular purpose, and noninfringement.
+
+  Contact:
+  For collaboration, licensing inquiries, or permissions, contact:
+  contact@sorinarseni.com
+  ============================================================================
+-->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sorin Arseni</title>
@@ -250,111 +305,67 @@
         transform: rotate(2deg);
       }
 
-      /* DISC PLAYER */
-      .player-sticky {
+      /* ===================== PLAYER CRATE (lemn) ===================== */
+      .player-crate {
         position: relative;
+        transform: rotate(-2deg);
         flex: 1;
-        min-width: 90px;
-        transform: rotate(-2.5deg);
+        min-width: 200px;
+        border-radius: 6px;
+        padding: 14px 14px 16px;
+        background:
+          linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.07) 0%,
+            rgba(0, 0, 0, 0.05) 100%
+          ),
+          repeating-linear-gradient(
+            90deg,
+            #7a4015 0px,
+            #7a4015 13px,
+            #8d4e1e 13px,
+            #8d4e1e 26px,
+            #6b3810 26px,
+            #6b3810 39px
+          );
+        box-shadow:
+          4px 5px 0 rgba(0, 0, 0, 0.25),
+          inset 0 1px 0 rgba(255, 255, 255, 0.15),
+          inset 0 -3px 6px rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(50, 25, 5, 0.5);
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: 10px;
-        padding: 16px 14px 18px;
-        border-radius: 10px;
-        background:
-          linear-gradient(
-            180deg,
-            rgba(255, 255, 255, 0.08),
-            rgba(0, 0, 0, 0.04)
-          ),
-          repeating-linear-gradient(
-            90deg,
-            #8b5a2b 0px,
-            #8b5a2b 14px,
-            #9b6735 14px,
-            #9b6735 28px,
-            #7a4d24 28px,
-            #7a4d24 42px
-          );
-        box-shadow:
-          4px 5px 0 rgba(0, 0, 0, 0.18),
-          inset 0 1px 0 rgba(255, 255, 255, 0.18),
-          inset 0 -2px 4px rgba(0, 0, 0, 0.18);
-        border: 1px solid rgba(70, 40, 20, 0.45);
       }
 
-      .player-sticky::before {
-        position: absolute;
-        top: 8px;
-        left: 10px;
-        right: 10px;
-        height: 10px;
-        border-radius: 8px;
-        background: rgba(255, 255, 255, 0.08);
-        pointer-events: none;
-      }
-
-      .disc-wrap {
+      /* Disc vinyl */
+      .disc-outer {
         position: relative;
-        width: 76px;
-        height: 76px;
-        cursor: pointer;
+        width: 100px;
+        height: 100px;
         flex-shrink: 0;
+        cursor: pointer;
       }
-
-      .disc {
-        width: 76px;
-        height: 76px;
+      .disc-ring {
+        position: absolute;
+        inset: 0;
         border-radius: 50%;
-        background: radial-gradient(
+        background: repeating-radial-gradient(
           circle at center,
-          #3b2a1a 0%,
-          #1e140c 65%,
-          #120b06 100%
+          #111 0px,
+          #111 2px,
+          #1a1a1a 2px,
+          #1a1a1a 4px
         );
         box-shadow:
-          0 2px 10px rgba(0, 0, 0, 0.4),
-          inset 0 0 0 6px rgba(255, 255, 255, 0.05),
-          inset 0 0 12px rgba(0, 0, 0, 0.6);
-        position: relative;
+          0 3px 12px rgba(0, 0, 0, 0.6),
+          inset 0 0 20px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+        transition: box-shadow 0.3s;
       }
-
-      .disc::after {
-        content: "";
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 18px;
-        height: 18px;
-        border-radius: 50%;
-        background: #d6b48a; /* bej lemnos */
-        border: 2px solid rgba(0, 0, 0, 0.3);
-        box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2);
-      }
-
-      .disc-wrap::before {
-        content: "";
-        position: absolute;
-        inset: 8px;
-        border-radius: 50%;
-        background: radial-gradient(
-          circle,
-          rgba(0, 0, 0, 0.18) 0%,
-          rgba(0, 0, 0, 0.08) 55%,
-          transparent 75%
-        );
-        z-index: 0;
-      }
-
-      .disc,
-      .play-btn {
-        position: relative;
-        z-index: 1;
-      }
-      .disc.spinning {
-        animation: spinDisc 1.6s linear infinite;
+      .disc-ring.spinning {
+        animation: spinDisc 2.4s linear infinite;
       }
       @keyframes spinDisc {
         from {
@@ -365,7 +376,36 @@
         }
       }
 
-      .play-btn {
+      /* Album art circle inside disc */
+      .disc-art {
+        position: absolute;
+        inset: 18%;
+        border-radius: 50%;
+        background-size: cover;
+        background-position: center;
+        background-color: #333;
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        overflow: hidden;
+        transition: opacity 0.4s;
+      }
+      /* Centre hole */
+      .disc-hole {
+        position: absolute;
+        inset: 0;
+        margin: auto;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: #1a1a1a;
+        border: 2px solid rgba(255, 255, 255, 0.12);
+        z-index: 2;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      /* Play/Pause button on disc */
+      .disc-play-btn {
         position: absolute;
         inset: 0;
         display: flex;
@@ -375,26 +415,165 @@
         background: transparent;
         border: none;
         cursor: pointer;
-        z-index: 2;
+        z-index: 3;
+        opacity: 0;
+        transition: opacity 0.2s;
       }
-      .play-btn svg {
-        filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.5));
+      .disc-outer:hover .disc-play-btn {
+        opacity: 1;
+      }
+      .disc-play-btn svg {
+        filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.8));
       }
 
-      .player-label {
-        font-family: "Caveat", cursive;
-        font-size: 0.78rem;
-        color: #f7efe3;
+      /* Song info */
+      .player-info {
         text-align: center;
-        line-height: 1.3;
-        text-shadow: 0 1px 1px rgba(0, 0, 0, 0.35);
+        color: #f0e0c8;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+        width: 100%;
+      }
+      .player-song {
+        font-family: "Permanent Marker", cursive;
+        font-size: 0.88rem;
+        color: #fff8ee;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-bottom: 1px;
+      }
+      .player-artist {
+        font-family: "Special Elite", serif;
+        font-size: 0.6rem;
+        color: #c8a87a;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
       }
 
-      .player-label strong {
+      /* Progress bar */
+      .progress-wrap {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .progress-time {
+        font-family: "Special Elite", serif;
+        font-size: 0.5rem;
+        color: #c8a87a;
+        min-width: 26px;
+        text-align: center;
+      }
+      .progress-bar {
+        flex: 1;
+        height: 4px;
+        background: rgba(0, 0, 0, 0.35);
+        border-radius: 2px;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+      }
+      .progress-fill {
+        height: 100%;
+        width: 0%;
+        background: linear-gradient(90deg, #d4a054, #f7c842);
+        border-radius: 2px;
+        transition: width 0.3s linear;
+        pointer-events: none;
+      }
+
+      /* Controls row */
+      .player-controls {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+      }
+      .ctrl-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 4px;
+        opacity: 0.8;
+        transition:
+          opacity 0.15s,
+          transform 0.12s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+      }
+      .ctrl-btn:hover {
+        opacity: 1;
+      }
+      .ctrl-btn:active {
+        transform: scale(0.88);
+      }
+      .ctrl-btn svg {
         display: block;
-        font-size: 0.95rem;
-        color: #fff7ea;
-        margin-bottom: 2px;
+      }
+      .ctrl-btn.main {
+        background: rgba(247, 200, 66, 0.18);
+        border: 1.5px solid rgba(247, 200, 66, 0.5);
+        padding: 8px;
+        width: 42px;
+        height: 42px;
+      }
+      .ctrl-btn.main:hover {
+        background: rgba(247, 200, 66, 0.3);
+      }
+
+      /* Volume */
+      .vol-row {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        width: 100%;
+      }
+      .vol-row svg {
+        opacity: 0.7;
+        flex-shrink: 0;
+      }
+      input[type="range"].vol-slider {
+        flex: 1;
+        height: 3px;
+        cursor: pointer;
+        -webkit-appearance: none;
+        appearance: none;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 2px;
+        outline: none;
+      }
+      input[type="range"].vol-slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: #f7c842;
+        cursor: pointer;
+        border: none;
+      }
+
+      /* Playlist dots */
+      .playlist-dots {
+        display: flex;
+        gap: 5px;
+        justify-content: center;
+      }
+      .pl-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.25);
+        cursor: pointer;
+        transition:
+          background 0.2s,
+          transform 0.2s;
+        border: none;
+      }
+      .pl-dot.active {
+        background: #f7c842;
+        transform: scale(1.3);
       }
 
       /* WASHI */
@@ -420,7 +599,6 @@
         margin-top: 28px;
         margin-bottom: 28px;
       }
-
       @keyframes washiMove {
         from {
           background-position: 0 0;
@@ -630,35 +808,43 @@
         <div class="barcode-row">
           <div class="barcode" id="bc"></div>
           <span class="barcode-label"
-            >LOCATION: CHIȘINĂU, MOLDOVA<br />STATUS: ONLINE, probabil dau
-            scroll pe TikTok</span
+            >LOCATION: CHIȘINĂU, MOLDOVA, mc centru<br />STATUS: ONLINE,
+            probabil dau scroll pe TikTok</span
           >
         </div>
       </div>
 
-      <!-- STICKY NOTES -->
+      <!-- STICKIES ROW -->
       <div class="stickies-row">
-        <!-- PLAYER -->
+        <!-- ===== PLAYER CRATE ===== -->
         <div
-          class="player-sticky pop"
-          style="--r: -2.5deg; animation-delay: 0.5s"
+          class="player-crate pop"
+          style="--r: -2deg; animation-delay: 0.45s"
         >
-          <div class="disc-wrap">
-            <div class="disc" id="disc"></div>
-            <button class="play-btn" id="playBtn" aria-label="Play/Pause">
+          <!-- Disc -->
+          <div class="disc-outer" id="discOuter">
+            <div class="disc-ring" id="discRing">
+              <div class="disc-art" id="discArt"></div>
+              <div class="disc-hole"></div>
+            </div>
+            <button
+              class="disc-play-btn"
+              id="discPlayBtn"
+              aria-label="Play/Pause"
+            >
               <svg
-                id="iconPlay"
-                width="24"
-                height="24"
+                id="discIconPlay"
+                width="28"
+                height="28"
                 viewBox="0 0 24 24"
                 fill="white"
               >
                 <path d="M8 5v14l11-7z" />
               </svg>
               <svg
-                id="iconPause"
-                width="24"
-                height="24"
+                id="discIconPause"
+                width="28"
+                height="28"
                 viewBox="0 0 24 24"
                 fill="white"
                 style="display: none"
@@ -667,11 +853,120 @@
               </svg>
             </button>
           </div>
-          <div class="player-label">
-            <strong>dă play</strong>
+
+          <!-- Song info -->
+          <div class="player-info">
+            <div class="player-song" id="playerSong">
+              — selectează o piesă —
+            </div>
+            <div class="player-artist" id="playerArtist">
+              folosește butoanele ↓
+            </div>
           </div>
-          <audio id="audio" src="justin.mp3" preload="none"></audio>
+
+          <!-- Progress -->
+          <div class="progress-wrap">
+            <span class="progress-time" id="timeEl">0:00</span>
+            <div class="progress-bar" id="progressBar">
+              <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <span class="progress-time" id="durEl">0:00</span>
+          </div>
+
+          <!-- Controls -->
+          <div class="player-controls">
+            <button
+              class="ctrl-btn"
+              id="btnPrev"
+              aria-label="Previous"
+              title="Previous"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#f0ddb0">
+                <path d="M6 6h2v12H6zm3.5 6 8.5 6V6z" />
+              </svg>
+            </button>
+            <button class="ctrl-btn main" id="btnPlay" aria-label="Play/Pause">
+              <svg
+                id="iconPlay"
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="#f7c842"
+              >
+                <path d="M8 5v14l11-7z" />
+              </svg>
+              <svg
+                id="iconPause"
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="#f7c842"
+                style="display: none"
+              >
+                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+              </svg>
+            </button>
+            <button
+              class="ctrl-btn"
+              id="btnNext"
+              aria-label="Next"
+              title="Next"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#f0ddb0">
+                <path
+                  d="M6 18l8.5-6L6 6v12zm2-12v12l8.5-6z"
+                  style="display: none"
+                />
+                <path d="M16 6h-2v12h2zm-2.5 6L5 6v12z" />
+              </svg>
+            </button>
+            <button
+              class="ctrl-btn"
+              id="btnRepeat"
+              aria-label="Repeat"
+              title="Repeat"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="#f0ddb0"
+                id="iconRepeat"
+              >
+                <path
+                  d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"
+                />
+              </svg>
+            </button>
+          </div>
+
+          <!-- Volume -->
+          <div class="vol-row">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="#c8a87a">
+              <path
+                d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"
+              />
+            </svg>
+            <input
+              type="range"
+              class="vol-slider"
+              id="volSlider"
+              min="0"
+              max="1"
+              step="0.01"
+              value="0.8"
+            />
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="#c8a87a">
+              <path
+                d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM16 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"
+              />
+            </svg>
+          </div>
+
+          <!-- Playlist dots -->
+          <div class="playlist-dots" id="plDots"></div>
         </div>
+        <!-- ===== END PLAYER ===== -->
 
         <div
           class="sticky blue rot-r pop"
@@ -845,9 +1140,10 @@
         © 2026 SORIN ARSENI · HANDCRAFTED BY MYSELF · ALL RIGHTS WHATEVER
       </div>
     </div>
+    <!-- .page -->
 
     <script>
-      // Barcode
+      /* ── Barcode ── */
       const bc = document.getElementById("bc");
       [
         28, 18, 32, 14, 28, 20, 32, 16, 28, 24, 18, 32, 20, 28, 14, 32, 18, 26,
@@ -859,31 +1155,198 @@
         bc.appendChild(s);
       });
 
-      // Player
-      const audio = document.getElementById("audio");
-      const disc = document.getElementById("disc");
+      /* ── Playlist ──
+       * - title
+       * - artist
+       * - src
+       * - img
+       */
+      const playlist = [
+        {
+          title: "baby 😜",
+          artist: "Justin Bieber",
+          src: "justin.mp3",
+          img: "justin.png",
+        },
+        {
+          title: "la plena 🐶",
+          artist: "W Sound",
+          src: "sound.mp3",
+          img: "sound.png",
+        },
+        {
+          title: "3 nights 🌌",
+          artist: "Dominic Fike",
+          src: "dominic.mp3",
+          img: "dominic.png",
+        },
+        {
+          title: "cola song 🥤",
+          artist: "INNA",
+          src: "inna.mp3",
+          img: "inna.png",
+        },
+        {
+          title: "viva Moldova! 🇲🇩",
+          artist: "Satoshi",
+          src: "satoshi.mp3",
+          img: "satoshi.png",
+        },
+      ];
+
+      /* ── State ── */
+      let current = 0;
+      let isPlaying = false;
+      let isRepeat = false;
+
+      const audio = new Audio();
+      audio.volume = 0.8;
+      audio.preload = "none";
+
+      /* ── DOM refs ── */
+      const discRing = document.getElementById("discRing");
+      const discArt = document.getElementById("discArt");
+      const playerSong = document.getElementById("playerSong");
+      const playerArtist = document.getElementById("playerArtist");
       const iconPlay = document.getElementById("iconPlay");
       const iconPause = document.getElementById("iconPause");
+      const discIconPlay = document.getElementById("discIconPlay");
+      const discIconPause = document.getElementById("discIconPause");
+      const progressFill = document.getElementById("progressFill");
+      const timeEl = document.getElementById("timeEl");
+      const durEl = document.getElementById("durEl");
+      const progressBar = document.getElementById("progressBar");
+      const volSlider = document.getElementById("volSlider");
+      const plDots = document.getElementById("plDots");
 
-      document.getElementById("playBtn").addEventListener("click", () => {
+      /* ── Build playlist dots ── */
+      function buildDots() {
+        plDots.innerHTML = "";
+        playlist.forEach((_, i) => {
+          const d = document.createElement("button");
+          d.className = "pl-dot" + (i === current ? " active" : "");
+          d.addEventListener("click", () => loadTrack(i, true));
+          plDots.appendChild(d);
+        });
+      }
+
+      function updateDots() {
+        plDots.querySelectorAll(".pl-dot").forEach((d, i) => {
+          d.classList.toggle("active", i === current);
+        });
+      }
+
+      /* ── Format seconds ── */
+      function fmt(s) {
+        const m = Math.floor(s / 60);
+        const sec = Math.floor(s % 60);
+        return m + ":" + String(sec).padStart(2, "0");
+      }
+
+      /* ── Load track ── */
+      function loadTrack(idx, autoplay) {
+        current = idx;
+        const t = playlist[idx];
+        audio.src = t.src;
+        playerSong.textContent = t.title;
+        playerArtist.textContent = t.artist;
+        discArt.style.backgroundImage = t.img ? `url('${t.img}')` : "none";
+        discArt.style.backgroundColor = t.img ? "transparent" : "#333";
+        progressFill.style.width = "0%";
+        timeEl.textContent = "0:00";
+        durEl.textContent = "0:00";
+        updateDots();
+        if (autoplay) {
+          audio.play();
+          setPlaying(true);
+        } else {
+          setPlaying(false);
+        }
+      }
+
+      /* ── Toggle play state visuals ── */
+      function setPlaying(state) {
+        isPlaying = state;
+        iconPlay.style.display = state ? "none" : "block";
+        iconPause.style.display = state ? "block" : "none";
+        discIconPlay.style.display = state ? "none" : "block";
+        discIconPause.style.display = state ? "block" : "none";
+        state
+          ? discRing.classList.add("spinning")
+          : discRing.classList.remove("spinning");
+      }
+
+      /* ── Play / Pause ── */
+      function togglePlay() {
+        if (!audio.src || audio.src === window.location.href) {
+          loadTrack(0, true);
+          return;
+        }
         if (audio.paused) {
           audio.play();
-          disc.classList.add("spinning");
-          iconPlay.style.display = "none";
-          iconPause.style.display = "block";
+          setPlaying(true);
         } else {
           audio.pause();
-          disc.classList.remove("spinning");
-          iconPlay.style.display = "block";
-          iconPause.style.display = "none";
+          setPlaying(false);
+        }
+      }
+
+      document.getElementById("btnPlay").addEventListener("click", togglePlay);
+      document
+        .getElementById("discPlayBtn")
+        .addEventListener("click", togglePlay);
+
+      /* ── Prev / Next ── */
+      document.getElementById("btnPrev").addEventListener("click", () => {
+        const idx = (current - 1 + playlist.length) % playlist.length;
+        loadTrack(idx, isPlaying);
+      });
+      document.getElementById("btnNext").addEventListener("click", () => {
+        const idx = (current + 1) % playlist.length;
+        loadTrack(idx, isPlaying);
+      });
+
+      /* ── Repeat ── */
+      const iconRepeat = document.getElementById("iconRepeat");
+      document.getElementById("btnRepeat").addEventListener("click", () => {
+        isRepeat = !isRepeat;
+        iconRepeat.style.opacity = isRepeat ? "1" : "0.4";
+        audio.loop = isRepeat;
+      });
+
+      /* ── Progress bar update ── */
+      audio.addEventListener("timeupdate", () => {
+        if (!audio.duration) return;
+        const pct = (audio.currentTime / audio.duration) * 100;
+        progressFill.style.width = pct + "%";
+        timeEl.textContent = fmt(audio.currentTime);
+        durEl.textContent = fmt(audio.duration);
+      });
+
+      /* ── Seek on click ── */
+      progressBar.addEventListener("click", (e) => {
+        if (!audio.duration) return;
+        const rect = progressBar.getBoundingClientRect();
+        audio.currentTime =
+          ((e.clientX - rect.left) / rect.width) * audio.duration;
+      });
+
+      /* ── Volume ── */
+      volSlider.addEventListener("input", () => {
+        audio.volume = volSlider.value;
+      });
+
+      /* ── Song ended ── */
+      audio.addEventListener("ended", () => {
+        if (!isRepeat) {
+          const next = (current + 1) % playlist.length;
+          loadTrack(next, true);
         }
       });
 
-      audio.addEventListener("ended", () => {
-        disc.classList.remove("spinning");
-        iconPlay.style.display = "block";
-        iconPause.style.display = "none";
-      });
+      /* ── Init ── */
+      buildDots();
+      loadTrack(0, false);
     </script>
   </body>
 </html>
