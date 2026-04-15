@@ -1,60 +1,72 @@
-# Personal Links / Social Landing Page
+# sorin arseni on the internet ✦
 
-Author: Sorin Arseni Hodoroja  
-Website: https://sorinarseni.com  
-Year: 2026
+un website personal făcut să nu arate ca încă un linktree obosit 😵‍💫  
+mai exact: un colț de internet cu player, stickere, poze, bereal-uri, socials și suficient haos cât să aibă personalitate.
 
-## Description
+## ce e proiectul ăsta? 🎧
 
-This project is a custom personal landing page created to present the online
-identity, social presence, and creative branding of Sorin Arseni Hodoroja.
-The design, structure, visual composition, text styling, animations, and
-interactive elements were handcrafted to reflect a playful scrapbook-inspired
-aesthetic while preserving usability, responsiveness, and accessibility
-across modern devices and browsers.
+site-ul meu personal.  
+adică locul unde intri, vezi repede cine sunt, pe unde postez, ce vibe am și de ce există un player cu `baby` de la justin bieber acolo.
 
-## Purpose
+am vrut ceva:
 
-The purpose of this project is to serve as a centralized digital profile
-where visitors can quickly access social media platforms, discover personal
-branding elements, and interact with a visually distinctive web experience.
-This project is intended both as a functional public-facing page and as a
-creative expression of personal identity.
+- fun
+- recognoscibil
+- puțin scrapbook
+- puțin messy, dar controlat
+- și clar nu corporate, că doamne ferește
 
-## Intellectual Property Notice
+## ce găsești în el? 📌
 
-All original source code, layout concepts, visual styling, written text,
-branding elements, and custom creative decisions contained in this project
-are the intellectual property of Sorin Arseni Hodoroja unless otherwise
-stated. Any unauthorized reproduction, redistribution, modification, public
-display, or commercial use of this work, in whole or in part, without
-explicit prior written permission from the author is strictly prohibited.
+- header mare cu nume, poză și barcode vibe
+- player audio cu piese selectate manual
+- stickere și elemente care arată ca puse pe fugă, dar nu chiar
+- secțiune de `socials`
+- secțiune de `be f real`
+- `overview`
+- schimbare de limbă `RO / EN`
+- preview pe click pentru poze
 
-## Copyright
+## tech stack, că totuși suntem serioși uneori 💻
 
-Copyright (c) 2026 Sorin Arseni Hodoroja.  
-All rights reserved.
+- `HTML`
+- `CSS`
+- `JavaScript`
 
-## License
+fără framework-uri, fără build step, fără dramă.  
+deschizi `index.html` și gata.
 
-This source code is provided for viewing and portfolio presentation purposes
-only. Permission is not granted to copy, reuse, modify, distribute, publish,
-sublicense, or sell any portion of this project without the author's written
-consent.
+## structură ✂️
 
-## Third-Party Resources
+după refactor, proiectul e împărțit mai curat:
 
-This project may include third-party assets such as fonts, icons, libraries,
-or embedded media that remain the property of their respective owners and are
-subject to their own licenses and terms of use.
+- `index.html` = structura paginii
+- `assets/css/styles.css` = toate stilurile
+- `assets/js/script.js` = interacțiuni, player, preview, limbă
+- `assets/images/` = poze
+- `assets/audio/` = piese
 
-## Disclaimer
+## mică observație importantă 🖼️
 
-This project is provided "as is", without warranty of any kind, express or
-implied, including but not limited to the warranties of merchantability,
-fitness for a particular purpose, and noninfringement.
+anumite imagini sunt puse intenționat cu fallback.  
+dacă lipsește ceva de genul `me.jpg` sau `wood-photo.jpg`, apare placeholder în pagină în loc să se rupă layout-ul ca un proiect făcut la 3 noaptea.
 
-## Contact
+## de ce arată așa? ✍️
 
-For collaboration, licensing inquiries, or permissions, contact:  
-contact@sorinarseni.com
+pentru că voiam să simți că intri pe o pagină făcută de o persoană reală, nu pe un template care a fost clonat de încă 4000 de ori.  
+mai mult “lipit cu scotch, marker și chaos”, mai puțin “welcome to my portfolio”.
+
+## rights and chestii de-astea ⚠️
+
+codul, textele, layout-ul și direcția vizuală sunt făcute pentru proiectul ăsta și pentru identitatea mea.  
+dacă vrei să te inspiri, very nice. dacă vrei copy-paste 1 la 1, mai bine nu.
+
+## contact 📭
+
+dacă e pentru colaborări, idei, chestii creative sau doar ai intrat prea adânc în website:
+
+`contact@sorinarseni.com`
+
+---
+
+made with taste, puțin overthinking și probabil prea mult scroll pe tiktok.
