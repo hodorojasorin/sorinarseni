@@ -332,6 +332,7 @@
       const berealModalPhoto = document.getElementById("berealModalPhoto");
       const heroMain = document.querySelector(".hero-main");
       const socialsPanel = document.querySelector(".socials-panel");
+      const socialsLift = 6;
       let lastPreviewTrigger = null;
 
       function setPreviewVariant(variant) {
@@ -352,7 +353,7 @@
         }
 
         socialsPanel.style.height = `${Math.round(
-          heroMain.getBoundingClientRect().height,
+          heroMain.getBoundingClientRect().height + socialsLift,
         )}px`;
       }
 

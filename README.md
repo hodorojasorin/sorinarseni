@@ -1,72 +1,72 @@
 # sorin arseni on the internet ✦
 
-un website personal făcut să nu arate ca încă un linktree obosit 😵‍💫  
-mai exact: un colț de internet cu player, stickere, poze, bereal-uri, socials și suficient haos cât să aibă personalitate.
+a personal website that was built specifically so it would *not* look like another tired linktree 😵‍💫  
+basically: one little corner of the internet with a music player, sticky notes, photos, bereals, socials, and just enough controlled chaos to have a personality.
 
-## ce e proiectul ăsta? 🎧
+## what is this project? 🎧
 
-site-ul meu personal.  
-adică locul unde intri, vezi repede cine sunt, pe unde postez, ce vibe am și de ce există un player cu `baby` de la justin bieber acolo.
+this is my personal website.  
+the place where you land, figure out who i am, where i post, what my vibe is, and why there is a player with `baby` by justin bieber on the page.
 
-am vrut ceva:
+the goal was something:
 
 - fun
-- recognoscibil
-- puțin scrapbook
-- puțin messy, dar controlat
-- și clar nu corporate, că doamne ferește
+- recognizable
+- a bit scrapbook-y
+- a bit messy, but on purpose
+- and very much not corporate, because absolutely not
 
-## ce găsești în el? 📌
+## what’s inside? 📌
 
-- header mare cu nume, poză și barcode vibe
-- player audio cu piese selectate manual
-- stickere și elemente care arată ca puse pe fugă, dar nu chiar
-- secțiune de `socials`
-- secțiune de `be f real`
-- `overview`
-- schimbare de limbă `RO / EN`
-- preview pe click pentru poze
+- a big header with my name, photo, and barcode energy
+- a custom audio player with hand-picked songs
+- sticky notes and layered bits that look casually thrown there, but not really
+- a `socials` section
+- a `be f real` section
+- an `overview`
+- `RO / EN` language switch
+- click-to-zoom previews for images
 
-## tech stack, că totuși suntem serioși uneori 💻
+## tech stack, because yes we can be serious for 3 seconds 💻
 
 - `HTML`
 - `CSS`
 - `JavaScript`
 
-fără framework-uri, fără build step, fără dramă.  
-deschizi `index.html` și gata.
+no frameworks, no build step, no unnecessary drama.  
+open `index.html` and that’s it.
 
-## structură ✂️
+## structure ✂️
 
-după refactor, proiectul e împărțit mai curat:
+after the refactor, the project is split a lot cleaner:
 
-- `index.html` = structura paginii
-- `assets/css/styles.css` = toate stilurile
-- `assets/js/script.js` = interacțiuni, player, preview, limbă
-- `assets/images/` = poze
-- `assets/audio/` = piese
+- `index.html` = page structure
+- `assets/css/styles.css` = all the styling
+- `assets/js/script.js` = interactions, player, image preview, language switch
+- `assets/images/` = images
+- `assets/audio/` = songs
 
-## mică observație importantă 🖼️
+## small important note 🖼️
 
-anumite imagini sunt puse intenționat cu fallback.  
-dacă lipsește ceva de genul `me.jpg` sau `wood-photo.jpg`, apare placeholder în pagină în loc să se rupă layout-ul ca un proiect făcut la 3 noaptea.
+some images are intentionally set up with fallbacks.  
+if something like `me.jpg` or `wood-photo.jpg` is missing, the page shows a placeholder instead of breaking the layout like a project made at 3am with one eye open.
 
-## de ce arată așa? ✍️
+## why does it look like this? ✍️
 
-pentru că voiam să simți că intri pe o pagină făcută de o persoană reală, nu pe un template care a fost clonat de încă 4000 de ori.  
-mai mult “lipit cu scotch, marker și chaos”, mai puțin “welcome to my portfolio”.
+because i wanted it to feel like a real person made it, not like a template copied 4000 times.  
+more “tape, marker, and chaos”, less “welcome to my portfolio”.
 
-## rights and chestii de-astea ⚠️
+## rights and all that ⚠️
 
-codul, textele, layout-ul și direcția vizuală sunt făcute pentru proiectul ăsta și pentru identitatea mea.  
-dacă vrei să te inspiri, very nice. dacă vrei copy-paste 1 la 1, mai bine nu.
+the code, text, layout, and visual direction belong to this project and my identity.  
+if you want to take inspiration, very nice. if you want to copy-paste the whole thing 1:1, maybe don’t.
 
 ## contact 📭
 
-dacă e pentru colaborări, idei, chestii creative sau doar ai intrat prea adânc în website:
+if it’s about collaborations, ideas, creative stuff, or you just ended up way too deep inside the website:
 
 `contact@sorinarseni.com`
 
 ---
 
-made with taste, puțin overthinking și probabil prea mult scroll pe tiktok.
+made with taste, a bit too much overthinking, and probably too much tiktok scrolling.

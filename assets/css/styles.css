@@ -161,6 +161,7 @@
         justify-content: flex-start;
         gap: 18px;
         min-height: 0;
+        top: -6px;
       }
 
       .torn {
@@ -1398,6 +1399,7 @@
 
         .socials-panel {
           height: auto;
+          top: 0;
         }
 
         .socials-panel,
