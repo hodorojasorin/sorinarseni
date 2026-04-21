@@ -3,19 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Test de orientare - CEITI</title>
+    <title>TDO - CEITI</title>
     <link rel="icon" type="image/x-icon" href="assets/ceiti/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      rel="preconnect"
-      href="https://fonts.googleapis.com"
-    />
-    <link
-      rel="preconnect"
-      href="https://fonts.gstatic.com"
-      crossorigin
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&amp;family=Permanent+Marker&amp;family=Special+Elite&amp;display=swap"
+      href="https://fonts.googleapis.com/css2?family=Bree+Serif&amp;family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=Special+Elite&amp;display=swap"
       rel="stylesheet"
     />
     <style>
@@ -32,7 +25,6 @@
         --muted: #5a4d42;
         --accent: #f7c842;
         --accent-deep: #d4a054;
-        --line: rgba(0, 0, 0, 0.12);
         --shadow: rgba(0, 0, 0, 0.18);
         --success: #21685a;
         --danger: #bf4f45;
@@ -41,7 +33,7 @@
       body {
         margin: 0;
         min-height: 100vh;
-        font-family: "Kalam", cursive;
+        font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
         color: var(--ink);
         background-color: #d6cfc4;
         background-image:
@@ -182,7 +174,8 @@
       .section-kicker,
       .progress-label,
       .match,
-      .alt-title {
+      .alt-title,
+      .insight-label {
         font-family: "Special Elite", serif;
         letter-spacing: 0.08em;
         text-transform: uppercase;
@@ -197,18 +190,18 @@
       h1 {
         margin: 0;
         max-width: 760px;
-        font-family: "Permanent Marker", cursive;
+        font-family: "Bree Serif", serif;
         font-size: clamp(2.2rem, 6vw, 4.4rem);
-        line-height: 0.98;
-        letter-spacing: -1.5px;
+        line-height: 1.02;
+        letter-spacing: -0.04em;
       }
 
       .subtitle {
         margin: 16px 0 0;
         max-width: 720px;
         color: var(--muted);
-        font-size: 1.14rem;
-        line-height: 1.65;
+        font-size: 1.18rem;
+        line-height: 1.55;
       }
 
       .hero-notes {
@@ -223,38 +216,20 @@
         background: rgba(255, 255, 255, 0.68);
         border: 1px solid rgba(0, 0, 0, 0.1);
         box-shadow: 2px 3px 0 rgba(0, 0, 0, 0.08);
-        font-size: 0.96rem;
+        font-size: 1rem;
       }
 
-      .hero-sticker {
-        align-self: flex-start;
-        min-width: 180px;
-        padding: 14px 18px 16px;
-        border: 2px solid rgba(0, 0, 0, 0.16);
-        background: #fff8ea;
-        box-shadow: 4px 5px 0 rgba(0, 0, 0, 0.18);
-        transform: rotate(5deg);
-        text-align: center;
-        font-family: "Permanent Marker", cursive;
-        font-size: 1.2rem;
-        line-height: 1;
+      .hero-badge-logo {
+        display: grid;
+        place-items: center;
+        min-width: 0;
+        padding: 7px 10px;
       }
 
-      .hero-sticker img {
+      .hero-badge-logo img {
         display: block;
-        width: 150px;
-        max-width: 100%;
+        width: 58px;
         height: auto;
-        margin: 0 auto 10px;
-      }
-
-      .hero-sticker-label {
-        display: block;
-        font-family: "Special Elite", serif;
-        font-size: 0.7rem;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: rgba(26, 26, 26, 0.64);
       }
 
       .layout {
@@ -288,23 +263,24 @@
 
       .section-head h2 {
         margin: 0;
-        font-family: "Permanent Marker", cursive;
+        font-family: "Bree Serif", serif;
         font-size: clamp(1.55rem, 3vw, 2.2rem);
-        line-height: 1.05;
-        letter-spacing: -0.6px;
+        line-height: 1.1;
+        letter-spacing: -0.03em;
       }
 
       .quiz-intro,
       .sidebox p,
       .result-desc,
-      .progress-text {
+      .progress-text,
+      .meme-caption {
         color: var(--muted);
-        line-height: 1.65;
+        line-height: 1.55;
       }
 
       .quiz-intro {
         margin: 14px 0 0;
-        font-size: 1.02rem;
+        font-size: 1.08rem;
       }
 
       #quizForm {
@@ -339,8 +315,8 @@
 
       .question-title {
         margin: 0;
-        font-size: 1.24rem;
-        line-height: 1.4;
+        font-size: 1.36rem;
+        line-height: 1.25;
       }
 
       .options {
@@ -407,8 +383,8 @@
       }
 
       .option-text {
-        font-size: 1.03rem;
-        line-height: 1.55;
+        font-size: 1.08rem;
+        line-height: 1.45;
       }
 
       .actions {
@@ -483,24 +459,46 @@
 
       .result-name {
         margin: 14px 0 10px;
-        font-family: "Permanent Marker", cursive;
+        font-family: "Bree Serif", serif;
         font-size: clamp(1.8rem, 4vw, 2.8rem);
-        line-height: 1.02;
+        line-height: 1.06;
       }
 
       .result-desc {
         margin: 0 0 16px;
-        font-size: 1.05rem;
+        font-size: 1.1rem;
       }
 
       .result-list {
         margin: 0;
         padding-left: 22px;
-        line-height: 1.7;
+        line-height: 1.6;
       }
 
       .result-list li + li {
         margin-top: 4px;
+      }
+
+      .insight-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin: 16px 0 4px;
+      }
+
+      .insight-pill {
+        padding: 10px 12px;
+        background: rgba(255, 255, 255, 0.72);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        box-shadow: 2px 3px 0 rgba(0, 0, 0, 0.08);
+        line-height: 1.35;
+      }
+
+      .insight-label {
+        display: block;
+        margin-bottom: 4px;
+        font-size: 0.66rem;
+        color: rgba(26, 26, 26, 0.58);
       }
 
       .alt-title {
@@ -524,6 +522,35 @@
       .score {
         color: var(--success);
         font-weight: 700;
+      }
+
+      .meme-card {
+        display: grid;
+        margin: 18px 0 22px;
+        padding: 16px;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        background: rgba(255, 255, 255, 0.66);
+        box-shadow: 3px 4px 0 rgba(0, 0, 0, 0.1);
+      }
+
+      .meme-media {
+        display: grid;
+        place-items: center;
+        min-height: 260px;
+        border: 1px dashed rgba(0, 0, 0, 0.18);
+        background: linear-gradient(
+          135deg,
+          rgba(247, 200, 66, 0.12),
+          rgba(255, 255, 255, 0.78)
+        );
+        overflow: hidden;
+      }
+
+      .meme-image {
+        display: block;
+        width: min(100%, 340px);
+        height: auto;
+        filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.18));
       }
 
       .specialties {
@@ -612,10 +639,6 @@
           flex-direction: column;
         }
 
-        .hero-sticker {
-          align-self: flex-end;
-        }
-
         .sidebox {
           position: static;
         }
@@ -659,11 +682,6 @@
           padding: 13px 14px;
         }
 
-        .hero-sticker {
-          min-width: 150px;
-          font-size: 1rem;
-        }
-
         .actions {
           flex-direction: column;
         }
@@ -677,31 +695,32 @@
   <body>
     <div class="page">
       <div class="page-toolbar">
-        <div class="toolbar-version">test de orientare CEITI</div>
+        <div class="toolbar-version">CEITI</div>
         <div class="toolbar-chip">8 întrebări</div>
         <div class="toolbar-chip">cam 2 minute</div>
-        <div class="toolbar-chip">alegeri sincere</div>
+        <div class="toolbar-chip">profil pe criterii</div>
       </div>
 
       <section class="hero note-card torn">
         <div class="hero-copy">
-          <p class="eyebrow">mini test de orientare</p>
+          <p class="eyebrow">quiz CEITI</p>
           <h1>Ce specialitate ți se potrivește de fapt?</h1>
           <p class="subtitle">
             Răspunde sincer, iar la final vei primi o recomandare orientativă,
-            bazată pe interesele și preferințele tale.
+            bazată pe stilul tău de lucru, preferințe psihologice și tipul de
+            sarcini care te energizează.
           </p>
 
           <div class="hero-notes">
-            <div class="hero-badge">6 specialități CEITI</div>
-            <div class="hero-badge">rezultat imediat</div>
-            <div class="hero-badge">întrebări clare</div>
+            <div class="hero-badge">
+              6 specialități<br />
+              CEITI
+            </div>
+            <div class="hero-badge">algoritm<br />pe criterii</div>
+            <div class="hero-badge hero-badge-logo">
+              <img src="assets/ceiti/logo.png" alt="Logo CEITI" />
+            </div>
           </div>
-        </div>
-
-        <div class="hero-sticker">
-          <img src="assets/ceiti/logo.png" alt="Logo CEITI" />
-          <span class="hero-sticker-label">Test de orientare</span>
         </div>
       </section>
 
@@ -709,13 +728,13 @@
         <section class="note-card quiz-card">
           <div class="section-head">
             <p class="section-kicker">Răspunde sincer</p>
-            <h2>Întrebări orientative</h2>
+            <h2>Întrebări de profil</h2>
           </div>
 
           <p class="quiz-intro">
-            Alege varianta care te reprezintă cel mai bine. Dacă două răspunsuri
-            ți se par potrivite, mergi pe cel care seamănă mai mult cu felul tău
-            de a lucra.
+            Aici nu alegi specialitatea direct. Alegi felul în care gândești,
+            reacționezi și lucrezi, iar scorul compară profilul tău cu cele 6
+            direcții CEITI.
           </p>
 
           <form id="quizForm"></form>
@@ -732,10 +751,19 @@
           <div id="errorBox" class="error"></div>
 
           <section id="resultBox" class="result">
+            <div class="meme-card">
+              <div class="meme-media">
+                <img id="memeImage" class="meme-image" alt="" />
+              </div>
+            </div>
+
             <div class="match" id="matchLabel">Recomandare principală</div>
             <h2 class="result-name" id="resultName"></h2>
             <p class="result-desc" id="resultDesc"></p>
             <ul class="result-list" id="resultTraits"></ul>
+
+            <p class="alt-title">Ce ți-a tras scorul în sus</p>
+            <div class="insight-grid" id="fitInsights"></div>
 
             <p class="alt-title">Alte opțiuni apropiate</p>
             <div class="top3">
@@ -753,20 +781,18 @@
           </div>
 
           <p>
-            Testul compară alegerile tale cu 6 specialități CEITI și identifică
-            direcțiile în care interesele tale par să se potrivească cel mai
-            bine.
+            Scorul urmărește 6 criterii: logică, creativitate aplicată, lucru
+            practic, organizare, atenție la detalii și interacțiune. Apoi
+            compară profilul tău cu fiecare specialitate.
           </p>
 
           <div class="specialties">
-            <div class="pill">Programare și testarea produselor de program</div>
-            <div class="pill">Dezvoltarea aplicațiilor web</div>
-            <div class="pill">Rețele de calculatoare</div>
-            <div class="pill">Contabilitate</div>
-            <div class="pill">Servicii administrative și de secretariat</div>
-            <div class="pill">
-              Operator pentru suportul tehnic al calculatoarelor
-            </div>
+            <div class="pill">logică și analiză</div>
+            <div class="pill">creativitate aplicată</div>
+            <div class="pill">lucru practic și depanare</div>
+            <div class="pill">organizare și structură</div>
+            <div class="pill">atenție la detalii</div>
+            <div class="pill">comunicare și suport</div>
           </div>
 
           <div class="progress-wrap">
@@ -783,247 +809,355 @@
           </div>
 
           <div class="side-note">
-            Rezultatul este orientativ și te poate ajuta să vezi mai clar ce
-            direcție ți s-ar potrivi.
+            Rezultatul compară felul tău de lucru cu profilul fiecărei
+            specialități și îți arată direcția cea mai apropiată.
           </div>
-
-          <p class="footer-note">
-            Întrebările și descrierile pot fi modificate direct din JavaScript.
-          </p>
         </aside>
       </div>
     </div>
 
+    <audio id="resultAudio" preload="auto" playsinline></audio>
+
     <script>
+      const traitMeta = {
+        analytic: {
+          label: "Logică analitică",
+          insight: "Îți place să înțelegi mecanismul din spate.",
+        },
+        creative: {
+          label: "Creativitate aplicată",
+          insight: "Te uiți și la experiență, nu doar la funcție.",
+        },
+        practical: {
+          label: "Lucru practic",
+          insight: "Preferi să verifici direct și să repari în teren.",
+        },
+        organized: {
+          label: "Organizare",
+          insight: "Îți vine natural să pui ordine și flux.",
+        },
+        social: {
+          label: "Comunicare și suport",
+          insight: "Ai răbdare să clarifici și să ajuți oamenii.",
+        },
+        precision: {
+          label: "Atenție la detalii",
+          insight: "Observi rapid neconcordanțele și vrei exactitate.",
+        },
+      };
+
+      const traitKeys = Object.keys(traitMeta);
+
       const specialties = {
         programare: {
           name: "Programare și testarea produselor de program",
           description:
-            "Ți se potrivește dacă îți place să analizezi logic problemele, să construiești aplicații și să testezi soluții software în mod atent și structurat.",
+            "Profilul tău sugerează că te motivează problemele logice, verificarea atentă și ideea de a construi soluții curate, stabile și utile.",
           traits: [
-            "Îți place logica și rezolvarea de probleme",
-            "Ai răbdare pentru testare și verificare",
-            "Te motivează ideea de a construi aplicații utile",
+            "Preferi să spargi problemele în pași clari și să înțelegi cauza reală.",
+            "Ai răbdare pentru testare, verificare și îmbunătățire continuă.",
+            "Te simți bine când o soluție funcționează curat, nu doar repede.",
           ],
+          profile: {
+            analytic: 1,
+            creative: 0.35,
+            practical: 0.2,
+            organized: 0.6,
+            social: 0.15,
+            precision: 0.95,
+          },
+          meme: "assets/ceiti/programare.gif",
+          audio: "assets/ceiti/programare.mp3",
         },
         web: {
           name: "Dezvoltarea aplicațiilor web",
           description:
-            "Ți se potrivește dacă îți place să combini partea tehnică cu partea vizuală și să construiești site-uri clare, moderne și ușor de folosit.",
+            "Te potrivești bine cu zona web dacă îți place să combini logica tehnică, claritatea vizuală și experiența omului care va folosi produsul final.",
           traits: [
-            "Combini creativitatea cu gândirea tehnică",
-            "Observi repede când ceva nu funcționează sau nu arată bine",
-            "Îți place să construiești experiențe clare și utile",
+            "Ai ochi pentru structură, flow și detalii vizuale.",
+            "Vrei ca lucrurile să fie și utile, și ușor de înțeles.",
+            "Îmbini gândirea tehnică cu simțul pentru prezentare.",
           ],
+          profile: {
+            analytic: 0.6,
+            creative: 1,
+            practical: 0.15,
+            organized: 0.45,
+            social: 0.35,
+            precision: 0.55,
+          },
+          meme: "assets/ceiti/dezvoltare.gif",
+          audio: "assets/ceiti/dezvoltare.mp3",
         },
         retele: {
           name: "Rețele de calculatoare",
           description:
-            "Ți se potrivește dacă te atrag infrastructura IT, configurarea rețelelor și administrarea sistemelor, precum și rezolvarea problemelor tehnice.",
+            "Rezultatul arată că te atrage infrastructura: sisteme conectate, configurări stabile și rezolvări practice în care contează să înțelegi cum circulă totul.",
           traits: [
-            "Îți place să înțelegi cum sunt legate sistemele între ele",
-            "Ai răbdare pentru configurări, testări și depanare",
-            "Preferi soluțiile practice și stabile",
+            "Îți place să vezi cum se leagă componentele între ele.",
+            "Ai răbdare pentru configurări, testări și stabilitate.",
+            "Preferi soluțiile concrete, robuste și bine puse la punct.",
           ],
+          profile: {
+            analytic: 0.7,
+            creative: 0.1,
+            practical: 1,
+            organized: 0.55,
+            social: 0.2,
+            precision: 0.65,
+          },
+          meme: "assets/ceiti/retele.gif",
+          audio: "assets/ceiti/retele.mp3",
         },
         contabilitate: {
           name: "Contabilitate",
           description:
-            "Ți se potrivește dacă ești atent la cifre, apreciezi ordinea și exactitatea și preferi să lucrezi riguros cu date și documente.",
+            "Profilul tău indică o compatibilitate bună cu munca riguroasă, ordonată și exactă, unde cifrele, documentele și consistența contează mult.",
           traits: [
-            "Ești atent la detalii și la corectitudine",
-            "Îți place să lucrezi organizat și clar",
-            "Te simți confortabil în activități care cer precizie",
+            "Te liniștește ordinea, claritatea și verificarea corectă a datelor.",
+            "Ai toleranță scăzută la erori și detalii lăsate în aer.",
+            "Te descurci bine în procese unde precizia face diferența.",
           ],
+          profile: {
+            analytic: 0.55,
+            creative: 0.05,
+            practical: 0.1,
+            organized: 0.95,
+            social: 0.2,
+            precision: 1,
+          },
+          meme: "assets/ceiti/contabilitate.gif",
+          audio: "assets/ceiti/contabilitate.mp3",
         },
         administrativ: {
           name: "Servicii administrative și de secretariat",
           description:
-            "Ți se potrivește dacă îți place să organizezi informația, să lucrezi cu documente și să susții buna desfășurare a activităților administrative.",
+            "Ai un profil bun pentru roluri în care contează ordinea, coordonarea, claritatea și relația cu oamenii, mai ales când ceilalți se pierd în detalii.",
           traits: [
-            "Comunici ușor și păstrezi lucrurile clare",
-            "Te descurci bine cu documente, oameni și coordonare",
-            "Îți vine natural să pui ordine în procese",
+            "Îți vine natural să structurezi informația și programul.",
+            "Te descurci bine între documente, comunicare și coordonare.",
+            "Poți ține lucrurile în mișcare fără să pară haos.",
           ],
+          profile: {
+            analytic: 0.35,
+            creative: 0.2,
+            practical: 0.15,
+            organized: 0.9,
+            social: 0.8,
+            precision: 0.7,
+          },
+          meme: "assets/ceiti/secretariat.gif",
+          audio: "assets/ceiti/secretariat.mp3",
         },
         suport: {
           name: "Operator pentru suportul tehnic al calculatoarelor",
           description:
-            "Ți se potrivește dacă preferi activitatea practică, depanarea calculatoarelor, instalarea programelor și rezolvarea rapidă a problemelor tehnice.",
+            "Rezultatul te duce spre partea practică și de ajutor rapid: identifici probleme, pui mâna pe echipamente și ai răbdare să faci lucrurile să meargă din nou.",
           traits: [
-            "Îți place să repari și să înțelegi ce s-a stricat",
-            "Ai mână bună pentru hardware și setări",
-            "Te motivează să ajuți rapid când ceva nu merge",
+            "Preferi rezolvarea directă și clară a problemelor tehnice.",
+            "Ai toleranță bună pentru depanare și intervenții rapide.",
+            "Te motivează să ajuți oamenii când ceva nu funcționează.",
           ],
+          profile: {
+            analytic: 0.5,
+            creative: 0.05,
+            practical: 0.95,
+            organized: 0.45,
+            social: 0.75,
+            precision: 0.6,
+          },
+          meme: "assets/ceiti/operator.gif",
+          audio: "assets/ceiti/operator.mp3",
         },
       };
 
       const questions = [
         {
-          text: "Ce activitate ți se pare cea mai potrivită pentru tine?",
+          text: "Într-un proiect nou, ce parte îți vine instinctiv să preiei?",
           options: [
             {
-              label: "Să scriu cod și să dezvolt aplicații",
-              scores: { programare: 3, web: 1 },
+              label:
+                "Partea în care trebuie înțeles mecanismul și spart totul în logică.",
+              vector: { analytic: 3, precision: 2, organized: 1 },
             },
             {
-              label: "Să creez site-uri bine structurate și ușor de folosit",
-              scores: { web: 3, programare: 1 },
+              label:
+                "Partea în care trebuie făcută experiența clară, coerentă și plăcută.",
+              vector: { creative: 3, social: 1, organized: 1, precision: 1 },
             },
             {
-              label: "Să configurez sisteme, conexiuni și rețele",
-              scores: { retele: 3, suport: 1 },
+              label:
+                "Partea în care trebuie testat direct, montat, verificat și pus în mișcare.",
+              vector: { practical: 3, analytic: 1, precision: 1 },
             },
             {
-              label: "Să organizez date, documente sau informații",
-              scores: { contabilitate: 2, administrativ: 2 },
+              label:
+                "Partea în care trebuie pusă ordine în informații, pași și termene.",
+              vector: { organized: 3, precision: 2, social: 1 },
             },
           ],
         },
         {
-          text: "Când apare o problemă, cum preferi să o abordezi?",
+          text: "Când ceva nu merge, ce te enervează cel mai tare?",
           options: [
             {
-              label: "S-o sparg în pași logici și să o rezolv curat",
-              scores: { programare: 3, contabilitate: 1 },
+              label: "Faptul că nu are o explicație logică imediată.",
+              vector: { analytic: 3, precision: 1 },
             },
             {
-              label: "Să mă gândesc și cum funcționează, și cum se vede",
-              scores: { web: 3, programare: 1 },
+              label: "Faptul că e confuz, urât sau greu de folosit.",
+              vector: { creative: 2, social: 1, precision: 1 },
             },
             {
-              label: "Să verific direct echipamentele, cablurile și setările",
-              scores: { suport: 3, retele: 2 },
+              label:
+                "Faptul că trebuie să pierd timp până găsesc piesa sau setarea.",
+              vector: { practical: 3, analytic: 1 },
             },
             {
-              label: "Să organizez informația și să văd ce lipsește",
-              scores: { administrativ: 3, contabilitate: 2 },
+              label:
+                "Faptul că cineva a lăsat totul fără structură, nume sau evidență.",
+              vector: { organized: 3, precision: 2 },
             },
           ],
         },
         {
-          text: "Ce domenii sau materii te atrag cel mai mult?",
+          text: "Ce tip de satisfacție te motivează cel mai mult?",
           options: [
             {
-              label: "Informatică, algoritmi și logică",
-              scores: { programare: 3, web: 1 },
+              label:
+                "Când rezolv o problemă grea și știu exact de ce acum funcționează.",
+              vector: { analytic: 2, precision: 2, practical: 1 },
             },
             {
-              label: "Pagini web, interfețe și partea de design",
-              scores: { web: 3 },
+              label:
+                "Când un lucru iese clar, bine prezentat și are impact bun asupra oamenilor.",
+              vector: { creative: 3, social: 2 },
             },
             {
-              label: "Hardware, rețele și sisteme",
-              scores: { retele: 3, suport: 2 },
+              label:
+                "Când pornește tot sistemul după ce am umblat unde trebuie.",
+              vector: { practical: 3, analytic: 1, social: 1 },
             },
             {
-              label: "Economie, analiză, organizare sau lucrul cu documente",
-              scores: { contabilitate: 3, administrativ: 2 },
+              label: "Când totul e în ordine, complet și fără nicio scăpare.",
+              vector: { organized: 2, precision: 3 },
             },
           ],
         },
         {
-          text: "De obicei, cei din jur spun despre tine că...",
+          text: "Într-o echipă, lumea te caută de obicei pentru că...",
           options: [
             {
-              label: "Explică logic de ce nu merge ceva",
-              scores: { programare: 3 },
+              label: "Poți explica logic ce se întâmplă și unde e blocajul.",
+              vector: { analytic: 3, social: 1 },
             },
             {
-              label: "Are idei bune despre cum să arate mai bine",
-              scores: { web: 3 },
+              label: "Ai ochi pentru cum trebuie aranjat și prezentat ceva.",
+              vector: { creative: 3, precision: 1 },
             },
             {
-              label: "Știe ce buton, cablu sau setare trebuie verificată",
-              scores: { suport: 3, retele: 2 },
+              label:
+                "Nu te sperii să pui mâna pe problemă și să verifici concret.",
+              vector: { practical: 3, social: 1 },
             },
             {
-              label: "Ține minte detaliile și pune lucrurile în ordine",
-              scores: { contabilitate: 2, administrativ: 3 },
+              label:
+                "Ții minte detalii, pași și îi ajuți pe toți să se organizeze.",
+              vector: { organized: 2, social: 2, precision: 2 },
             },
           ],
         },
         {
-          text: "În ce tip de rol te vezi mai ușor?",
+          text: "Ce fel de haos simți că poți controla cel mai bine?",
           options: [
             {
-              label: "Programator sau tester software",
-              scores: { programare: 4 },
+              label:
+                "Un haos de reguli, excepții și condiții care trebuie înțelese.",
+              vector: { analytic: 3, precision: 2 },
             },
             {
-              label: "Web developer sau web designer",
-              scores: { web: 4 },
+              label:
+                "Un haos vizual sau de structură care trebuie făcut intuitiv.",
+              vector: { creative: 3, organized: 1, social: 1 },
             },
             {
-              label: "Tehnician de rețele sau administrator IT",
-              scores: { retele: 4, suport: 1 },
+              label: "Un haos tehnic de fire, dispozitive, setări și simptome.",
+              vector: { practical: 3, analytic: 2, precision: 1 },
             },
             {
-              label: "Contabil, secretar sau asistent administrativ",
-              scores: { contabilitate: 3, administrativ: 3 },
+              label:
+                "Un haos de documente, informații și sarcini care trebuie ordonate.",
+              vector: { organized: 3, precision: 2, social: 1 },
             },
           ],
         },
         {
-          text: "Ce tip de rezultat îți oferă cea mai mare satisfacție?",
+          text: "Ce frază te descrie cel mai bine?",
           options: [
             {
-              label: "Când găsesc o eroare și reușesc să o rezolv",
-              scores: { programare: 3, suport: 1 },
+              label:
+                "Prefer să înțeleg bine problema înainte să mă arunc la soluție.",
+              vector: { analytic: 3, precision: 1 },
             },
             {
-              label: "Când un site arată bine și se simte ușor de folosit",
-              scores: { web: 3 },
+              label: "Pentru mine contează mult și cum arată, și cum se simte.",
+              vector: { creative: 3, social: 1 },
             },
             {
-              label: "Când conectez, instalez și fac tot sistemul să meargă",
-              scores: { retele: 2, suport: 3 },
+              label: "Învăț repede când văd, testez și umblu direct la lucru.",
+              vector: { practical: 3, analytic: 1 },
             },
             {
-              label: "Când documentele, tabelele și procesele sunt bine organizate",
-              scores: { contabilitate: 2, administrativ: 3 },
+              label:
+                "Nu mă pot concentra bine până nu e totul pus într-o ordine clară.",
+              vector: { organized: 3, precision: 2 },
             },
           ],
         },
         {
-          text: "Ce mediu de lucru preferi?",
+          text: "Ce tip de mediu de lucru îți sună cel mai bine?",
           options: [
             {
-              label: "Monitor, IDE și multe probleme interesante de rezolvat",
-              scores: { programare: 3, web: 2 },
+              label:
+                "Un loc în care sunt apreciate gândirea profundă și soluțiile curate.",
+              vector: { analytic: 2, precision: 2, organized: 1 },
             },
             {
-              label: "Proiecte unde contează și structura, și estetica",
-              scores: { web: 3 },
+              label:
+                "Un loc în care contează claritatea, experiența și puțină creativitate.",
+              vector: { creative: 3, social: 1, organized: 1 },
             },
             {
-              label: "Laborator, echipamente, routere și rețele",
-              scores: { retele: 3, suport: 2 },
+              label:
+                "Un loc dinamic, cu intervenții practice și probleme reale de rezolvat.",
+              vector: { practical: 3, social: 1, analytic: 1 },
             },
             {
-              label: "Birou, documente, oameni și coordonare",
-              scores: { administrativ: 3, contabilitate: 2 },
+              label:
+                "Un loc în care procesele, evidența și coordonarea sunt esențiale.",
+              vector: { organized: 3, precision: 2, social: 1 },
             },
           ],
         },
         {
-          text: "Care dintre afirmațiile de mai jos te reprezintă cel mai bine?",
+          text: "Dacă ar fi să alegi după reflex, ce te obosește cel mai puțin?",
           options: [
             {
-              label: "Îmi place să rezolv lucrurile logic și clar",
-              scores: { programare: 3 },
+              label: "Să stau cu o problemă până îi găsesc logica exactă.",
+              vector: { analytic: 3, precision: 2 },
             },
             {
-              label: "Îmi place să fie util, clar și bine prezentat",
-              scores: { web: 3 },
+              label:
+                "Să ajustez detalii până totul pare natural și bine așezat.",
+              vector: { creative: 2, precision: 1, organized: 1 },
             },
             {
-              label: "Mă simt bine când reușesc să fac sistemele să funcționeze",
-              scores: { suport: 3, retele: 2 },
+              label: "Să depanez pas cu pas până pornește și merge stabil.",
+              vector: { practical: 3, precision: 1, social: 1 },
             },
             {
-              label: "Ordinea și organizarea mă ajută să lucrez eficient",
-              scores: { administrativ: 3, contabilitate: 2 },
+              label: "Să verific, să clasific și să țin totul clar și complet.",
+              vector: { organized: 2, precision: 3, social: 1 },
             },
           ],
         },
@@ -1039,35 +1173,66 @@
       const resultName = document.getElementById("resultName");
       const resultDesc = document.getElementById("resultDesc");
       const resultTraits = document.getElementById("resultTraits");
+      const fitInsights = document.getElementById("fitInsights");
       const alt1 = document.getElementById("alt1");
       const alt2 = document.getElementById("alt2");
       const alt3 = document.getElementById("alt3");
+      const memeImage = document.getElementById("memeImage");
+      const resultAudio = document.getElementById("resultAudio");
+
+      function createEmptyTraitTotals() {
+        return traitKeys.reduce((acc, key) => {
+          acc[key] = 0;
+          return acc;
+        }, {});
+      }
+
+      function dotProduct(left, right) {
+        return traitKeys.reduce(
+          (sum, key) => sum + (left[key] || 0) * (right[key] || 0),
+          0,
+        );
+      }
+
+      const specialtyMaxScores = Object.fromEntries(
+        Object.entries(specialties).map(([key, specialty]) => [
+          key,
+          questions.reduce((sum, question) => {
+            const bestOption = Math.max(
+              ...question.options.map((option) =>
+                dotProduct(option.vector, specialty.profile),
+              ),
+            );
+            return sum + bestOption;
+          }, 0),
+        ]),
+      );
 
       function getProgressMessage(answered) {
         if (answered === 0) {
           return "";
         }
         if (answered < 3) {
-          return "Ai început bine.";
+          return "Profilul începe să se contureze.";
         }
         if (answered < 5) {
-          return "Răspunsurile încep să contureze o direcție.";
+          return "Se văd deja primele criterii dominante.";
         }
         if (answered < questions.length) {
-          return "Mai este puțin până la rezultat.";
+          return "Mai este puțin până la recomandare.";
         }
-        return "Toate întrebările sunt completate.";
+        return "Profilul este complet.";
       }
 
       function renderQuiz() {
         form.innerHTML = questions
           .map(
-            (q, qIndex) => `
+            (question, qIndex) => `
         <div class="question">
           <p class="question-kicker">Întrebarea ${qIndex + 1}</p>
-          <h3 class="question-title">${q.text}</h3>
+          <h3 class="question-title">${question.text}</h3>
           <div class="options">
-            ${q.options
+            ${question.options
               .map(
                 (option, oIndex) => `
               <label class="option">
@@ -1092,73 +1257,135 @@
       }
 
       function updateProgress() {
-        const answered = questions.filter((_, i) =>
-          form.querySelector(`input[name="q${i}"]:checked`),
+        const answered = questions.filter((_, index) =>
+          form.querySelector(`input[name="q${index}"]:checked`),
         ).length;
         const percent = Math.round((answered / questions.length) * 100);
 
         progressFill.style.width = `${percent}%`;
         progressMeter.textContent = `${percent}%`;
+
         const message = getProgressMessage(answered);
         progressText.textContent = message
           ? `Ai completat ${answered} din ${questions.length} întrebări. ${message}`
           : `Ai completat ${answered} din ${questions.length} întrebări.`;
       }
 
-      function calculateResult() {
-        const totals = {
-          programare: 0,
-          web: 0,
-          retele: 0,
-          contabilitate: 0,
-          administrativ: 0,
-          suport: 0,
-        };
+      function buildUserProfile() {
+        const totals = createEmptyTraitTotals();
 
-        for (let i = 0; i < questions.length; i++) {
-          const selected = form.querySelector(`input[name="q${i}"]:checked`);
+        for (let index = 0; index < questions.length; index++) {
+          const selected = form.querySelector(
+            `input[name="q${index}"]:checked`,
+          );
           if (!selected) {
             return null;
           }
 
-          const option = questions[i].options[Number(selected.value)];
-          for (const [key, value] of Object.entries(option.scores)) {
+          const option = questions[index].options[Number(selected.value)];
+          for (const [key, value] of Object.entries(option.vector)) {
             totals[key] += value;
           }
         }
 
-        return Object.entries(totals)
-          .map(([key, score]) => ({ key, score, ...specialties[key] }))
-          .sort((a, b) => b.score - a.score);
+        return totals;
+      }
+
+      function calculateResult() {
+        const userProfile = buildUserProfile();
+        if (!userProfile) {
+          return null;
+        }
+
+        const ranking = Object.entries(specialties)
+          .map(([key, specialty]) => {
+            const rawScore = dotProduct(userProfile, specialty.profile);
+            const percent = Math.round(
+              (rawScore / specialtyMaxScores[key]) * 100,
+            );
+            const matchedTraits = traitKeys
+              .map((traitKey) => ({
+                key: traitKey,
+                weight: userProfile[traitKey] * specialty.profile[traitKey],
+                ...traitMeta[traitKey],
+              }))
+              .sort((a, b) => b.weight - a.weight);
+
+            return {
+              key,
+              rawScore,
+              percent,
+              matchedTraits,
+              ...specialty,
+            };
+          })
+          .sort((a, b) => b.percent - a.percent || b.rawScore - a.rawScore);
+
+        return { ranking, userProfile };
+      }
+
+      function playSpecialtyAudio(specialty) {
+        if (!specialty.audio) {
+          resultAudio.pause();
+          resultAudio.removeAttribute("src");
+          resultAudio.load();
+          return;
+        }
+
+        if (resultAudio.getAttribute("src") !== specialty.audio) {
+          resultAudio.src = specialty.audio;
+          resultAudio.load();
+        }
+
+        resultAudio.currentTime = 0;
+        const playPromise = resultAudio.play();
+        if (playPromise && typeof playPromise.catch === "function") {
+          playPromise.catch(() => {});
+        }
       }
 
       function showResult(ranking) {
         const best = ranking[0];
         const second = ranking[1];
-        const lead = second ? best.score - second.score : best.score;
+        const lead = second ? best.percent - second.percent : best.percent;
 
-        if (lead <= 1) {
-          matchLabel.textContent = "Recomandare apropiată";
-        } else if (lead <= 3) {
-          matchLabel.textContent = "Direcția ta principală";
+        if (lead <= 3) {
+          matchLabel.textContent = `Potrivire apropiată · ${best.percent}%`;
+        } else if (lead <= 8) {
+          matchLabel.textContent = `Direcție dominantă · ${best.percent}%`;
         } else {
-          matchLabel.textContent = "Recomandarea ta principală";
+          matchLabel.textContent = `Potrivire puternică · ${best.percent}%`;
         }
 
+        memeImage.src = best.meme;
+        memeImage.alt = `Meme pentru ${best.name}`;
+        playSpecialtyAudio(best);
         resultName.textContent = best.name;
         resultDesc.textContent = best.description;
         resultTraits.innerHTML = best.traits
           .map((item) => `<li>${item}</li>`)
           .join("");
+        fitInsights.innerHTML = best.matchedTraits
+          .slice(0, 3)
+          .map(
+            (trait) => `
+              <div class="insight-pill">
+                <span class="insight-label">${trait.label}</span>
+                ${trait.insight}
+              </div>
+            `,
+          )
+          .join("");
 
         const alternatives = ranking.slice(1, 4);
-        [alt1, alt2, alt3].forEach((el, index) => {
+        [alt1, alt2, alt3].forEach((element, index) => {
           const item = alternatives[index];
-          if (item) {
-            el.innerHTML = `<strong>${index + 2}. ${item.name}</strong><br><span class="score">Punctaj: ${item.score}</span><br><span style="color: var(--muted);">${item.description}</span>`;
-          } else {
-            el.innerHTML = "";
+          if (!item) {
+            element.innerHTML = "";
+            return;
           }
+
+          element.innerHTML = `<strong>${index + 2}. ${item.name}</strong><br><span class="score">Compatibilitate estimată: ${item.percent}%</span><br><span style="color: var(--muted);">${item.description}</span>`;
         });
 
         resultBox.style.display = "block";
@@ -1167,16 +1394,16 @@
 
       document.getElementById("submitBtn").addEventListener("click", () => {
         errorBox.textContent = "";
-        const ranking = calculateResult();
+        const result = calculateResult();
 
-        if (!ranking) {
+        if (!result) {
           errorBox.textContent =
             "Te rog să răspunzi la toate întrebările înainte de a vedea rezultatul.";
           resultBox.style.display = "none";
           return;
         }
 
-        showResult(ranking);
+        showResult(result.ranking);
       });
 
       document.getElementById("resetBtn").addEventListener("click", () => {
@@ -1184,6 +1411,8 @@
         updateProgress();
         errorBox.textContent = "";
         resultBox.style.display = "none";
+        resultAudio.pause();
+        resultAudio.currentTime = 0;
         window.scrollTo({ top: 0, behavior: "smooth" });
       });
 
