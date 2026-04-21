@@ -50,13 +50,20 @@
       .toolbar-version {
         margin-right: auto;
         margin-left: 10px;
+        display: inline-block;
         font-family: "Special Elite", serif;
         font-size: 0.64rem;
         letter-spacing: 0.08em;
         text-transform: uppercase;
         color: rgba(26, 26, 26, 0.5);
+        text-decoration: none;
         user-select: none;
         transform: rotate(-3deg);
+      }
+
+      .toolbar-version:hover,
+      .toolbar-version:focus-visible {
+        color: rgba(26, 26, 26, 0.72);
       }
 
       .toolbar-version-prefix {

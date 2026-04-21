@@ -1,0 +1,1194 @@
+<!doctype html>
+<html lang="ro">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test de orientare - CEITI</title>
+    <link rel="icon" type="image/x-icon" href="assets/ceiti/favicon.ico" />
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&amp;family=Permanent+Marker&amp;family=Special+Elite&amp;display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      :root {
+        --paper: #f5f0e8;
+        --paper-soft: rgba(245, 240, 232, 0.92);
+        --ink: #1a1a1a;
+        --muted: #5a4d42;
+        --accent: #f7c842;
+        --accent-deep: #d4a054;
+        --line: rgba(0, 0, 0, 0.12);
+        --shadow: rgba(0, 0, 0, 0.18);
+        --success: #21685a;
+        --danger: #bf4f45;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "Kalam", cursive;
+        color: var(--ink);
+        background-color: #d6cfc4;
+        background-image:
+          radial-gradient(
+            circle at 20% 30%,
+            rgba(180, 160, 130, 0.3) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 80% 70%,
+            rgba(160, 140, 110, 0.25) 0%,
+            transparent 50%
+          ),
+          url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+        overflow-x: hidden;
+      }
+
+      .page {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 28px 20px 56px;
+      }
+
+      .page-toolbar {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-bottom: 18px;
+      }
+
+      .toolbar-version {
+        margin-right: auto;
+        font-family: "Special Elite", serif;
+        font-size: 0.7rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: rgba(26, 26, 26, 0.56);
+        transform: rotate(-2deg);
+      }
+
+      .toolbar-chip {
+        padding: 8px 12px;
+        background: rgba(245, 240, 232, 0.9);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        box-shadow: 3px 4px 0 rgba(0, 0, 0, 0.14);
+        font-family: "Special Elite", serif;
+        font-size: 0.72rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .note-card {
+        position: relative;
+        background: var(--paper-soft);
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        box-shadow:
+          6px 7px 0 rgba(0, 0, 0, 0.18),
+          12px 16px 34px rgba(0, 0, 0, 0.1);
+      }
+
+      .note-card::before {
+        content: "";
+        position: absolute;
+        top: -12px;
+        left: 58px;
+        width: 74px;
+        height: 24px;
+        background: rgba(255, 220, 100, 0.55);
+        border: 1px solid rgba(200, 170, 50, 0.28);
+        transform: rotate(-3deg);
+      }
+
+      .torn {
+        position: relative;
+      }
+
+      .torn::after {
+        content: "";
+        position: absolute;
+        bottom: -13px;
+        left: 0;
+        right: 0;
+        height: 15px;
+        background: inherit;
+        clip-path: polygon(
+          0% 0%,
+          3% 100%,
+          6% 20%,
+          9% 90%,
+          12% 10%,
+          15% 80%,
+          18% 5%,
+          21% 85%,
+          24% 15%,
+          27% 95%,
+          30% 0%,
+          33% 80%,
+          36% 20%,
+          39% 100%,
+          42% 0%,
+          45% 90%,
+          48% 10%,
+          51% 80%,
+          54% 0%,
+          57% 100%,
+          60% 15%,
+          63% 85%,
+          66% 5%,
+          69% 95%,
+          72% 20%,
+          75% 80%,
+          78% 0%,
+          81% 90%,
+          84% 10%,
+          87% 100%,
+          90% 5%,
+          93% 80%,
+          96% 20%,
+          100% 0%,
+          100% 0%
+        );
+      }
+
+      .hero {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 26px 24px 30px;
+        transform: rotate(-0.8deg);
+      }
+
+      .hero-copy {
+        min-width: 0;
+      }
+
+      .eyebrow,
+      .section-kicker,
+      .progress-label,
+      .match,
+      .alt-title {
+        font-family: "Special Elite", serif;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .eyebrow {
+        margin: 0 0 12px;
+        font-size: 0.78rem;
+        color: rgba(26, 26, 26, 0.6);
+      }
+
+      h1 {
+        margin: 0;
+        max-width: 760px;
+        font-family: "Permanent Marker", cursive;
+        font-size: clamp(2.2rem, 6vw, 4.4rem);
+        line-height: 0.98;
+        letter-spacing: -1.5px;
+      }
+
+      .subtitle {
+        margin: 16px 0 0;
+        max-width: 720px;
+        color: var(--muted);
+        font-size: 1.14rem;
+        line-height: 1.65;
+      }
+
+      .hero-notes {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 18px;
+      }
+
+      .hero-badge {
+        padding: 10px 12px;
+        background: rgba(255, 255, 255, 0.68);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        box-shadow: 2px 3px 0 rgba(0, 0, 0, 0.08);
+        font-size: 0.96rem;
+      }
+
+      .hero-sticker {
+        align-self: flex-start;
+        min-width: 180px;
+        padding: 14px 18px 16px;
+        border: 2px solid rgba(0, 0, 0, 0.16);
+        background: #fff8ea;
+        box-shadow: 4px 5px 0 rgba(0, 0, 0, 0.18);
+        transform: rotate(5deg);
+        text-align: center;
+        font-family: "Permanent Marker", cursive;
+        font-size: 1.2rem;
+        line-height: 1;
+      }
+
+      .hero-sticker img {
+        display: block;
+        width: 150px;
+        max-width: 100%;
+        height: auto;
+        margin: 0 auto 10px;
+      }
+
+      .hero-sticker-label {
+        display: block;
+        font-family: "Special Elite", serif;
+        font-size: 0.7rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: rgba(26, 26, 26, 0.64);
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1.25fr) minmax(300px, 0.75fr);
+        gap: 24px;
+        align-items: start;
+        margin-top: 28px;
+      }
+
+      .quiz-card,
+      .sidebox {
+        padding: 24px;
+      }
+
+      .quiz-card {
+        transform: rotate(0.35deg);
+      }
+
+      .sidebox {
+        position: sticky;
+        top: 20px;
+        transform: rotate(-0.45deg);
+      }
+
+      .section-kicker {
+        margin: 0 0 10px;
+        font-size: 0.74rem;
+        color: rgba(26, 26, 26, 0.6);
+      }
+
+      .section-head h2 {
+        margin: 0;
+        font-family: "Permanent Marker", cursive;
+        font-size: clamp(1.55rem, 3vw, 2.2rem);
+        line-height: 1.05;
+        letter-spacing: -0.6px;
+      }
+
+      .quiz-intro,
+      .sidebox p,
+      .result-desc,
+      .progress-text {
+        color: var(--muted);
+        line-height: 1.65;
+      }
+
+      .quiz-intro {
+        margin: 14px 0 0;
+        font-size: 1.02rem;
+      }
+
+      #quizForm {
+        display: grid;
+        gap: 18px;
+        margin-top: 24px;
+      }
+
+      .question {
+        padding: 20px 18px 18px;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        background: rgba(255, 255, 255, 0.58);
+        box-shadow: 3px 4px 0 rgba(0, 0, 0, 0.08);
+      }
+
+      .question:nth-child(odd) {
+        transform: rotate(-0.55deg);
+      }
+
+      .question:nth-child(even) {
+        transform: rotate(0.45deg);
+      }
+
+      .question-kicker {
+        margin: 0 0 8px;
+        font-family: "Special Elite", serif;
+        font-size: 0.72rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: rgba(26, 26, 26, 0.52);
+      }
+
+      .question-title {
+        margin: 0;
+        font-size: 1.24rem;
+        line-height: 1.4;
+      }
+
+      .options {
+        display: grid;
+        gap: 12px;
+        margin-top: 16px;
+      }
+
+      .option {
+        display: block;
+        cursor: pointer;
+      }
+
+      .option input {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .option-body {
+        display: flex;
+        gap: 14px;
+        align-items: flex-start;
+        padding: 14px 16px;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        background: #fffdf7;
+        box-shadow: 2px 3px 0 rgba(0, 0, 0, 0.08);
+        transition:
+          transform 0.14s ease,
+          box-shadow 0.14s ease,
+          border-color 0.14s ease,
+          background 0.14s ease;
+      }
+
+      .option:hover .option-body {
+        transform: translate(-1px, -1px);
+        border-color: rgba(0, 0, 0, 0.2);
+        box-shadow: 4px 5px 0 rgba(0, 0, 0, 0.12);
+      }
+
+      .option input:checked + .option-body {
+        background: rgba(247, 200, 66, 0.24);
+        border-color: rgba(122, 85, 47, 0.4);
+        box-shadow: 4px 5px 0 rgba(0, 0, 0, 0.16);
+        transform: translate(-2px, -2px);
+      }
+
+      .option-letter {
+        flex: 0 0 34px;
+        display: grid;
+        place-items: center;
+        width: 34px;
+        height: 34px;
+        border-radius: 999px;
+        background: #1a1a1a;
+        color: var(--accent);
+        font-family: "Special Elite", serif;
+        font-size: 0.82rem;
+      }
+
+      .option input:checked + .option-body .option-letter {
+        background: var(--accent);
+        color: var(--ink);
+      }
+
+      .option-text {
+        font-size: 1.03rem;
+        line-height: 1.55;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 26px;
+      }
+
+      button {
+        border: none;
+        padding: 14px 18px;
+        cursor: pointer;
+        font-family: "Special Elite", serif;
+        font-size: 0.88rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        transition:
+          transform 0.12s ease,
+          box-shadow 0.12s ease,
+          background 0.12s ease;
+      }
+
+      button:hover {
+        transform: translate(-1px, -1px);
+      }
+
+      .primary {
+        background: #1a1a1a;
+        color: var(--accent);
+        box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.25);
+      }
+
+      .primary:hover {
+        box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.28);
+      }
+
+      .secondary {
+        background: var(--paper);
+        color: var(--ink);
+        border: 1px solid rgba(0, 0, 0, 0.12);
+        box-shadow: 3px 4px 0 rgba(0, 0, 0, 0.14);
+      }
+
+      .error {
+        min-height: 24px;
+        margin-top: 16px;
+        color: var(--danger);
+        font-weight: 700;
+      }
+
+      .result {
+        display: none;
+        margin-top: 24px;
+        padding: 22px;
+        border: 1px solid rgba(0, 0, 0, 0.12);
+        background: linear-gradient(
+          180deg,
+          rgba(255, 250, 240, 0.98),
+          rgba(247, 240, 224, 0.98)
+        );
+        box-shadow: 5px 6px 0 rgba(0, 0, 0, 0.16);
+      }
+
+      .match {
+        display: inline-block;
+        padding: 8px 12px;
+        background: rgba(247, 200, 66, 0.3);
+        border: 1px solid rgba(0, 0, 0, 0.12);
+        font-size: 0.72rem;
+      }
+
+      .result-name {
+        margin: 14px 0 10px;
+        font-family: "Permanent Marker", cursive;
+        font-size: clamp(1.8rem, 4vw, 2.8rem);
+        line-height: 1.02;
+      }
+
+      .result-desc {
+        margin: 0 0 16px;
+        font-size: 1.05rem;
+      }
+
+      .result-list {
+        margin: 0;
+        padding-left: 22px;
+        line-height: 1.7;
+      }
+
+      .result-list li + li {
+        margin-top: 4px;
+      }
+
+      .alt-title {
+        margin: 18px 0 10px;
+        font-size: 0.76rem;
+        color: rgba(26, 26, 26, 0.62);
+      }
+
+      .top3 {
+        display: grid;
+        gap: 12px;
+      }
+
+      .top3-item {
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        background: rgba(255, 255, 255, 0.62);
+        padding: 14px 16px;
+        box-shadow: 2px 3px 0 rgba(0, 0, 0, 0.08);
+      }
+
+      .score {
+        color: var(--success);
+        font-weight: 700;
+      }
+
+      .specialties {
+        display: grid;
+        gap: 10px;
+        margin-top: 18px;
+      }
+
+      .pill {
+        padding: 10px 12px;
+        background: rgba(255, 255, 255, 0.66);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.08);
+      }
+
+      .progress-wrap {
+        margin-top: 22px;
+        padding: 14px 16px;
+        background: rgba(255, 255, 255, 0.56);
+        border: 1px dashed rgba(0, 0, 0, 0.16);
+      }
+
+      .progress-head {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+
+      .progress-label {
+        font-size: 0.72rem;
+        color: rgba(26, 26, 26, 0.6);
+      }
+
+      .progress-meter {
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .progress-bar {
+        height: 12px;
+        overflow: hidden;
+        border-radius: 999px;
+        background: rgba(26, 26, 26, 0.08);
+      }
+
+      .progress-fill {
+        width: 0%;
+        height: 100%;
+        background: linear-gradient(90deg, var(--accent), var(--accent-deep));
+        transition: width 0.24s ease;
+      }
+
+      .progress-text {
+        margin-top: 10px;
+        font-size: 1rem;
+      }
+
+      .side-note {
+        margin-top: 18px;
+        padding: 14px 16px;
+        background: rgba(247, 200, 66, 0.18);
+        border-left: 4px solid #1a1a1a;
+        color: #40362c;
+        line-height: 1.6;
+      }
+
+      .footer-note {
+        margin-top: 18px;
+        font-size: 0.97rem;
+      }
+
+      @media (max-width: 960px) {
+        .layout {
+          grid-template-columns: 1fr;
+        }
+
+        .hero,
+        .quiz-card,
+        .sidebox {
+          transform: none;
+        }
+
+        .hero {
+          flex-direction: column;
+        }
+
+        .hero-sticker {
+          align-self: flex-end;
+        }
+
+        .sidebox {
+          position: static;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .page {
+          padding: 20px 14px 42px;
+        }
+
+        .toolbar-chip {
+          padding: 7px 10px;
+        }
+
+        .hero,
+        .quiz-card,
+        .sidebox,
+        .result {
+          padding: 20px 18px;
+        }
+
+        .note-card::before {
+          left: 22px;
+        }
+
+        h1 {
+          font-size: clamp(2rem, 11vw, 3.2rem);
+        }
+
+        .section-head h2 {
+          font-size: clamp(1.35rem, 7vw, 2rem);
+        }
+
+        .question,
+        .question:nth-child(odd),
+        .question:nth-child(even) {
+          transform: none;
+        }
+
+        .option-body {
+          padding: 13px 14px;
+        }
+
+        .hero-sticker {
+          min-width: 150px;
+          font-size: 1rem;
+        }
+
+        .actions {
+          flex-direction: column;
+        }
+
+        button {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <div class="page-toolbar">
+        <div class="toolbar-version">test de orientare CEITI</div>
+        <div class="toolbar-chip">8 întrebări</div>
+        <div class="toolbar-chip">cam 2 minute</div>
+        <div class="toolbar-chip">alegeri sincere</div>
+      </div>
+
+      <section class="hero note-card torn">
+        <div class="hero-copy">
+          <p class="eyebrow">mini test de orientare</p>
+          <h1>Ce specialitate ți se potrivește de fapt?</h1>
+          <p class="subtitle">
+            Răspunde sincer, iar la final vei primi o recomandare orientativă,
+            bazată pe interesele și preferințele tale.
+          </p>
+
+          <div class="hero-notes">
+            <div class="hero-badge">6 specialități CEITI</div>
+            <div class="hero-badge">rezultat imediat</div>
+            <div class="hero-badge">întrebări clare</div>
+          </div>
+        </div>
+
+        <div class="hero-sticker">
+          <img src="assets/ceiti/logo.png" alt="Logo CEITI" />
+          <span class="hero-sticker-label">Test de orientare</span>
+        </div>
+      </section>
+
+      <div class="layout">
+        <section class="note-card quiz-card">
+          <div class="section-head">
+            <p class="section-kicker">Răspunde sincer</p>
+            <h2>Întrebări orientative</h2>
+          </div>
+
+          <p class="quiz-intro">
+            Alege varianta care te reprezintă cel mai bine. Dacă două răspunsuri
+            ți se par potrivite, mergi pe cel care seamănă mai mult cu felul tău
+            de a lucra.
+          </p>
+
+          <form id="quizForm"></form>
+
+          <div class="actions">
+            <button class="primary" id="submitBtn" type="button">
+              Vezi rezultatul
+            </button>
+            <button class="secondary" id="resetBtn" type="button">
+              Resetează testul
+            </button>
+          </div>
+
+          <div id="errorBox" class="error"></div>
+
+          <section id="resultBox" class="result">
+            <div class="match" id="matchLabel">Recomandare principală</div>
+            <h2 class="result-name" id="resultName"></h2>
+            <p class="result-desc" id="resultDesc"></p>
+            <ul class="result-list" id="resultTraits"></ul>
+
+            <p class="alt-title">Alte opțiuni apropiate</p>
+            <div class="top3">
+              <div class="top3-item" id="alt1"></div>
+              <div class="top3-item" id="alt2"></div>
+              <div class="top3-item" id="alt3"></div>
+            </div>
+          </section>
+        </section>
+
+        <aside class="note-card sidebox">
+          <div class="section-head">
+            <p class="section-kicker">Cum se calculează</p>
+            <h2>Rezultat orientativ</h2>
+          </div>
+
+          <p>
+            Testul compară alegerile tale cu 6 specialități CEITI și identifică
+            direcțiile în care interesele tale par să se potrivească cel mai
+            bine.
+          </p>
+
+          <div class="specialties">
+            <div class="pill">Programare și testarea produselor de program</div>
+            <div class="pill">Dezvoltarea aplicațiilor web</div>
+            <div class="pill">Rețele de calculatoare</div>
+            <div class="pill">Contabilitate</div>
+            <div class="pill">Servicii administrative și de secretariat</div>
+            <div class="pill">
+              Operator pentru suportul tehnic al calculatoarelor
+            </div>
+          </div>
+
+          <div class="progress-wrap">
+            <div class="progress-head">
+              <div class="progress-label">Progres</div>
+              <div class="progress-meter" id="progressMeter">0%</div>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text" id="progressText">
+              Ai completat 0 din 8 întrebări.
+            </div>
+          </div>
+
+          <div class="side-note">
+            Rezultatul este orientativ și te poate ajuta să vezi mai clar ce
+            direcție ți s-ar potrivi.
+          </div>
+
+          <p class="footer-note">
+            Întrebările și descrierile pot fi modificate direct din JavaScript.
+          </p>
+        </aside>
+      </div>
+    </div>
+
+    <script>
+      const specialties = {
+        programare: {
+          name: "Programare și testarea produselor de program",
+          description:
+            "Ți se potrivește dacă îți place să analizezi logic problemele, să construiești aplicații și să testezi soluții software în mod atent și structurat.",
+          traits: [
+            "Îți place logica și rezolvarea de probleme",
+            "Ai răbdare pentru testare și verificare",
+            "Te motivează ideea de a construi aplicații utile",
+          ],
+        },
+        web: {
+          name: "Dezvoltarea aplicațiilor web",
+          description:
+            "Ți se potrivește dacă îți place să combini partea tehnică cu partea vizuală și să construiești site-uri clare, moderne și ușor de folosit.",
+          traits: [
+            "Combini creativitatea cu gândirea tehnică",
+            "Observi repede când ceva nu funcționează sau nu arată bine",
+            "Îți place să construiești experiențe clare și utile",
+          ],
+        },
+        retele: {
+          name: "Rețele de calculatoare",
+          description:
+            "Ți se potrivește dacă te atrag infrastructura IT, configurarea rețelelor și administrarea sistemelor, precum și rezolvarea problemelor tehnice.",
+          traits: [
+            "Îți place să înțelegi cum sunt legate sistemele între ele",
+            "Ai răbdare pentru configurări, testări și depanare",
+            "Preferi soluțiile practice și stabile",
+          ],
+        },
+        contabilitate: {
+          name: "Contabilitate",
+          description:
+            "Ți se potrivește dacă ești atent la cifre, apreciezi ordinea și exactitatea și preferi să lucrezi riguros cu date și documente.",
+          traits: [
+            "Ești atent la detalii și la corectitudine",
+            "Îți place să lucrezi organizat și clar",
+            "Te simți confortabil în activități care cer precizie",
+          ],
+        },
+        administrativ: {
+          name: "Servicii administrative și de secretariat",
+          description:
+            "Ți se potrivește dacă îți place să organizezi informația, să lucrezi cu documente și să susții buna desfășurare a activităților administrative.",
+          traits: [
+            "Comunici ușor și păstrezi lucrurile clare",
+            "Te descurci bine cu documente, oameni și coordonare",
+            "Îți vine natural să pui ordine în procese",
+          ],
+        },
+        suport: {
+          name: "Operator pentru suportul tehnic al calculatoarelor",
+          description:
+            "Ți se potrivește dacă preferi activitatea practică, depanarea calculatoarelor, instalarea programelor și rezolvarea rapidă a problemelor tehnice.",
+          traits: [
+            "Îți place să repari și să înțelegi ce s-a stricat",
+            "Ai mână bună pentru hardware și setări",
+            "Te motivează să ajuți rapid când ceva nu merge",
+          ],
+        },
+      };
+
+      const questions = [
+        {
+          text: "Ce activitate ți se pare cea mai potrivită pentru tine?",
+          options: [
+            {
+              label: "Să scriu cod și să dezvolt aplicații",
+              scores: { programare: 3, web: 1 },
+            },
+            {
+              label: "Să creez site-uri bine structurate și ușor de folosit",
+              scores: { web: 3, programare: 1 },
+            },
+            {
+              label: "Să configurez sisteme, conexiuni și rețele",
+              scores: { retele: 3, suport: 1 },
+            },
+            {
+              label: "Să organizez date, documente sau informații",
+              scores: { contabilitate: 2, administrativ: 2 },
+            },
+          ],
+        },
+        {
+          text: "Când apare o problemă, cum preferi să o abordezi?",
+          options: [
+            {
+              label: "S-o sparg în pași logici și să o rezolv curat",
+              scores: { programare: 3, contabilitate: 1 },
+            },
+            {
+              label: "Să mă gândesc și cum funcționează, și cum se vede",
+              scores: { web: 3, programare: 1 },
+            },
+            {
+              label: "Să verific direct echipamentele, cablurile și setările",
+              scores: { suport: 3, retele: 2 },
+            },
+            {
+              label: "Să organizez informația și să văd ce lipsește",
+              scores: { administrativ: 3, contabilitate: 2 },
+            },
+          ],
+        },
+        {
+          text: "Ce domenii sau materii te atrag cel mai mult?",
+          options: [
+            {
+              label: "Informatică, algoritmi și logică",
+              scores: { programare: 3, web: 1 },
+            },
+            {
+              label: "Pagini web, interfețe și partea de design",
+              scores: { web: 3 },
+            },
+            {
+              label: "Hardware, rețele și sisteme",
+              scores: { retele: 3, suport: 2 },
+            },
+            {
+              label: "Economie, analiză, organizare sau lucrul cu documente",
+              scores: { contabilitate: 3, administrativ: 2 },
+            },
+          ],
+        },
+        {
+          text: "De obicei, cei din jur spun despre tine că...",
+          options: [
+            {
+              label: "Explică logic de ce nu merge ceva",
+              scores: { programare: 3 },
+            },
+            {
+              label: "Are idei bune despre cum să arate mai bine",
+              scores: { web: 3 },
+            },
+            {
+              label: "Știe ce buton, cablu sau setare trebuie verificată",
+              scores: { suport: 3, retele: 2 },
+            },
+            {
+              label: "Ține minte detaliile și pune lucrurile în ordine",
+              scores: { contabilitate: 2, administrativ: 3 },
+            },
+          ],
+        },
+        {
+          text: "În ce tip de rol te vezi mai ușor?",
+          options: [
+            {
+              label: "Programator sau tester software",
+              scores: { programare: 4 },
+            },
+            {
+              label: "Web developer sau web designer",
+              scores: { web: 4 },
+            },
+            {
+              label: "Tehnician de rețele sau administrator IT",
+              scores: { retele: 4, suport: 1 },
+            },
+            {
+              label: "Contabil, secretar sau asistent administrativ",
+              scores: { contabilitate: 3, administrativ: 3 },
+            },
+          ],
+        },
+        {
+          text: "Ce tip de rezultat îți oferă cea mai mare satisfacție?",
+          options: [
+            {
+              label: "Când găsesc o eroare și reușesc să o rezolv",
+              scores: { programare: 3, suport: 1 },
+            },
+            {
+              label: "Când un site arată bine și se simte ușor de folosit",
+              scores: { web: 3 },
+            },
+            {
+              label: "Când conectez, instalez și fac tot sistemul să meargă",
+              scores: { retele: 2, suport: 3 },
+            },
+            {
+              label: "Când documentele, tabelele și procesele sunt bine organizate",
+              scores: { contabilitate: 2, administrativ: 3 },
+            },
+          ],
+        },
+        {
+          text: "Ce mediu de lucru preferi?",
+          options: [
+            {
+              label: "Monitor, IDE și multe probleme interesante de rezolvat",
+              scores: { programare: 3, web: 2 },
+            },
+            {
+              label: "Proiecte unde contează și structura, și estetica",
+              scores: { web: 3 },
+            },
+            {
+              label: "Laborator, echipamente, routere și rețele",
+              scores: { retele: 3, suport: 2 },
+            },
+            {
+              label: "Birou, documente, oameni și coordonare",
+              scores: { administrativ: 3, contabilitate: 2 },
+            },
+          ],
+        },
+        {
+          text: "Care dintre afirmațiile de mai jos te reprezintă cel mai bine?",
+          options: [
+            {
+              label: "Îmi place să rezolv lucrurile logic și clar",
+              scores: { programare: 3 },
+            },
+            {
+              label: "Îmi place să fie util, clar și bine prezentat",
+              scores: { web: 3 },
+            },
+            {
+              label: "Mă simt bine când reușesc să fac sistemele să funcționeze",
+              scores: { suport: 3, retele: 2 },
+            },
+            {
+              label: "Ordinea și organizarea mă ajută să lucrez eficient",
+              scores: { administrativ: 3, contabilitate: 2 },
+            },
+          ],
+        },
+      ];
+
+      const form = document.getElementById("quizForm");
+      const progressFill = document.getElementById("progressFill");
+      const progressText = document.getElementById("progressText");
+      const progressMeter = document.getElementById("progressMeter");
+      const errorBox = document.getElementById("errorBox");
+      const resultBox = document.getElementById("resultBox");
+      const matchLabel = document.getElementById("matchLabel");
+      const resultName = document.getElementById("resultName");
+      const resultDesc = document.getElementById("resultDesc");
+      const resultTraits = document.getElementById("resultTraits");
+      const alt1 = document.getElementById("alt1");
+      const alt2 = document.getElementById("alt2");
+      const alt3 = document.getElementById("alt3");
+
+      function getProgressMessage(answered) {
+        if (answered === 0) {
+          return "";
+        }
+        if (answered < 3) {
+          return "Ai început bine.";
+        }
+        if (answered < 5) {
+          return "Răspunsurile încep să contureze o direcție.";
+        }
+        if (answered < questions.length) {
+          return "Mai este puțin până la rezultat.";
+        }
+        return "Toate întrebările sunt completate.";
+      }
+
+      function renderQuiz() {
+        form.innerHTML = questions
+          .map(
+            (q, qIndex) => `
+        <div class="question">
+          <p class="question-kicker">Întrebarea ${qIndex + 1}</p>
+          <h3 class="question-title">${q.text}</h3>
+          <div class="options">
+            ${q.options
+              .map(
+                (option, oIndex) => `
+              <label class="option">
+                <input type="radio" name="q${qIndex}" value="${oIndex}" />
+                <span class="option-body">
+                  <span class="option-letter">${String.fromCharCode(65 + oIndex)}</span>
+                  <span class="option-text">${option.label}</span>
+                </span>
+              </label>
+            `,
+              )
+              .join("")}
+          </div>
+        </div>
+      `,
+          )
+          .join("");
+
+        form.querySelectorAll("input[type='radio']").forEach((input) => {
+          input.addEventListener("change", updateProgress);
+        });
+      }
+
+      function updateProgress() {
+        const answered = questions.filter((_, i) =>
+          form.querySelector(`input[name="q${i}"]:checked`),
+        ).length;
+        const percent = Math.round((answered / questions.length) * 100);
+
+        progressFill.style.width = `${percent}%`;
+        progressMeter.textContent = `${percent}%`;
+        const message = getProgressMessage(answered);
+        progressText.textContent = message
+          ? `Ai completat ${answered} din ${questions.length} întrebări. ${message}`
+          : `Ai completat ${answered} din ${questions.length} întrebări.`;
+      }
+
+      function calculateResult() {
+        const totals = {
+          programare: 0,
+          web: 0,
+          retele: 0,
+          contabilitate: 0,
+          administrativ: 0,
+          suport: 0,
+        };
+
+        for (let i = 0; i < questions.length; i++) {
+          const selected = form.querySelector(`input[name="q${i}"]:checked`);
+          if (!selected) {
+            return null;
+          }
+
+          const option = questions[i].options[Number(selected.value)];
+          for (const [key, value] of Object.entries(option.scores)) {
+            totals[key] += value;
+          }
+        }
+
+        return Object.entries(totals)
+          .map(([key, score]) => ({ key, score, ...specialties[key] }))
+          .sort((a, b) => b.score - a.score);
+      }
+
+      function showResult(ranking) {
+        const best = ranking[0];
+        const second = ranking[1];
+        const lead = second ? best.score - second.score : best.score;
+
+        if (lead <= 1) {
+          matchLabel.textContent = "Recomandare apropiată";
+        } else if (lead <= 3) {
+          matchLabel.textContent = "Direcția ta principală";
+        } else {
+          matchLabel.textContent = "Recomandarea ta principală";
+        }
+
+        resultName.textContent = best.name;
+        resultDesc.textContent = best.description;
+        resultTraits.innerHTML = best.traits
+          .map((item) => `<li>${item}</li>`)
+          .join("");
+
+        const alternatives = ranking.slice(1, 4);
+        [alt1, alt2, alt3].forEach((el, index) => {
+          const item = alternatives[index];
+          if (item) {
+            el.innerHTML = `<strong>${index + 2}. ${item.name}</strong><br><span class="score">Punctaj: ${item.score}</span><br><span style="color: var(--muted);">${item.description}</span>`;
+          } else {
+            el.innerHTML = "";
+          }
+        });
+
+        resultBox.style.display = "block";
+        resultBox.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+
+      document.getElementById("submitBtn").addEventListener("click", () => {
+        errorBox.textContent = "";
+        const ranking = calculateResult();
+
+        if (!ranking) {
+          errorBox.textContent =
+            "Te rog să răspunzi la toate întrebările înainte de a vedea rezultatul.";
+          resultBox.style.display = "none";
+          return;
+        }
+
+        showResult(ranking);
+      });
+
+      document.getElementById("resetBtn").addEventListener("click", () => {
+        form.reset();
+        updateProgress();
+        errorBox.textContent = "";
+        resultBox.style.display = "none";
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      renderQuiz();
+      updateProgress();
+    </script>
+  </body>
+</html>
