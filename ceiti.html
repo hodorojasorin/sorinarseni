@@ -624,6 +624,26 @@
         font-size: 0.97rem;
       }
 
+      .site-credit {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        margin-top: 24px;
+        padding: 14px 4px 0;
+        color: rgba(26, 26, 26, 0.68);
+        font-size: 0.96rem;
+      }
+
+      .site-credit a {
+        color: inherit;
+        text-decoration: none;
+        border-bottom: 1px solid rgba(26, 26, 26, 0.25);
+      }
+
+      .site-credit a:hover {
+        border-bottom-color: rgba(26, 26, 26, 0.6);
+      }
+
       @media (max-width: 960px) {
         .layout {
           grid-template-columns: 1fr;
@@ -688,6 +708,11 @@
 
         button {
           width: 100%;
+        }
+
+        .site-credit {
+          flex-direction: column;
+          align-items: flex-start;
         }
       }
     </style>
@@ -814,6 +839,10 @@
           </div>
         </aside>
       </div>
+
+      <footer class="site-credit">
+        <a href="index.html">Copyright © Sorin Arseni</a>
+      </footer>
     </div>
 
     <audio id="resultAudio" preload="auto" playsinline></audio>
