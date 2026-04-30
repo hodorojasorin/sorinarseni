@@ -1,0 +1,1057 @@
+<!doctype html>
+<html lang="ro">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <title>Quiz CEITI — Târg de Cariere</title>
+    <link rel="icon" type="image/x-icon" href="assets/ceiti/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&family=IBM+Plex+Sans:wght@400;500;600;700&family=Special+Elite&display=swap" rel="stylesheet" />
+    <style>
+      *, *::before, *::after { box-sizing: border-box; }
+
+      :root {
+        --paper: #f5f0e8;
+        --paper-soft: rgba(245, 240, 232, 0.92);
+        --ink: #1a1a1a;
+        --muted: #5a4d42;
+        --accent: #f7c842;
+        --accent-deep: #d4a054;
+        --success: #21685a;
+        --danger: #bf4f45;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+        color: var(--ink);
+        background-color: #d6cfc4;
+        background-image:
+          radial-gradient(circle at 20% 30%, rgba(180,160,130,0.3) 0%, transparent 50%),
+          radial-gradient(circle at 80% 70%, rgba(160,140,110,0.25) 0%, transparent 50%),
+          url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+        overflow-x: hidden;
+      }
+
+      .screen {
+        display: none;
+        min-height: 100vh;
+      }
+      .screen.active { display: block; }
+
+      .page {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 28px 20px 56px;
+      }
+
+      .note-card {
+        position: relative;
+        background: var(--paper-soft);
+        border: 1px solid rgba(0,0,0,0.08);
+        box-shadow: 6px 7px 0 rgba(0,0,0,0.18), 12px 16px 34px rgba(0,0,0,0.1);
+      }
+
+      .note-card::before {
+        content: "";
+        position: absolute;
+        top: -12px;
+        left: 58px;
+        width: 74px;
+        height: 24px;
+        background: rgba(255,220,100,0.55);
+        border: 1px solid rgba(200,170,50,0.28);
+        transform: rotate(-3deg);
+      }
+
+      .eyebrow {
+        margin: 0 0 12px;
+        font-family: "Special Elite", serif;
+        font-size: 0.78rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: rgba(26,26,26,0.6);
+      }
+
+      h1 {
+        margin: 0;
+        font-family: "Bree Serif", serif;
+        font-size: clamp(2.2rem, 6vw, 3.6rem);
+        line-height: 1.02;
+        letter-spacing: -0.04em;
+      }
+
+      h2 {
+        margin: 0;
+        font-family: "Bree Serif", serif;
+        font-size: clamp(1.55rem, 4vw, 2.2rem);
+        line-height: 1.1;
+        letter-spacing: -0.03em;
+      }
+
+      .subtitle {
+        margin: 16px 0 0;
+        color: var(--muted);
+        font-size: 1.08rem;
+        line-height: 1.55;
+      }
+
+      /* ── Start Screen ── */
+      .start-card {
+        padding: 32px 28px 36px;
+        transform: rotate(-0.6deg);
+        margin-top: 28px;
+      }
+
+      .rules-box {
+        margin: 24px 0 0;
+        padding: 18px 20px;
+        background: rgba(247,200,66,0.15);
+        border-left: 4px solid #1a1a1a;
+        color: #40362c;
+        line-height: 1.7;
+      }
+
+      .rules-box strong {
+        display: block;
+        margin-bottom: 10px;
+        font-family: "Special Elite", serif;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+      }
+
+      .rules-box ul {
+        margin: 0;
+        padding-left: 20px;
+      }
+
+      .rules-box li + li { margin-top: 6px; }
+
+      .consent-wrap {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        margin-top: 22px;
+        padding: 16px 18px;
+        background: rgba(255,255,255,0.6);
+        border: 1px solid rgba(0,0,0,0.1);
+        box-shadow: 2px 3px 0 rgba(0,0,0,0.08);
+        cursor: pointer;
+      }
+
+      .consent-wrap input[type="checkbox"] {
+        width: 22px;
+        height: 22px;
+        flex-shrink: 0;
+        margin-top: 2px;
+        accent-color: #1a1a1a;
+        cursor: pointer;
+      }
+
+      .consent-wrap label {
+        font-size: 1rem;
+        line-height: 1.5;
+        color: var(--ink);
+        cursor: pointer;
+      }
+
+      /* ── Buttons ── */
+      button {
+        border: none;
+        cursor: pointer;
+        font-family: "Special Elite", serif;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease;
+      }
+
+      button:hover:not(:disabled) { transform: translate(-1px, -1px); }
+      button:disabled { opacity: 0.45; cursor: not-allowed; }
+
+      .btn-primary {
+        display: block;
+        width: 100%;
+        padding: 18px 24px;
+        margin-top: 24px;
+        background: #1a1a1a;
+        color: var(--accent);
+        font-size: 1.05rem;
+        box-shadow: 5px 5px 0 rgba(0,0,0,0.25);
+      }
+
+      .btn-primary:hover:not(:disabled) {
+        box-shadow: 7px 7px 0 rgba(0,0,0,0.28);
+      }
+
+      .btn-secondary {
+        padding: 12px 20px;
+        background: var(--paper);
+        color: var(--ink);
+        border: 1px solid rgba(0,0,0,0.12);
+        box-shadow: 3px 4px 0 rgba(0,0,0,0.14);
+        font-size: 0.88rem;
+      }
+
+      /* ── Quiz Screen ── */
+      .quiz-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 18px;
+      }
+
+      .quiz-badge {
+        padding: 8px 12px;
+        background: rgba(245,240,232,0.9);
+        border: 1px solid rgba(0,0,0,0.1);
+        box-shadow: 3px 4px 0 rgba(0,0,0,0.14);
+        font-family: "Special Elite", serif;
+        font-size: 0.72rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .anticheat-banner {
+        padding: 10px 16px;
+        background: rgba(191,79,69,0.12);
+        border: 1px solid rgba(191,79,69,0.3);
+        border-left: 4px solid var(--danger);
+        font-size: 0.86rem;
+        color: #7a2a25;
+        line-height: 1.5;
+        margin-bottom: 18px;
+      }
+
+      .progress-bar-wrap {
+        height: 10px;
+        background: rgba(26,26,26,0.08);
+        border-radius: 999px;
+        overflow: hidden;
+        margin-bottom: 22px;
+      }
+
+      .progress-bar-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--accent), var(--accent-deep));
+        transition: width 0.3s ease;
+        border-radius: 999px;
+      }
+
+      .question-card {
+        padding: 28px 24px 24px;
+        transform: rotate(-0.4deg);
+      }
+
+      .q-kicker {
+        margin: 0 0 10px;
+        font-family: "Special Elite", serif;
+        font-size: 0.74rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: rgba(26,26,26,0.52);
+      }
+
+      .q-text {
+        margin: 0 0 22px;
+        font-size: 1.22rem;
+        font-weight: 600;
+        line-height: 1.35;
+      }
+
+      .options-grid {
+        display: grid;
+        gap: 12px;
+      }
+
+      .opt-btn {
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+        width: 100%;
+        padding: 16px 18px;
+        background: #fffdf7;
+        border: 1px solid rgba(0,0,0,0.1);
+        box-shadow: 2px 3px 0 rgba(0,0,0,0.08);
+        text-align: left;
+        font-family: "IBM Plex Sans", sans-serif;
+        font-size: 1.05rem;
+        line-height: 1.45;
+        color: var(--ink);
+        letter-spacing: 0;
+        text-transform: none;
+        transition: transform 0.14s ease, box-shadow 0.14s ease, background 0.14s ease, border-color 0.14s ease;
+      }
+
+      .opt-btn:hover:not(:disabled) {
+        transform: translate(-1px, -1px);
+        border-color: rgba(0,0,0,0.2);
+        box-shadow: 4px 5px 0 rgba(0,0,0,0.12);
+      }
+
+      .opt-btn.selected {
+        background: rgba(247,200,66,0.28);
+        border-color: rgba(122,85,47,0.45);
+        box-shadow: 4px 5px 0 rgba(0,0,0,0.16);
+        transform: translate(-2px, -2px);
+      }
+
+      .opt-btn.correct {
+        background: rgba(33,104,90,0.18);
+        border-color: rgba(33,104,90,0.5);
+      }
+
+      .opt-btn.wrong {
+        background: rgba(191,79,69,0.15);
+        border-color: rgba(191,79,69,0.4);
+      }
+
+      .opt-btn:disabled { cursor: default; }
+
+      .opt-letter {
+        flex: 0 0 34px;
+        display: grid;
+        place-items: center;
+        width: 34px;
+        height: 34px;
+        border-radius: 999px;
+        background: #1a1a1a;
+        color: var(--accent);
+        font-family: "Special Elite", serif;
+        font-size: 0.82rem;
+        flex-shrink: 0;
+      }
+
+      .opt-btn.selected .opt-letter {
+        background: var(--accent);
+        color: var(--ink);
+      }
+
+      .opt-btn.correct .opt-letter {
+        background: var(--success);
+        color: #fff;
+      }
+
+      .opt-btn.wrong .opt-letter {
+        background: var(--danger);
+        color: #fff;
+      }
+
+      .quiz-nav {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 20px;
+      }
+
+      .btn-next {
+        padding: 14px 28px;
+        background: #1a1a1a;
+        color: var(--accent);
+        font-size: 0.9rem;
+        box-shadow: 4px 4px 0 rgba(0,0,0,0.22);
+      }
+
+      .btn-next:hover:not(:disabled) {
+        box-shadow: 6px 6px 0 rgba(0,0,0,0.26);
+      }
+
+      /* ── Result Screen ── */
+      .result-card {
+        padding: 32px 28px 36px;
+        margin-top: 28px;
+        text-align: center;
+      }
+
+      .result-card.win { transform: rotate(0.5deg); }
+      .result-card.lose { transform: rotate(-0.4deg); }
+
+      .score-display {
+        margin: 22px auto;
+        width: 130px;
+        height: 130px;
+        border-radius: 999px;
+        background: #1a1a1a;
+        color: var(--accent);
+        display: grid;
+        place-items: center;
+        box-shadow: 5px 6px 0 rgba(0,0,0,0.2);
+      }
+
+      .score-number {
+        font-family: "Bree Serif", serif;
+        font-size: 2.8rem;
+        line-height: 1;
+      }
+
+      .score-label {
+        font-family: "Special Elite", serif;
+        font-size: 0.7rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: rgba(247,200,66,0.7);
+        margin-top: 4px;
+      }
+
+      .result-headline {
+        margin: 18px 0 12px;
+        font-family: "Bree Serif", serif;
+        font-size: clamp(2rem, 6vw, 3.2rem);
+        line-height: 1.05;
+        letter-spacing: -0.04em;
+      }
+
+      .result-headline.win-color { color: var(--success); }
+      .result-headline.lose-color { color: var(--muted); }
+
+      .result-sub {
+        margin: 0 0 28px;
+        font-size: 1.12rem;
+        line-height: 1.6;
+        color: var(--muted);
+      }
+
+      .prize-box {
+        display: inline-block;
+        padding: 14px 22px;
+        background: rgba(247,200,66,0.3);
+        border: 2px solid #1a1a1a;
+        box-shadow: 5px 5px 0 rgba(0,0,0,0.2);
+        font-family: "Bree Serif", serif;
+        font-size: 1.4rem;
+        margin-bottom: 24px;
+      }
+
+      .result-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: center;
+        margin-top: 8px;
+      }
+
+      /* ── Cheat Screen ── */
+      .cheat-card {
+        padding: 40px 28px;
+        margin-top: 28px;
+        text-align: center;
+        transform: rotate(-0.8deg);
+      }
+
+      .cheat-icon {
+        font-size: 4rem;
+        margin-bottom: 16px;
+        display: block;
+      }
+
+      /* ── Toolbar / Logo area ── */
+      .page-toolbar {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-bottom: 18px;
+      }
+
+      .toolbar-version {
+        margin-right: auto;
+        font-family: "Special Elite", serif;
+        font-size: 0.7rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: rgba(26,26,26,0.56);
+        transform: rotate(-2deg);
+      }
+
+      .footer-credit {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 24px;
+        color: rgba(26,26,26,0.6);
+        font-size: 0.9rem;
+      }
+
+      .footer-credit a {
+        color: inherit;
+        text-decoration: none;
+        border-bottom: 1px solid rgba(26,26,26,0.25);
+      }
+
+      /* ── Win Slideshow ── */
+      .slideshow-wrap {
+        position: relative;
+        max-width: 340px;
+        margin: 0 auto 22px;
+        border: 2px dashed rgba(0,0,0,0.18);
+        background: linear-gradient(135deg, rgba(247,200,66,0.12), rgba(255,255,255,0.78));
+        overflow: hidden;
+        min-height: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .slideshow-img {
+        display: block;
+        width: 100%;
+        height: auto;
+        max-height: 280px;
+        object-fit: contain;
+        transition: opacity 0.4s ease;
+        filter: drop-shadow(0 8px 16px rgba(0,0,0,0.18));
+      }
+
+      .slideshow-label {
+        margin-bottom: 10px;
+        font-family: "Special Elite", serif;
+        font-size: 0.72rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: rgba(26,26,26,0.52);
+      }
+
+      /* ── Responsive ── */
+      @media (max-width: 640px) {
+        .page { padding: 16px 14px 40px; }
+        .start-card, .question-card, .result-card, .cheat-card { padding: 22px 18px 24px; }
+        .note-card::before { left: 22px; }
+        h1 { font-size: clamp(1.9rem, 10vw, 2.8rem); }
+        .q-text { font-size: 1.1rem; }
+        .opt-btn { font-size: 0.97rem; padding: 14px 14px; }
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- ══════════════ START SCREEN ══════════════ -->
+    <div id="startScreen" class="screen active">
+      <div class="page">
+        <div class="page-toolbar">
+          <div class="toolbar-version">CEITI</div>
+          <div class="quiz-badge">20 întrebări</div>
+          <div class="quiz-badge">Târg de Cariere</div>
+        </div>
+
+        <section class="note-card start-card">
+          <p class="eyebrow">Quiz de cunoștințe</p>
+          <h1>Cât de pregătit ești pentru IT?</h1>
+          <p class="subtitle">
+            Răspunde la 20 de întrebări despre programare, rețele, contabilitate și mai mult.
+            Scor de peste 80%? Câștigi un premiu!
+          </p>
+
+          <div class="rules-box">
+            <strong>Reguli importante</strong>
+            <ul>
+              <li>Testul are <strong>20 de întrebări</strong> cu câte 3 variante.</li>
+              <li>Dacă <strong>schimbi tab-ul, aplicația sau ieși din browser</strong>, testul se va <strong>închide automat</strong> și vei primi scor 0.</li>
+              <li>Dacă <strong>închizi telefonul sau ecranul</strong>, testul se oprește.</li>
+              <li>Ai o singură șansă. Gândește-te bine înainte să răspunzi.</li>
+            </ul>
+          </div>
+
+          <div class="consent-wrap" onclick="document.getElementById('consentCheck').click()">
+            <input type="checkbox" id="consentCheck" onclick="event.stopPropagation(); toggleStart()" />
+            <label for="consentCheck" onclick="event.preventDefault()">
+              Am înțeles regulile și accept că ieșirea din browser sau schimbarea tab-ului
+              va <strong>închide automat</strong> testul.
+            </label>
+          </div>
+
+          <button class="btn-primary" id="startBtn" disabled onclick="startQuiz()">
+            Începe testul
+          </button>
+        </section>
+
+        <div class="footer-credit">
+          <a href="index.html">Copyright © Sorin Arseni</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════ QUIZ SCREEN ══════════════ -->
+    <div id="quizScreen" class="screen">
+      <div class="page">
+        <div class="quiz-header">
+          <div class="toolbar-version">CEITI</div>
+          <div class="quiz-badge" id="questionCounter">Întrebarea 1 / 15</div>
+        </div>
+
+        <div class="anticheat-banner">
+          Schimbarea tab-ului sau ieșirea din aplicație va <strong>încheia automat</strong> testul.
+        </div>
+
+        <div class="progress-bar-wrap">
+          <div class="progress-bar-fill" id="progressFill" style="width:0%"></div>
+        </div>
+
+        <section class="note-card question-card" id="questionCard">
+          <p class="q-kicker" id="qKicker">Întrebarea 1</p>
+          <p class="q-text" id="qText"></p>
+          <div class="options-grid" id="optionsGrid"></div>
+        </section>
+
+        <div class="quiz-nav">
+          <button class="btn-next" id="nextBtn" disabled onclick="nextQuestion()">
+            Înainte →
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════ RESULT SCREEN ══════════════ -->
+    <div id="resultScreen" class="screen">
+      <div class="page">
+        <div class="page-toolbar">
+          <div class="toolbar-version">CEITI</div>
+          <div class="quiz-badge">Rezultat final</div>
+        </div>
+
+        <section class="note-card result-card" id="resultCard">
+          <p class="eyebrow" id="resultEyebrow">Rezultatul tău</p>
+
+          <div class="score-display">
+            <div>
+              <div class="score-number" id="scoreNumber">0</div>
+              <div class="score-label">din 20</div>
+            </div>
+          </div>
+
+          <div id="slideshowSection" style="display:none">
+            <p class="slideshow-label">Specialitățile CEITI</p>
+            <div class="slideshow-wrap">
+              <img id="slideshowImg" class="slideshow-img" alt="CEITI gif" />
+            </div>
+          </div>
+
+          <h1 class="result-headline" id="resultHeadline"></h1>
+          <p class="result-sub" id="resultSub"></p>
+
+          <div id="prizeBox" class="prize-box" style="display:none">
+            Prezintă-te la standul CEITI pentru a ridica premiul!
+          </div>
+
+          <div class="result-actions">
+            <button class="btn-next" onclick="resetQuiz()">Joacă din nou</button>
+          </div>
+        </section>
+
+        <div class="footer-credit">
+          <a href="index.html">Copyright © Sorin Arseni</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════ CHEAT / END SCREEN ══════════════ -->
+    <div id="cheatScreen" class="screen">
+      <div class="page">
+        <div class="page-toolbar">
+          <div class="toolbar-version">CEITI</div>
+        </div>
+
+        <section class="note-card cheat-card">
+          <span class="cheat-icon">🚫</span>
+          <h2>Testul s-a încheiat</h2>
+          <p style="color:var(--muted); margin:14px 0 28px; font-size:1.08rem; line-height:1.6;">
+            Ai ieșit din aplicație sau ai schimbat tab-ul.<br>
+            Conform regulilor, testul a fost <strong>anulat automat</strong>.
+          </p>
+          <button class="btn-next" onclick="resetQuiz()">Încearcă din nou</button>
+        </section>
+
+        <div class="footer-credit">
+          <a href="index.html">Copyright © Sorin Arseni</a>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const questions = [
+        // 1 — Ușor
+        {
+          text: "Ce limbaje de programare sunt folosite frecvent pentru dezvoltarea aplicațiilor web?",
+          options: ["HTML, CSS, JavaScript", "Excel, Word, Paint", "C++, Fortran, COBOL"],
+          correct: 0,
+          hard: false
+        },
+        // 2 — Greu
+        {
+          text: "Cine a fondat compania Microsoft?",
+          options: ["Steve Jobs", "Bill Gates și Paul Allen", "Mark Zuckerberg"],
+          correct: 1,
+          hard: true
+        },
+        // 3 — Ușor
+        {
+          text: "Ce rol are un programator în procesul de dezvoltare software?",
+          options: ["Vinde produse clienților", "Repară hardware-ul calculatoarelor", "Scrie și testează codul aplicației"],
+          correct: 2,
+          hard: false
+        },
+        // 4 — Greu
+        {
+          text: "În ce an a fost lansat YouTube?",
+          options: ["2003", "2005", "2008"],
+          correct: 1,
+          hard: true
+        },
+        // 5 — Ușor
+        {
+          text: "Ce este o adresă IP?",
+          options: ["Un identificator unic pentru dispozitive în rețea", "Un nume de utilizator", "Un tip de tastatură"],
+          correct: 0,
+          hard: false
+        },
+        // 6 — Greu
+        {
+          text: "Ce înseamnă acronimul HTTP?",
+          options: ["High Tech Transfer Program", "HyperText Transfer Protocol", "Home Tool Technical Protocol"],
+          correct: 1,
+          hard: true
+        },
+        // 7 — Ușor
+        {
+          text: "Care este diferența dintre hardware și software?",
+          options: ["Hardware este fizic, software sunt programele", "Hardware este internetul", "Software este un tip de cablu"],
+          correct: 0,
+          hard: false
+        },
+        // 8 — Greu
+        {
+          text: "Cine a creat limbajul de programare Python?",
+          options: ["James Gosling", "Linus Torvalds", "Guido van Rossum"],
+          correct: 2,
+          hard: true
+        },
+        // 9 — Ușor
+        {
+          text: "Ce înseamnă frontend și backend într-o aplicație web?",
+          options: ["Frontend este serverul fizic", "Frontend este partea vizibilă, backend gestionează logica din spate", "Backend înseamnă doar design"],
+          correct: 1,
+          hard: false
+        },
+        // 10 — Greu
+        {
+          text: "Cine a creat Facebook?",
+          options: ["Elon Musk", "Bill Gates", "Mark Zuckerberg"],
+          correct: 2,
+          hard: true
+        },
+        // 11 — Ușor
+        {
+          text: "Ce este un server?",
+          options: ["Un calculator care stochează și oferă date altor dispozitive", "Un program de editare foto", "Un tip de cablu de rețea"],
+          correct: 0,
+          hard: false
+        },
+        // 12 — Greu
+        {
+          text: "În ce an a fost lansat primul iPhone de către Apple?",
+          options: ["2005", "2007", "2010"],
+          correct: 1,
+          hard: true
+        },
+        // 13 — Ușor
+        {
+          text: "Care este diferența dintre o rețea LAN și WAN?",
+          options: ["LAN este locală, WAN acoperă zone geografice mari", "LAN este mereu mai lentă decât WAN", "WAN nu folosește internetul"],
+          correct: 0,
+          hard: false
+        },
+        // 14 — Greu
+        {
+          text: "Ce înseamnă RAM la un calculator?",
+          options: ["Read Access Memory", "Rapid Application Module", "Random Access Memory"],
+          correct: 2,
+          hard: true
+        },
+        // 15 — Ușor
+        {
+          text: "Ce rol are un contabil într-o companie?",
+          options: ["Se ocupă de evidența financiară a companiei", "Creează și gestionează site-uri web", "Repară calculatoarele angajaților"],
+          correct: 0,
+          hard: false
+        },
+        // 16 — Greu
+        {
+          text: "Câți biți conține un octet (byte)?",
+          options: ["4", "8", "16"],
+          correct: 1,
+          hard: true
+        },
+        // 17 — Ușor
+        {
+          text: "Ce abilități sunt esențiale pentru servicii administrative și secretariat?",
+          options: ["Organizare și comunicare eficientă", "Programare avansată în C++", "Design grafic și editare video"],
+          correct: 0,
+          hard: false
+        },
+        // 18 — Greu
+        {
+          text: "Ce înseamnă DNS în rețele de calculatoare?",
+          options: ["Digital Network Security", "Domain Name System", "Data Network Server"],
+          correct: 1,
+          hard: true
+        },
+        // 19 — Ușor
+        {
+          text: "De ce este importantă securitatea datelor?",
+          options: ["Crește automat viteza conexiunii la internet", "Protejează informațiile de accesul neautorizat", "Face calculatoarele mai rapide fizic"],
+          correct: 1,
+          hard: false
+        },
+        // 20 — Greu
+        {
+          text: "Cine a creat sistemul de operare Linux?",
+          options: ["Bill Gates", "Steve Jobs", "Linus Torvalds"],
+          correct: 2,
+          hard: true
+        }
+      ];
+
+      const PASS_THRESHOLD = 0.8;
+      const TOTAL = questions.length;
+
+      const SLIDESHOW_GIFS = [
+        'assets/ceiti/contabilitate.gif',
+        'assets/ceiti/programare.gif',
+        'assets/ceiti/dezvoltare.gif',
+        'assets/ceiti/retele.gif',
+        'assets/ceiti/operator.gif',
+        'assets/ceiti/secretariat.gif'
+      ];
+
+      let currentIndex = 0;
+      let selectedAnswer = null;
+      let score = 0;
+      let quizActive = false;
+      let testEnded = false;
+      let shuffledQuestions = [];
+      let slideshowTimer = null;
+      let slideshowIndex = 0;
+      const winAudio = new Audio('assets/ceiti/contabilitate.mp3');
+      winAudio.loop = true;
+
+      function shuffle(arr) {
+        const a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+      }
+
+      function startSlideshow() {
+        const img = document.getElementById('slideshowImg');
+        document.getElementById('slideshowSection').style.display = 'block';
+        slideshowIndex = 0;
+        img.style.opacity = '1';
+        img.src = SLIDESHOW_GIFS[0];
+
+        slideshowTimer = setInterval(() => {
+          img.style.opacity = '0';
+          setTimeout(() => {
+            slideshowIndex = (slideshowIndex + 1) % SLIDESHOW_GIFS.length;
+            img.src = SLIDESHOW_GIFS[slideshowIndex];
+            img.style.opacity = '1';
+          }, 420);
+        }, 2800);
+      }
+
+      function stopSlideshow() {
+        if (slideshowTimer) { clearInterval(slideshowTimer); slideshowTimer = null; }
+        document.getElementById('slideshowSection').style.display = 'none';
+      }
+
+      // ── Anti-cheat ──
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden && quizActive && !testEnded) {
+          endTestCheat();
+        }
+      });
+
+      window.addEventListener('pagehide', () => {
+        if (quizActive && !testEnded) {
+          endTestCheat();
+        }
+      });
+
+      // ── UI helpers ──
+      function showScreen(id) {
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      function toggleStart() {
+        const checked = document.getElementById('consentCheck').checked;
+        document.getElementById('startBtn').disabled = !checked;
+      }
+
+      // ── Start ──
+      function startQuiz() {
+        currentIndex = 0;
+        selectedAnswer = null;
+        score = 0;
+        quizActive = true;
+        testEnded = false;
+        shuffledQuestions = shuffle(questions);
+
+        const el = document.documentElement;
+        if (el.requestFullscreen) el.requestFullscreen().catch(() => {});
+        else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+
+        showScreen('quizScreen');
+        renderQuestion();
+      }
+
+      // ── Render current question ──
+      function renderQuestion() {
+        const q = shuffledQuestions[currentIndex];
+        const progress = (currentIndex / TOTAL) * 100;
+
+        document.getElementById('progressFill').style.width = progress + '%';
+        document.getElementById('questionCounter').textContent = `Întrebarea ${currentIndex + 1} / ${TOTAL}`;
+        document.getElementById('qText').textContent = q.text;
+
+        selectedAnswer = null;
+        document.getElementById('nextBtn').disabled = true;
+
+        document.getElementById('qKicker').innerHTML =
+          `Întrebarea ${currentIndex + 1} &nbsp;·&nbsp; <span style="font-size:0.68rem;padding:2px 7px;background:${q.hard ? 'rgba(191,79,69,0.18)' : 'rgba(33,104,90,0.16)'};color:${q.hard ? '#7a2a25' : '#1a4a40'};border-radius:3px;">${q.hard ? 'GREU' : 'UȘOR'}</span>`;
+
+        const grid = document.getElementById('optionsGrid');
+        grid.innerHTML = '';
+
+        q.options.forEach((opt, i) => {
+          const btn = document.createElement('button');
+          btn.className = 'opt-btn';
+          btn.innerHTML = `<span class="opt-letter">${String.fromCharCode(65 + i)}</span><span>${opt}</span>`;
+          btn.onclick = () => selectAnswer(i);
+          grid.appendChild(btn);
+        });
+      }
+
+      // ── Select answer ──
+      function selectAnswer(index) {
+        if (selectedAnswer !== null) return;
+        selectedAnswer = index;
+
+        const buttons = document.querySelectorAll('.opt-btn');
+        buttons.forEach((btn, i) => {
+          btn.disabled = true;
+          if (i === index) {
+            btn.classList.add('selected');
+          }
+        });
+
+        document.getElementById('nextBtn').disabled = false;
+      }
+
+      // ── Next question ──
+      function nextQuestion() {
+        if (selectedAnswer === null) return;
+
+        const q = shuffledQuestions[currentIndex];
+
+        // Show correct/wrong feedback briefly
+        const buttons = document.querySelectorAll('.opt-btn');
+        if (selectedAnswer === q.correct) {
+          score++;
+          buttons[selectedAnswer].classList.add('correct');
+          buttons[selectedAnswer].querySelector('.opt-letter').style.background = 'var(--success)';
+          buttons[selectedAnswer].querySelector('.opt-letter').style.color = '#fff';
+        } else {
+          buttons[selectedAnswer].classList.remove('selected');
+          buttons[selectedAnswer].classList.add('wrong');
+          buttons[selectedAnswer].querySelector('.opt-letter').style.background = 'var(--danger)';
+          buttons[selectedAnswer].querySelector('.opt-letter').style.color = '#fff';
+          // Also show correct answer
+          buttons[q.correct].classList.add('correct');
+          buttons[q.correct].querySelector('.opt-letter').style.background = 'var(--success)';
+          buttons[q.correct].querySelector('.opt-letter').style.color = '#fff';
+        }
+
+        document.getElementById('nextBtn').disabled = true;
+
+        setTimeout(() => {
+          currentIndex++;
+          if (currentIndex >= TOTAL) {
+            endQuiz();
+          } else {
+            renderQuestion();
+          }
+        }, 900);
+      }
+
+      // ── End quiz normally ──
+      function endQuiz() {
+        quizActive = false;
+        testEnded = true;
+        document.getElementById('progressFill').style.width = '100%';
+
+        const passed = score / TOTAL >= PASS_THRESHOLD;
+        const card = document.getElementById('resultCard');
+        const headline = document.getElementById('resultHeadline');
+        const sub = document.getElementById('resultSub');
+        const prizeBox = document.getElementById('prizeBox');
+
+        document.getElementById('scoreNumber').textContent = score;
+        document.getElementById('resultEyebrow').textContent = passed ? 'Felicitări!' : 'Rezultatul tău';
+
+        card.className = 'note-card result-card ' + (passed ? 'win' : 'lose');
+
+        if (passed) {
+          headline.textContent = 'Ai câștigat un premiu!';
+          headline.className = 'result-headline win-color';
+          sub.textContent = `Ai obținut ${score} din ${TOTAL} răspunsuri corecte (${Math.round(score / TOTAL * 100)}%). Excelent!`;
+          prizeBox.style.display = 'inline-block';
+          showScreen('resultScreen');
+          winAudio.currentTime = 0;
+          winAudio.play().catch(() => {});
+          startSlideshow();
+        } else {
+          headline.textContent = 'Mulțumim că ai participat!';
+          headline.className = 'result-headline lose-color';
+          sub.textContent = `Ai obținut ${score} din ${TOTAL} răspunsuri corecte (${Math.round(score / TOTAL * 100)}%). Trebuie cel puțin 80% (${Math.ceil(TOTAL * PASS_THRESHOLD)} corecte) pentru premiu. Mai încearcă!`;
+          prizeBox.style.display = 'none';
+          stopSlideshow();
+          showScreen('resultScreen');
+        }
+
+        exitFullscreen();
+      }
+
+      // ── End quiz due to cheat ──
+      function endTestCheat() {
+        quizActive = false;
+        testEnded = true;
+        showScreen('cheatScreen');
+        exitFullscreen();
+      }
+
+      // ── Reset ──
+      function resetQuiz() {
+        testEnded = false;
+        quizActive = false;
+        winAudio.pause();
+        winAudio.currentTime = 0;
+        stopSlideshow();
+        document.getElementById('consentCheck').checked = false;
+        document.getElementById('startBtn').disabled = true;
+        showScreen('startScreen');
+        exitFullscreen();
+      }
+
+      function exitFullscreen() {
+        try {
+          if (document.exitFullscreen) document.exitFullscreen();
+          else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+        } catch(_) {}
+      }
+    </script>
+  </body>
+</html>
