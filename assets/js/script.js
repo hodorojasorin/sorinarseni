@@ -113,8 +113,8 @@
             "✓ student computer science - ceiti<br />✓ future multimedia production student - usm<br />✗ i don't like mac and cheese",
           overview_contact:
             "👇 for inquiries, team-ups<br />contact@sorinarseni.com",
-          spotify_label: "playlist tipa nostalgic",
-          youtube_embed_label: "eu când am iesit din sesiune",
+          spotify_label: "the nostalgic kinda playlist",
+          youtube_embed_label: "me when i finished my exams",
           image_preview: "Image preview",
           footer_copy:
             "© 2026 SORIN ARSENI · HANDCRAFTED BY MYSELF · ALL RIGHTS WHATEVER",
