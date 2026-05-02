@@ -32,7 +32,7 @@
 
       const translations = {
         ro: {
-          header_sub: "Digital Creator & vlogger wannabe",
+          header_sub: "Digital Creator",
           barcode_label:
             "LOCATION: CHIȘINĂU, MOLDOVA, mc centru<br />STATUS: ONLINE, probabil dau scroll pe TikTok",
           open_portrait: "Deschide portretul",
@@ -69,12 +69,14 @@
             "✓ elev computer science - ceiti<br />✓ viitor student la producție multimedia - usm<br />✗ nu-mi plac macaroanele cu brânză",
           overview_contact:
             "👇 pentru inquiries, team-up<br />contact@sorinarseni.com",
+          spotify_label: "playlist tipa nostalgic",
+          youtube_embed_label: "eu când am iesit din sesiune",
           image_preview: "Previzualizare imagine",
           footer_copy:
             "© 2026 SORIN ARSENI · HANDCRAFTED BY MYSELF · ALL RIGHTS WHATEVER",
         },
         en: {
-          header_sub: "Digital Creator & vlogger wannabe",
+          header_sub: "Digital Creator",
           barcode_label:
             "LOCATION: CHISINAU, MOLDOVA, mcdonald's center<br />STATUS: ONLINE, probably scrolling TikTok",
           open_portrait: "Open portrait",
@@ -111,6 +113,8 @@
             "✓ student computer science - ceiti<br />✓ future multimedia production student - usm<br />✗ i don't like mac and cheese",
           overview_contact:
             "👇 for inquiries, team-ups<br />contact@sorinarseni.com",
+          spotify_label: "playlist tipa nostalgic",
+          youtube_embed_label: "eu când am iesit din sesiune",
           image_preview: "Image preview",
           footer_copy:
             "© 2026 SORIN ARSENI · HANDCRAFTED BY MYSELF · ALL RIGHTS WHATEVER",
