@@ -589,6 +589,125 @@
 
       .prize-rung.current .prize-rung-pct { color: var(--success); font-weight: 700; }
 
+      /* ── QR Modal ── */
+      .qr-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(15,12,8,0.72);
+        z-index: 999;
+        padding: 20px;
+        overflow-y: auto;
+        place-items: center;
+      }
+      .qr-overlay.open { display: grid; }
+
+      .qr-card {
+        position: relative;
+        width: 100%;
+        max-width: 680px;
+        background: var(--paper-soft);
+        border: 1px solid rgba(0,0,0,0.1);
+        box-shadow: 8px 10px 0 rgba(0,0,0,0.22), 0 24px 48px rgba(0,0,0,0.28);
+        padding: 32px 28px 36px;
+      }
+
+      .qr-card::before {
+        content: "";
+        position: absolute;
+        top: -12px;
+        left: 50px;
+        width: 74px;
+        height: 24px;
+        background: rgba(255,220,100,0.55);
+        border: 1px solid rgba(200,170,50,0.28);
+        transform: rotate(-2deg);
+      }
+
+      .qr-close {
+        position: absolute;
+        top: 14px;
+        right: 14px;
+        width: 36px;
+        height: 36px;
+        background: #1a1a1a;
+        color: var(--accent);
+        font-size: 1.1rem;
+        display: grid;
+        place-items: center;
+        box-shadow: 3px 3px 0 rgba(0,0,0,0.2);
+        padding: 0;
+        line-height: 1;
+      }
+
+      .qr-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin-top: 24px;
+      }
+
+      .qr-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 14px;
+        padding: 20px 16px 18px;
+        background: rgba(255,255,255,0.62);
+        border: 1px solid rgba(0,0,0,0.1);
+        box-shadow: 3px 4px 0 rgba(0,0,0,0.1);
+        text-align: center;
+      }
+
+      .qr-item:first-child { transform: rotate(-0.6deg); }
+      .qr-item:last-child  { transform: rotate(0.5deg); }
+
+      .qr-img {
+        display: block;
+        width: 100%;
+        max-width: 180px;
+        height: auto;
+        border: 2px solid rgba(0,0,0,0.08);
+      }
+
+      .qr-tag {
+        font-family: "Special Elite", serif;
+        font-size: 0.68rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: rgba(26,26,26,0.52);
+        margin-bottom: 2px;
+      }
+
+      .qr-title {
+        font-family: "Bree Serif", serif;
+        font-size: 1.12rem;
+        line-height: 1.2;
+        margin: 0 0 6px;
+      }
+
+      .qr-desc {
+        font-size: 0.9rem;
+        color: var(--muted);
+        line-height: 1.55;
+        margin: 0;
+      }
+
+      .btn-qr {
+        padding: 9px 14px;
+        background: rgba(245,240,232,0.9);
+        color: var(--ink);
+        border: 1px solid rgba(0,0,0,0.12);
+        box-shadow: 3px 3px 0 rgba(0,0,0,0.12);
+        font-size: 0.72rem;
+      }
+
+      @media (max-width: 520px) {
+        .qr-grid { grid-template-columns: 1fr; }
+        .qr-item:first-child, .qr-item:last-child { transform: none; }
+        .qr-card { padding: 24px 16px 28px; }
+      }
+
       .staff-msg {
         margin-top: 20px;
         padding: 14px 18px;
@@ -672,6 +791,9 @@
           <div class="toolbar-version">CEITI</div>
           <div class="quiz-badge">20 întrebări</div>
           <div class="quiz-badge">Târg de Cariere</div>
+          <button class="btn-qr" onclick="document.getElementById('qrOverlay').classList.add('open')">
+            Scanează QR
+          </button>
         </div>
 
         <section class="note-card start-card">
@@ -1348,6 +1470,54 @@
           else if (document.webkitExitFullscreen)
             document.webkitExitFullscreen();
         } catch (_) {}
+      }
+    </script>
+
+    <!-- ══════════════ QR MODAL ══════════════ -->
+    <div id="qrOverlay" class="qr-overlay" onclick="closeQR(event)">
+      <div class="qr-card" onclick="event.stopPropagation()">
+        <button class="qr-close" onclick="document.getElementById('qrOverlay').classList.remove('open')" aria-label="Închide">✕</button>
+
+        <p class="eyebrow" style="margin:0 0 6px;">Scanează și explorează</p>
+        <h2 style="margin:0; font-family:'Bree Serif',serif; font-size:clamp(1.4rem,4vw,2rem); letter-spacing:-0.03em;">
+          Linkuri CEITI
+        </h2>
+
+        <div class="qr-grid">
+          <div class="qr-item">
+            <p class="qr-tag">Test de orientare</p>
+            <img class="qr-img" src="assets/ceiti/test_spec.png" alt="QR test de orientare în carieră" />
+            <div>
+              <p class="qr-title">Ce specialitate ți se potrivește?</p>
+              <p class="qr-desc">
+                Răspunde la 8 întrebări despre felul în care gândești și lucrezi,
+                și primești o recomandare orientativă cu specialitatea CEITI
+                cea mai potrivită pentru tine.
+              </p>
+            </div>
+          </div>
+
+          <div class="qr-item">
+            <p class="qr-tag">Quiz cu premii</p>
+            <img class="qr-img" src="assets/ceiti/quiz_ceiti.png" alt="QR quiz CEITI cu premii" />
+            <div>
+              <p class="qr-title">Câștigă un premiu CEITI!</p>
+              <p class="qr-desc">
+                Testează-ți cunoștințele la 20 de întrebări despre IT, rețele
+                și contabilitate. Cu cât scorul e mai mare, cu atât premiul
+                e mai bun — de la pix până la sticlă brandată CEITI.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function closeQR(e) {
+        if (e.target === document.getElementById('qrOverlay')) {
+          document.getElementById('qrOverlay').classList.remove('open');
+        }
       }
     </script>
   </body>
