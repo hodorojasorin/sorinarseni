@@ -1386,8 +1386,8 @@
 
       .section-label-spotify {
         font-size: 1.3rem;
-        color: #fff;
-        background: #121212;
+        color: #1a1a1a;
+        background: #fff;
         padding: 4px 14px;
         transform: rotate(-1deg);
         box-shadow: 4px 4px 0 #e8115a;
