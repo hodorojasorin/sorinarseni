@@ -1,0 +1,1507 @@
+<!doctype html>
+<html lang="ro">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recapitulare // Dev Quiz</title>
+    <style>
+      :root {
+        --bg: #0d1117;
+        --bg-elev: #11161d;
+        --panel: #161b22;
+        --line: #21262d;
+        --text: #c9d1d9;
+        --text-dim: #8b949e;
+        --accent: #39d98a;
+        --accent-dim: #1f6e46;
+        --red: #f85149;
+        --red-dim: #3a1618;
+        --yellow: #e3b341;
+        --blue: #58a6ff;
+        --mono: "JetBrains Mono", "Fira Code", "Consolas", monospace;
+        --sans: "Inter", "Segoe UI", sans-serif;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--sans);
+      }
+      body {
+        min-height: 100vh;
+      }
+
+      @keyframes blink {
+        0%,
+        50% {
+          opacity: 1;
+        }
+        51%,
+        100% {
+          opacity: 0;
+        }
+      }
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes popIn {
+        from {
+          opacity: 0;
+          transform: scale(0.96);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: rgba(13, 17, 23, 0.92);
+        backdrop-filter: blur(6px);
+        border-bottom: 1px solid var(--line);
+        padding: 14px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-family: var(--mono);
+        font-weight: 600;
+        letter-spacing: 0.5px;
+      }
+      .brand .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--accent);
+        box-shadow: 0 0 8px var(--accent);
+      }
+      .brand .caret {
+        color: var(--accent);
+        animation: blink 1.1s step-end infinite;
+      }
+      .progress-wrap {
+        flex: 1;
+        max-width: 480px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .progress-track {
+        height: 6px;
+        border-radius: 4px;
+        background: var(--line);
+        overflow: hidden;
+      }
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--accent-dim), var(--accent));
+        transition: width 0.4s ease;
+      }
+      .progress-label {
+        font-size: 11px;
+        color: var(--text-dim);
+        font-family: var(--mono);
+        display: flex;
+        justify-content: space-between;
+      }
+      .score-pill {
+        font-family: var(--mono);
+        font-size: 13px;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        padding: 6px 14px;
+        color: var(--accent);
+        white-space: nowrap;
+      }
+
+      .cat-rail {
+        display: flex;
+        gap: 6px;
+        padding: 10px 20px;
+        overflow-x: auto;
+        border-bottom: 1px solid var(--line);
+        background: var(--bg-elev);
+        scrollbar-width: none;
+      }
+      .cat-rail::-webkit-scrollbar {
+        display: none;
+      }
+      .cat-chip {
+        font-family: var(--mono);
+        font-size: 12px;
+        padding: 6px 12px;
+        border-radius: 6px;
+        background: var(--panel);
+        color: var(--text-dim);
+        border: 1px solid var(--line);
+        white-space: nowrap;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .cat-chip.done {
+        color: var(--accent);
+        border-color: var(--accent-dim);
+      }
+      .cat-chip.active {
+        background: var(--accent-dim);
+        color: #eafff4;
+        border-color: var(--accent);
+      }
+      .cat-chip .ic {
+        font-size: 13px;
+      }
+
+      main {
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 28px 18px 80px;
+      }
+
+      .cat-intro {
+        text-align: center;
+        padding: 40px 16px;
+        animation: fadeUp 0.4s ease;
+      }
+      .cat-intro .num {
+        font-family: var(--mono);
+        color: var(--text-dim);
+        font-size: 13px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      }
+      .cat-intro h1 {
+        font-size: 34px;
+        margin: 10px 0 8px;
+        font-family: var(--mono);
+      }
+      .cat-intro p {
+        color: var(--text-dim);
+        max-width: 440px;
+        margin: 0 auto 26px;
+        line-height: 1.5;
+      }
+      .start-btn {
+        font-family: var(--mono);
+        background: var(--accent);
+        color: #062b1a;
+        border: none;
+        padding: 13px 30px;
+        border-radius: 8px;
+        font-size: 15px;
+        font-weight: 700;
+        cursor: pointer;
+        box-shadow: 0 4px 0 var(--accent-dim);
+        transition: transform 0.12s ease;
+      }
+      .start-btn:hover {
+        transform: translateY(-2px);
+      }
+      .start-btn:active {
+        transform: translateY(1px);
+        box-shadow: 0 2px 0 var(--accent-dim);
+      }
+
+      .card {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 24px;
+        margin-bottom: 18px;
+        animation: popIn 0.3s ease;
+      }
+      .q-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 14px;
+      }
+      .q-tag {
+        font-family: var(--mono);
+        font-size: 11px;
+        color: var(--accent);
+        background: var(--accent-dim);
+        padding: 3px 9px;
+        border-radius: 5px;
+        letter-spacing: 0.5px;
+      }
+      .q-count {
+        font-family: var(--mono);
+        font-size: 12px;
+        color: var(--text-dim);
+      }
+      .q-text {
+        font-size: 17px;
+        line-height: 1.55;
+        margin: 0 0 16px;
+      }
+      .q-text b {
+        color: #fff;
+      }
+      .q-text i {
+        color: var(--blue);
+      }
+
+      pre.code-block {
+        background: #0a0e13;
+        border: 1px solid var(--line);
+        border-left: 3px solid var(--accent-dim);
+        border-radius: 8px;
+        padding: 16px 18px;
+        overflow-x: auto;
+        margin: 0 0 18px;
+        font-family: var(--mono);
+        font-size: 13.5px;
+        line-height: 1.6;
+        color: #e6edf3;
+      }
+      code.inline {
+        font-family: var(--mono);
+        background: #0a0e13;
+        border: 1px solid var(--line);
+        padding: 2px 6px;
+        border-radius: 5px;
+        font-size: 13px;
+        color: #e6edf3;
+      }
+
+      .options {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .opt {
+        text-align: left;
+        background: var(--bg-elev);
+        border: 1.5px solid var(--line);
+        border-radius: 8px;
+        padding: 13px 16px;
+        color: var(--text);
+        font-size: 14.5px;
+        cursor: pointer;
+        font-family: var(--sans);
+        transition:
+          border-color 0.15s,
+          background 0.15s;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+      }
+      .opt .opt-mark {
+        width: 18px;
+        height: 18px;
+        border-radius: 5px;
+        border: 1.5px solid var(--text-dim);
+        flex: 0 0 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+      }
+      .opt.multi .opt-mark {
+        border-radius: 4px;
+      }
+      .opt:hover:not(.locked) {
+        border-color: var(--blue);
+        background: #121826;
+      }
+
+      .opt.correct {
+        border-color: var(--accent);
+        background: rgba(57, 217, 138, 0.08);
+      }
+      .opt.correct .opt-mark {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #062b1a;
+      }
+      .opt.wrong {
+        border-color: var(--red);
+        background: rgba(248, 81, 73, 0.08);
+      }
+      .opt.wrong .opt-mark {
+        background: var(--red);
+        border-color: var(--red);
+        color: #2b0a08;
+      }
+      .opt.locked {
+        cursor: default;
+      }
+      .opt.dim {
+        opacity: 0.55;
+      }
+
+      .answer-input {
+        width: 100%;
+        font-family: var(--mono);
+        font-size: 15px;
+        background: var(--bg-elev);
+        border: 1.5px solid var(--line);
+        border-radius: 8px;
+        padding: 13px 16px;
+        color: var(--text);
+      }
+      .answer-input:focus {
+        outline: none;
+        border-color: var(--blue);
+      }
+      .answer-input.correct {
+        border-color: var(--accent);
+        background: rgba(57, 217, 138, 0.08);
+      }
+      .answer-input.wrong {
+        border-color: var(--red);
+        background: rgba(248, 81, 73, 0.08);
+      }
+      .submit-row {
+        display: flex;
+        gap: 10px;
+        margin-top: 14px;
+      }
+      .btn {
+        font-family: var(--mono);
+        border: none;
+        border-radius: 7px;
+        padding: 11px 22px;
+        font-size: 13.5px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .btn-primary {
+        background: var(--blue);
+        color: #04111f;
+      }
+      .btn-primary:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+      .btn-next {
+        background: var(--accent);
+        color: #062b1a;
+      }
+
+      .feedback {
+        margin-top: 16px;
+        border-radius: 8px;
+        padding: 14px 16px;
+        font-size: 14px;
+        line-height: 1.5;
+        animation: fadeUp 0.25s ease;
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+      }
+      .feedback.ok {
+        background: rgba(57, 217, 138, 0.08);
+        border: 1px solid var(--accent-dim);
+        color: #9ef0c4;
+      }
+      .feedback.bad {
+        background: rgba(248, 81, 73, 0.08);
+        border: 1px solid #5a2422;
+        color: #ffb4ae;
+      }
+      .feedback .ic {
+        font-size: 17px;
+        flex: 0 0 auto;
+      }
+      .feedback .corr-line {
+        margin-top: 6px;
+        font-family: var(--mono);
+        font-size: 13px;
+        color: var(--accent);
+      }
+      .feedback b {
+        color: #fff;
+      }
+
+      .footer-next {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 4px;
+      }
+
+      .result-screen {
+        text-align: center;
+        padding: 50px 16px;
+        animation: fadeUp 0.4s ease;
+      }
+      .result-screen .big-score {
+        font-family: var(--mono);
+        font-size: 64px;
+        font-weight: 800;
+        margin: 14px 0 4px;
+      }
+      .result-screen .sub {
+        color: var(--text-dim);
+        margin-bottom: 30px;
+      }
+      .breakdown {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        max-width: 420px;
+        margin: 0 auto 30px;
+      }
+      .bd-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 10px 14px;
+        font-family: var(--mono);
+        font-size: 13px;
+      }
+      .bd-row .bd-name {
+        flex: 0 0 150px;
+        text-align: left;
+        color: var(--text-dim);
+      }
+      .bd-row .bd-bar {
+        flex: 1;
+        height: 8px;
+        background: var(--line);
+        border-radius: 4px;
+        overflow: hidden;
+      }
+      .bd-row .bd-bar-fill {
+        height: 100%;
+        background: var(--accent);
+      }
+      .bd-row .bd-score {
+        flex: 0 0 50px;
+        text-align: right;
+        color: var(--text);
+      }
+      .restart-btn {
+        font-family: var(--mono);
+        background: var(--panel);
+        border: 1.5px solid var(--accent);
+        color: var(--accent);
+        padding: 12px 26px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      @media (max-width: 600px) {
+        .topbar {
+          flex-wrap: wrap;
+        }
+        .progress-wrap {
+          order: 3;
+          flex: 1 1 100%;
+          max-width: 100%;
+        }
+        .cat-intro h1 {
+          font-size: 26px;
+        }
+        .result-screen .big-score {
+          font-size: 48px;
+        }
+        .bd-row .bd-name {
+          flex: 0 0 110px;
+          font-size: 11px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="topbar">
+      <div class="brand">
+        <span class="dot"></span>recapitulare<span class="caret">_</span>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+        </div>
+        <div class="progress-label">
+          <span id="progressLabel">Pregătit de start</span
+          ><span id="progressPct">0%</span>
+        </div>
+      </div>
+      <div class="score-pill" id="scorePill">Scor: 0/0</div>
+    </div>
+
+    <div class="cat-rail" id="catRail"></div>
+
+    <main id="main"></main>
+
+    <script>
+      /* ================= DATE ================= */
+      const CATEGORIES = [
+        { key: "html", label: "HTML", icon: "◇" },
+        { key: "css", label: "CSS", icon: "◈" },
+        { key: "js", label: "JavaScript", icon: "◆" },
+        { key: "php", label: "PHP", icon: "●" },
+        { key: "laravel", label: "Laravel", icon: "▲" },
+        { key: "testare", label: "Testare", icon: "✓" },
+        { key: "server", label: "Admin. Server", icon: "■" },
+        { key: "management", label: "Management", icon: "★" },
+      ];
+
+      function O(text, correct) {
+        return { text, correct: !!correct };
+      }
+
+      const QUESTIONS = [];
+      let _id = 0;
+      function add(cat, type, text, opts) {
+        _id++;
+        QUESTIONS.push(Object.assign({ id: _id, cat, type }, opts, { text }));
+      }
+
+      /* ---------- HTML ---------- */
+      add("html", "single", "Selectați marcajul care definește un formular.", {
+        code: `&lt;select&gt; &lt;/select&gt;\n&lt;forms&gt;...&lt;/forms&gt;\n&lt;form&gt; &lt;/form&gt;\n&lt;frame&gt; &lt;/frame&gt;`,
+        showCode: false,
+        options: [
+          O("&lt;select&gt; &lt;/select&gt;"),
+          O("&lt;forms&gt;...&lt;/forms&gt;"),
+          O("&lt;form&gt; &lt;/form&gt;", 1),
+          O("&lt;frame&gt; &lt;/frame&gt;"),
+        ],
+        explain:
+          "Marcajul &lt;form&gt; este cel care definește un formular HTML. &lt;select&gt; e o listă de selecție, &lt;forms&gt; nu există, iar &lt;frame&gt; e folosit (istoric) pentru cadre de pagină.",
+      });
+      add(
+        "html",
+        "multi",
+        "Selectați din lista de mai jos componentele unui formular.",
+        {
+          options: [
+            O("butoane radio", 1),
+            O("casete de validare", 1),
+            O("butoane", 1),
+            O("tabele"),
+            O("câmpuri de editare", 1),
+            O("liste ordonate/neordonate"),
+            O("liste de selecție", 1),
+          ],
+          explain:
+            "Tabelele și listele ordonate/neordonate sunt elemente de structură/conținut, nu componente de formular. Componentele de formular sunt: radio, checkbox, buton, câmp de editare, listă de selecție (select).",
+        },
+      );
+      add("html", "multi", "Selectați atributele marcajului &lt;a&gt;:", {
+        options: [O("size"), O("target", 1), O("href", 1), O("text"), O("src")],
+        explain:
+          "&lt;a&gt; folosește href (destinația) și target (unde se deschide). „size”, „text” și „src” nu sunt atribute ale lui &lt;a&gt;.",
+      });
+      add("html", "single", "Ce va afișa următoarea secvență de cod:", {
+        code: `&lt;img src="img/foto.jpg" height="100" width="100"&gt;\n&lt;img src="img/foto.jpg" height="100" width="100"&gt;\n&lt;img src="img/foto.jpg" height="100" width="100"&gt;`,
+        options: [
+          O("o singură imagine aliniată la dreapta"),
+          O("trei imagini una sub alta"),
+          O("o singură imagine"),
+          O("trei imagini într-un rînd", 1),
+        ],
+        explain:
+          "Elementele &lt;img&gt; sunt inline implicit, deci se afișează una lângă alta, pe același rând, dacă spațiul permite — nu una sub alta.",
+      });
+      add("html", "text", "Indicați descifrarea corectă a acronimului HTML.", {
+        options: [
+          O("HyperText Markup Language", 1),
+          O("HyperText Makeup Language"),
+          O("Hyperlink and Text Markup Language"),
+          O("Hyperlink and Text Makeup Language"),
+        ],
+        explain:
+          "HTML = HyperText Markup Language — limbajul de marcare pentru hipertext, nu „makeup” și nu „hyperlink”.",
+      });
+      add(
+        "html",
+        "multi",
+        "Trageți în câmpurile libere atributele corespunzătoare tagului &lt;meta&gt; din fragmentul de mai jos.",
+        {
+          code: `&lt;meta ____="keywords" ____="Centrul de Excelență în Informatică și Tehnologii Informaționale"&gt;`,
+          text2:
+            'Care este atributul care indică tipul informației (ex: "keywords") și care indică textul descrierii?',
+          options: [
+            O(
+              'name → conține tipul ("keywords"), content → conține descrierea',
+              1,
+            ),
+            O("content → conține tipul, name → conține descrierea"),
+            O("user → conține tipul, author → conține descrierea"),
+            O("author → conține tipul, content → conține descrierea"),
+          ],
+          explain:
+            'La &lt;meta&gt;, atributul "name" indică tipul metadatei (ex: keywords, description, author), iar "content" conține valoarea/textul propriu-zis.',
+        },
+      );
+      add(
+        "html",
+        "multi",
+        "Trageți în câmpurile libere atributele tagului &lt;td&gt; pentru a obține un tabel cu celule unite (rowspan/colspan) conform imaginii.",
+        {
+          code: `&lt;tr&gt; &lt;td ____="3"&gt;cell 11&lt;br&gt;cell 21&lt;br&gt;cell 31&lt;/td&gt;\n  &lt;td&gt;cell 12&lt;/td&gt;\n  &lt;td ____="3"&gt;cell 13, cell 14&lt;br&gt;cell 23, cell 24&lt;br&gt;cell 33, cell 34&lt;/td&gt; &lt;/tr&gt;\n...\n&lt;td ____="2"&gt;cell 42, cell 43, cell 44&lt;/td&gt;`,
+          options: [
+            O(
+              "rowspan pentru celulele verticale unite, colspan pentru cele orizontale unite",
+              1,
+            ),
+            O("colspan pentru toate situațiile"),
+            O("rowspan pentru toate situațiile"),
+            O("span pentru toate situațiile"),
+          ],
+          explain:
+            'rowspan unește celule pe verticală (mai multe rânduri), colspan unește celule pe orizontală (mai multe coloane). Nu există atributul generic "span".',
+        },
+      );
+      add("html", "multi", "Selectați atributele marcajului &lt;select&gt;.", {
+        options: [
+          O("name", 1),
+          O("type"),
+          O("multiple", 1),
+          O("size", 1),
+          O("option"),
+        ],
+        explain:
+          '&lt;select&gt; are atributele name, multiple și size. "type" este atribut pentru &lt;input&gt;, iar "option" este un tag separat (&lt;option&gt;), nu un atribut.',
+      });
+      add(
+        "html",
+        "single",
+        'Completați câmpurile libere în codul HTML astfel încît interpretarea lui în browser să reprezinte ca imagine (titlu "Specialitatea Informatică" cu h1 verde și paragraf cu chenar verde și text albastru).',
+        {
+          code: `&lt;style&gt;\n  p {color: blue;}\n  h1 {color: green;}\n  p { border: 2px solid green;}\n&lt;/style&gt;\n...\n&lt;____&gt;\n&lt;h1&gt;Specialitatea Informatică&lt;/h1&gt;\n&lt;p&gt;Aici studiezi limbaje de programare...&lt;/p&gt;\n&lt;/____&gt;`,
+          options: [O("body", 1), O("head"), O("html"), O("div")],
+          explain:
+            "Conținutul vizibil al paginii (h1 și p) trebuie plasat în &lt;body&gt;, nu în &lt;head&gt; (acolo intră doar metadate și stiluri).",
+        },
+      );
+      add(
+        "html",
+        "single",
+        "Indicați valoarea de adevăr a enunțului: Datele din formular pot fi validate cu JavaScript înainte de a fi trimise pe server.",
+        {
+          options: [O("Adevărat", 1), O("Fals")],
+          explain:
+            "JavaScript poate verifica datele dintr-un formular (validare client-side) înainte de trimiterea către server, economisind o cerere inutilă pe server.",
+        },
+      );
+      add(
+        "html",
+        "multi",
+        "Indicați marcajele care permit construirea listelor în pagina Web.",
+        {
+          options: [
+            O("&lt;td&gt;&lt;/td&gt;"),
+            O("&lt;ol&gt;&lt;/ol&gt;", 1),
+            O("&lt;ul&gt;&lt;/ul&gt;", 1),
+            O("&lt;dt&gt;&lt;/dt&gt;", 1),
+            O("&lt;dl&gt;&lt;/dl&gt;", 1),
+            O("&lt;li&gt;&lt;/li&gt;", 1),
+          ],
+          explain:
+            "&lt;ol&gt;, &lt;ul&gt;, &lt;dl&gt;, &lt;dt&gt; și &lt;li&gt; sunt toate folosite pentru liste (ordonate, neordonate, de definiții). &lt;td&gt; este pentru celule de tabel.",
+        },
+      );
+      add(
+        "html",
+        "single",
+        "Ce proprietăți va avea tagul &lt;span&gt; din fragmentul HTML/CSS dat?",
+        {
+          code: `&lt;style&gt;\n  .first span { color:red; margin:10px; }\n  .last span { color:yellow; margin:5px; }\n&lt;/style&gt;\n&lt;div class='first last'&gt;\n  &lt;span style="color:green"&gt;Text&lt;/span&gt;\n&lt;/div&gt;`,
+          options: [
+            O("color: yellow; margin: 5px;"),
+            O("color: green; margin: 5px;", 1),
+            O("color: green; margin: 10px;"),
+            O("color: red; margin: 10px;"),
+          ],
+          explain:
+            'Stilul inline (style="color:green") are cea mai mare specificitate și câștigă pentru color. Pentru margin, clasa „.last” apare a doua în CSS și se aplică ultima (margin: 5px), suprascriind „.first”.',
+        },
+      );
+      add(
+        "html",
+        "multi",
+        "Indicați corespondența dintre valoare atributului type al etichetei &lt;input&gt; și elementul afișat în formular.",
+        {
+          options: [
+            O(
+              "checkbox → o casetă de validare; password → câmp ale cărui caractere nu sunt afișate; submit → buton de transmiterea datelor; radio → buton de selectare a unei singure variante; reset → buton de restabilire valori inițiale; text → câmp de editare",
+              1,
+            ),
+          ],
+          isInfo: true,
+          explain:
+            "checkbox = casetă de validare, password = câmp mascat, submit = buton de transmitere, radio = buton de selectare unică, reset = restabilire valori, text = câmp simplu de editare.",
+        },
+      );
+      add(
+        "html",
+        "single",
+        "Selectați definiția corectă a noțiunii de browser.",
+        {
+          options: [
+            O("Un program care are rolul de a stoca date"),
+            O("Un program care are rolul de a conecta la Internet"),
+            O("Un program care are rolul de a vizualiza paginile WEB", 1),
+            O("Un program care are rolul de a executa alte aplicații"),
+          ],
+          explain:
+            "Browser-ul este programul folosit pentru a vizualiza (interpreta și reda) paginile web, nu pentru a stoca date sau a conecta direct la Internet (asta face un alt program/protocol).",
+        },
+      );
+      add(
+        "html",
+        "multi",
+        "Indicați corespondența dintre marcajele din coloana stîngă și descrierile din coloana dreaptă: &lt;U&gt;, &lt;I&gt;, &lt;B&gt;, &lt;SUP&gt;, &lt;SUB&gt;.",
+        {
+          options: [
+            O(
+              "&lt;U&gt;=subliniat, &lt;I&gt;=înclinat (italic), &lt;B&gt;=îngroșat (bold), &lt;SUP&gt;=exponent, &lt;SUB&gt;=indice",
+              1,
+            ),
+          ],
+          isInfo: true,
+          explain:
+            "&lt;U&gt; subliniază textul, &lt;I&gt; îl înclină, &lt;B&gt; îl îngroașă, &lt;SUP&gt; îl pune ca exponent (sus), &lt;SUB&gt; ca indice (jos).",
+        },
+      );
+      add(
+        "html",
+        "single",
+        "Indicați liniile care conțin erori din următoarea secvență de cod:",
+        {
+          code: `1 &lt;body&gt;\n2 &lt;img src="img/foto.jpg" height="100" width="100"&gt;\n3 &lt;input type="button" value="button"&gt;\n4 &lt;input type="select" class="select"&gt;\n5 &lt;p&gt;Text Text Text Text&lt;/p&gt;\n6 &lt;/body&gt;`,
+          options: [
+            O("Linia 4", 1),
+            O("Linia 2"),
+            O("Linia 1 și Linia 6"),
+            O("Linia 5"),
+            O("Linia 3"),
+          ],
+          explain:
+            'Atributul type al &lt;input&gt; nu are valoarea "select" — aceea nu este o valoare validă pentru type (valori valide: text, button, submit, checkbox, radio etc.). Linia 4 este eronată.',
+        },
+      );
+      add(
+        "html",
+        "multi",
+        "Indicați corespondența dintre tipurile de selectori din coloana stângă și definițiile de stil din coloana dreaptă: selector class, selector id, selector element.",
+        {
+          options: [
+            O(
+              "selector class (.center)=text-align:center; selector id (#par1)=text-align:center și color:red; selector element (h5)=color:blue",
+              1,
+            ),
+          ],
+          isInfo: true,
+          explain:
+            "Selectorul de clasă începe cu punct (.center), selectorul de id cu # (#par1), iar selectorul de element se scrie direct cu numele tagului (h5), fără simbol.",
+        },
+      );
+      add(
+        "html",
+        "single",
+        "Completați câmpul liber pentru a obține în CSS bordura cu colțuri punctate sus și restul solide (body { border-width:3px; ____: solid; border-top-style: dotted; border-color: red; ... }).",
+        {
+          options: [
+            O("border-style", 1),
+            O("border-color"),
+            O("border-top-color"),
+            O("border-width"),
+          ],
+          explain:
+            "border-style setează stilul general (solid) pentru toate laturile, iar border-top-style îl suprascrie doar pentru latura de sus (dotted).",
+        },
+      );
+      add(
+        "html",
+        "single",
+        "Selectați codul HTML, care creează link-ul ce deschide pagina.html într-o fereastră nouă:",
+        {
+          options: [
+            O('&lt;a href="url" new&gt;'),
+            O('&lt;a href="url" target="new"&gt;'),
+            O('&lt;a href="pagina.html" target="_self"&gt;'),
+            O('&lt;a href="pagina.html" target="_blank"&gt;', 1),
+          ],
+          explain:
+            'target="_blank" este valoarea standard pentru a deschide un link într-o fereastră/tab nou. "_self" deschide în aceeași fereastră.',
+        },
+      );
+      add(
+        "html",
+        "multi",
+        "Indicați corespondența dintre atribute și etichetele de mai jos: border, cellpadding, rowspan, cellspacing, colspan.",
+        {
+          options: [
+            O(
+              "border, cellpadding, cellspacing → atribute ale &lt;table&gt;; rowspan, colspan → atribute ale &lt;td&gt;",
+              1,
+            ),
+          ],
+          isInfo: true,
+          explain:
+            "border, cellpadding și cellspacing se aplică la nivelul tabelului (&lt;table&gt;), în timp ce rowspan și colspan se aplică la nivelul celulei (&lt;td&gt;).",
+        },
+      );
+      add(
+        "html",
+        "single",
+        'În construcția următoare: &lt;title&gt;Pagina mea&lt;/title&gt;, textul "Pagina mea" reprezintă:',
+        {
+          options: [
+            O(
+              "Titlul, care va apărea în bara de titlu a ferestrei browserului.",
+              1,
+            ),
+            O("Titlul, care va apărea în documentul WEB."),
+            O(
+              "Titlul, care va apărea pe bara de stare a ferestrei browserului.",
+            ),
+            O("Numele fișierului HTML."),
+          ],
+          explain:
+            "&lt;title&gt; setează textul afișat în bara de titlu a ferestrei/tab-ului browserului — nu apare în conținutul vizibil al paginii.",
+        },
+      );
+      add(
+        "html",
+        "multi",
+        "Selectați din lista de mai jos elementele de structură a unui document HTML.",
+        {
+          options: [O("Antet", 1), O("Text"), O("Corp", 1), O("Imagine")],
+          explain:
+            "Antetul (head) și corpul (body) sunt elemente de structură ale documentului HTML. Text și Imagine sunt tipuri de conținut, nu structuri.",
+        },
+      );
+      add("html", "single", "HTML este.....", {
+        options: [
+          O("un limbaj de programare obiect orientat"),
+          O("protocolul de comunicații WEB"),
+          O("un program executabil"),
+          O("un limbaj de programare structurat"),
+          O("limbajul de creare a paginilor WEB", 1),
+        ],
+        explain:
+          "HTML este un limbaj de marcare folosit pentru a crea structura paginilor web — nu este un limbaj de programare (nu are logică, variabile, bucle proprii).",
+      });
+      add(
+        "html",
+        "single",
+        "Pentru a indica elementul formularului definit de marcajul &lt;input&gt; se folosește atributul:",
+        {
+          options: [O("start"), O("size"), O("text"), O("type", 1), O("name")],
+          explain:
+            'Atributul "type" determină ce fel de element afișează &lt;input&gt; (text, checkbox, radio, button etc.). "name" identifică câmpul, dar nu tipul lui.',
+        },
+      );
+      add(
+        "html",
+        "single",
+        "Selectați extensia fișierului ce conține definirea stilurilor CSS:",
+        {
+          options: [
+            O("*.sys"),
+            O("*.php"),
+            O("*.css", 1),
+            O("*.jpg"),
+            O("*.style"),
+          ],
+          explain:
+            "Fișierele CSS folosesc extensia .css. .php este pentru scripturi server-side, .jpg pentru imagini.",
+        },
+      );
+      add(
+        "html",
+        "single",
+        "Fie dată secvența de cod CSS a.id {...}. Indicați varianta corectă la care se va aplica stilul dat:",
+        {
+          options: [
+            O('&lt;a id="a" href="#"&gt;Referința&lt;/a&gt;'),
+            O('&lt;a rel="id" href="#"&gt;Referința&lt;/a&gt;'),
+            O('&lt;a class="id" href="#"&gt;Referința&lt;/a&gt;', 1),
+            O('&lt;a class="a.id" href="#"&gt;Referința&lt;/a&gt;'),
+            O('&lt;a href="#"&gt;Referința&lt;/a&gt;'),
+          ],
+          explain:
+            'Selectorul "a.id" înseamnă: un element &lt;a&gt; care are clasa "id" (a.clasa, fără spațiu = AND). Deci trebuie un &lt;a&gt; cu class="id", nu cu id="id".',
+        },
+      );
+      add(
+        "html",
+        "single",
+        "Selectați varianta care indică locul de referire la o foaie de stil extern:",
+        {
+          options: [
+            O("în secțiunea &lt;script&gt;...&lt;/script&gt;"),
+            O("în secțiunea &lt;head&gt;...&lt;/head&gt;", 1),
+            O("în secțiunea &lt;body&gt;...&lt;/body&gt;"),
+            O("în secțiunea &lt;title&gt;...&lt;/title&gt;"),
+          ],
+          explain:
+            'Foile de stil externe se referă cu &lt;link rel="stylesheet" href="..."&gt; în interiorul &lt;head&gt;, înainte de afișarea conținutului.',
+        },
+      );
+      add(
+        "html",
+        "text",
+        "Scrieți numele obiectului Image din codul de mai jos în spațiul rezervat.",
+        {
+          code: `&lt;a href="#" onMouseOver="document.Imgs.src='img1.jpg'"&gt;\n&lt;img src="img2.jpg" name="Imgs" width="155" height="155" border="0"&gt;\n&lt;/a&gt;`,
+          answer: "Imgs",
+          explain:
+            'Atributul name="Imgs" al &lt;img&gt; este folosit ca referință în JavaScript (document.Imgs), de aceea numele obiectului este "Imgs".',
+        },
+      );
+      add(
+        "html",
+        "single",
+        "Ce date vor fi transmise serverului din formular, dacă utilizatorul face un clic pe buton.",
+        {
+          code: `&lt;form method="post" action="index.php"&gt;\n  &lt;input type="text" id="brand" name="model" value="Text1"&gt;\n  &lt;input type="text" id="model" name="brand" value="Text2"&gt;\n  &lt;input type="submit" value="Button"&gt;\n&lt;/form&gt;`,
+          options: [
+            O("model: Text1   model: Text2"),
+            O("brand: Text1   model: Text2"),
+            O("Nu va transmite nimic"),
+            O("model: Text1   brand: Text2", 1),
+          ],
+          explain:
+            'Datele trimise se identifică după atributul "name", nu "id". Primul input are name="model" și value="Text1"; al doilea are name="brand" și value="Text2".',
+        },
+      );
+      add(
+        "html",
+        "single",
+        "Care pseudoclasă CSS este folosită pentru a defini atunci când deplasați cursorul mouse-ului pe link-ul, care încă nu este activ?",
+        {
+          options: [O("a:hover", 1), O("a:vlink"), O("a:visited"), O("a:link")],
+          explain:
+            "a:hover se aplică atunci când cursorul este peste link, indiferent de starea lui (vizitat sau nu). a:visited e pentru link vizitat, a:link pentru link nevizitat.",
+        },
+      );
+      add(
+        "html",
+        "single",
+        "Selectați declarație care va schimba stilul fontului în italic.",
+        {
+          options: [
+            O("font=italic;"),
+            O("font-family:italic;"),
+            O("font-face:italic;"),
+            O("font-style:italic;", 1),
+          ],
+          explain:
+            "Proprietatea corectă pentru stilul cursiv (italic) al fontului este font-style, nu font-family (care setează tipul fontului, ex. Arial).",
+        },
+      );
+      add(
+        "html",
+        "single",
+        'Pentru a reprezenta în browser un buton ca în imaginea alăturată (cu imagine și text "TRIMITE"), trebuie să folosim următoarea construcție:',
+        {
+          options: [
+            O(
+              '&lt;input type="button" value="trimite"&gt;TRIMITE&lt;img src="flori.jpg"&gt;',
+            ),
+            O(
+              '&lt;input type="submit" value="trimite"&gt;TRIMITE&lt;img src="flori.jpg"&gt;',
+            ),
+            O(
+              '&lt;button type="button" value="trimite"&gt;TRIMITE&lt;img src="flori.jpg"&gt;&lt;/button&gt;',
+              1,
+            ),
+            O(
+              '&lt;form type="button" value="trimite"&gt;TRIMITE&lt;img src="flori.jpg"&gt;&lt;/form&gt;',
+            ),
+          ],
+          explain:
+            "&lt;input&gt; este un element gol (fără conținut/copii), deci nu poate conține text sau imagine în interior. &lt;button&gt;...&lt;/button&gt; este un element cu conținut, care poate include text și &lt;img&gt;.",
+        },
+      );
+      add(
+        "html",
+        "single",
+        "Selectați codul HTML care inserează o imagine într-o pagină Web:",
+        {
+          options: [
+            O('&lt;img src="image.gif" alt="MyImage"&gt;', 1),
+            O('&lt;image src="image.gif" alt="MyImage"&gt;'),
+            O('&lt;img href="image.gif" alt="MyImage"&gt;'),
+            O('&lt;img alt="MyImage"&gt;image.gif&lt;/img&gt;'),
+          ],
+          explain:
+            "Tagul corect este &lt;img&gt; (nu &lt;image&gt;), iar sursa imaginii se indică prin atributul src (nu href, care e specific lui &lt;a&gt;).",
+        },
+      );
+      add(
+        "html",
+        "multi",
+        "Selectați care din codurile de mai jos sunt corecte (HTML valid):",
+        {
+          code: `&lt;p class="abc"&gt;\n  &lt;ul&gt;\n    &lt;li&gt;Text 1&lt;/li&gt;\n    &lt;li&gt;Text 2&lt;/li&gt;\n  &lt;/ul&gt;\n&lt;/p&gt;`,
+          options: [
+            O(
+              "&lt;p&gt; ce conține un &lt;p&gt; imbricat în interior — invalid",
+            ),
+            O(
+              "&lt;p&gt; ce conține o listă &lt;ul&gt; cu &lt;li&gt; — invalid, &lt;ul&gt; nu poate fi în &lt;p&gt;",
+            ),
+            O(
+              "&lt;div&gt; ce conține text, &lt;small&gt;, &lt;b&gt;, &lt;span&gt; (fără elemente block ilegale) — valid",
+              1,
+            ),
+            O("&lt;p&gt; ce conține un &lt;div&gt; în interior — invalid"),
+          ],
+          explain:
+            'Regula HTML: elementele de tip "block" (ca &lt;div&gt;, &lt;p&gt;, &lt;ul&gt;) nu pot fi imbricate în interiorul unui &lt;p&gt;, fiindcă &lt;p&gt; poate conține doar conținut "inline" (text, &lt;span&gt;, &lt;b&gt;, &lt;small&gt; etc).',
+        },
+      );
+      add(
+        "html",
+        "single",
+        "Ce date vor fi transmise serverului din formular, dacă utilizatorul face un clic pe buton (al doilea formular):",
+        {
+          code: `&lt;form method="post" action="index.php"&gt;\n  &lt;input type="text" id="brand" name="model" value="Text1"&gt;\n  &lt;input type="text" id="model" name="brand" value="Text2"&gt;\n&lt;/form&gt;`,
+          options: [
+            O("model: Text1, model: Text2"),
+            O("brand: Text1, model: Text2"),
+            O("Nu va transmite nimic"),
+            O("model: Text1, brand: Text2", 1),
+          ],
+          explain:
+            'Numele transmis depinde strict de atributul "name", nu de "id". Aici name="model" → "Text1" și name="brand" → "Text2".',
+        },
+      );
+      add(
+        "html",
+        "single",
+        'Completați câmpurile libere în codul HTML de mai jos astfel încît interpretarea lui în browser să reprezinte ca imagine (titlu "Moldova" pe fundal verde, text pe fundal verde cu chenar galben).',
+        {
+          code: `&lt;style&gt;\n  .chenar { ____ : green; color:white; border-style:solid; border-color:yellow;}\n  h1 { text-align:center;}\n&lt;/style&gt;`,
+          options: [
+            O("background-color", 1),
+            O("color"),
+            O("border-color"),
+            O("font-color"),
+          ],
+          explain:
+            'Pentru a colora fundalul unui element se folosește background-color. "color" colorează textul, nu fundalul.',
+        },
+      );
+      add(
+        "html",
+        "multi",
+        "!Lista derulantă (de selecție) este inclusă în formular cu ajutorul etichetelor:",
+        {
+          options: [
+            O("&lt;ul&gt;&lt;/ul&gt;"),
+            O("&lt;select&gt;&lt;/select&gt;", 1),
+            O("&lt;textarea&gt;&lt;/textarea&gt;"),
+            O("&lt;ol&gt;&lt;/ol&gt;"),
+            O("&lt;input&gt;"),
+          ],
+          explain:
+            "Lista derulantă (dropdown) se construiește cu &lt;select&gt;&lt;/select&gt;, conținând opțiuni &lt;option&gt;. &lt;textarea&gt; e pentru text multilinie, nu pentru selecție.",
+        },
+      );
+
+      /* ---------- CSS ---------- */
+      add(
+        "css",
+        "text",
+        "Fie dat următorul cod CSS. Indicați în spațiul rezervat lățimea elementului &lt;div&gt;.",
+        {
+          code: `div{\n  width:250px;\n  padding:10px;\n  border:5px solid gray;\n  margin:10px;\n}`,
+          answer: "250px",
+          explain:
+            'Proprietatea "width" definește direct lățimea conținutului elementului (250px). Padding, border și margin se adaugă în jurul acestei lățimi (box model), dar nu modifică valoarea proprietății width.',
+        },
+      );
+      add(
+        "css",
+        "single",
+        "În ce caz va fi aplicat stilul cu următorul selector: div+p {color:red} ?",
+        {
+          options: [
+            O("style-ul va fi aplicat pentru toate tagurile &lt;p&gt;"),
+            O(
+              "style-ul va fi aplicat tagului &lt;p&gt; ce urmează imediat după tag-ul &lt;div&gt;",
+              1,
+            ),
+            O(
+              "style-ul va fi aplicat tag-ului &lt;p&gt; care va fi plasat în &lt;div&gt;",
+            ),
+            O("selector greșit"),
+          ],
+          explain:
+            'Selectorul "+" este un combinator de "frate adiacent" (adjacent sibling): aplică stilul doar primului &lt;p&gt; care urmează imediat după un &lt;div&gt;.',
+        },
+      );
+
+      /* ================= ENGINE LOGIC ================= */
+      let answers = {};
+      let currentCatIndex = 0;
+      let currentQIndex = 0;
+      let inIntro = true;
+
+      const main = document.getElementById("main");
+
+      function questionsForCat(catKey) {
+        return QUESTIONS.filter((q) => q.cat === catKey);
+      }
+
+      function totalQuestions() {
+        return QUESTIONS.length;
+      }
+
+      function totalCorrect() {
+        return Object.values(answers).filter((a) => a && a.correct).length;
+      }
+
+      function totalAnswered() {
+        return Object.keys(answers).length;
+      }
+
+      function updateTopbar() {
+        const scorePill = document.getElementById("scorePill");
+        const progressFill = document.getElementById("progressFill");
+        const progressLabel = document.getElementById("progressLabel");
+        const progressPct = document.getElementById("progressPct");
+
+        const total = totalQuestions();
+        const answered = totalAnswered();
+        const correct = totalCorrect();
+
+        scorePill.textContent = `Scor: ${correct}/${answered}`;
+
+        if (total > 0) {
+          const pct = Math.round((answered / total) * 100);
+          progressFill.style.width = `${pct}%`;
+          progressPct.textContent = `${pct}%`;
+          if (pct === 100) {
+            progressLabel.textContent = "Test finalizat";
+          } else {
+            progressLabel.textContent = `Progres: ${answered} din ${total} întrebări`;
+          }
+        }
+      }
+
+      function renderCatRail() {
+        const rail = document.getElementById("catRail");
+        rail.innerHTML = "";
+        CATEGORIES.forEach((c, idx) => {
+          const chip = document.createElement("div");
+          chip.className = "cat-chip";
+
+          const qs = questionsForCat(c.key);
+          const answeredAll =
+            qs.length > 0 && qs.every((q) => answers[q.id] !== undefined);
+
+          if (idx === currentCatIndex) chip.classList.add("active");
+          else if (answeredAll) chip.classList.add("done");
+
+          chip.innerHTML = `<span class="ic">${c.icon}</span> ${c.label}`;
+          rail.appendChild(chip);
+        });
+      }
+
+      function initQuiz() {
+        currentCatIndex = 0;
+        currentQIndex = 0;
+        inIntro = true;
+        answers = {};
+        showCurrentState();
+      }
+
+      function showCurrentState() {
+        updateTopbar();
+        renderCatRail();
+
+        if (currentCatIndex >= CATEGORIES.length) {
+          renderResults();
+          return;
+        }
+
+        const cat = CATEGORIES[currentCatIndex];
+        const qs = questionsForCat(cat.key);
+
+        if (qs.length === 0) {
+          currentCatIndex++;
+          currentQIndex = 0;
+          showCurrentState();
+          return;
+        }
+
+        if (inIntro) {
+          renderCategoryIntro(cat);
+        } else {
+          renderQuestion(qs[currentQIndex]);
+        }
+      }
+
+      function renderCategoryIntro(cat) {
+        const qs = questionsForCat(cat.key);
+        main.innerHTML = `
+          <div class="cat-intro">
+            <div class="num">Secțiunea ${currentCatIndex + 1}</div>
+            <h1>${cat.icon} ${cat.label}</h1>
+            <p>Această secțiune conține ${qs.length} întrebări recapitulative pentru a-ți testa cunoștințele.</p>
+            <button class="start-btn" id="startCatBtn">Pornește secțiunea</button>
+          </div>
+        `;
+        document.getElementById("startCatBtn").onclick = () => {
+          inIntro = false;
+          currentQIndex = 0;
+          showCurrentState();
+        };
+      }
+
+      function renderQuestion(q) {
+        const cat = CATEGORIES[currentCatIndex];
+        const qs = questionsForCat(cat.key);
+
+        let codeHtml = "";
+        if (q.code) {
+          codeHtml = `<pre class="code-block">${q.code}</pre>`;
+        }
+
+        let optionsHtml = "";
+        if (q.type === "single" || q.type === "multi") {
+          optionsHtml = `<div class="options">`;
+          q.options.forEach((opt, oIdx) => {
+            optionsHtml += `
+              <button class="opt ${q.type === "multi" ? "multi" : ""}" data-idx="${oIdx}">
+                <div class="opt-mark"></div>
+                <div>${opt.text}</div>
+              </button>
+            `;
+          });
+          optionsHtml += `</div>`;
+          optionsHtml += `
+            <div class="submit-row">
+              <button class="btn btn-primary" id="submitBtn" disabled>Verifică răspunsul</button>
+            </div>
+          `;
+        } else if (q.type === "text") {
+          optionsHtml = `
+            <input type="text" class="answer-input" id="textAnswer" placeholder="Scrieți răspunsul corect aici..." autocomplete="off">
+            <div class="submit-row">
+              <button class="btn btn-primary" id="submitBtn">Verifică răspunsul</button>
+            </div>
+          `;
+        }
+
+        main.innerHTML = `
+          <div class="card">
+            <div class="q-meta">
+              <span class="q-tag">${cat.label} // ${q.type.toUpperCase()}</span>
+              <span class="q-count">Întrebarea ${currentQIndex + 1} din ${qs.length}</span>
+            </div>
+            <div class="q-text">${q.text}</div>
+            ${q.text2 ? `<div class="q-text" style="font-size:14.5px; color:var(--text-dim); margin-top:-8px;">${q.text2}</div>` : ""}
+            ${codeHtml}
+            ${optionsHtml}
+            <div id="feedbackContainer"></div>
+          </div>
+        `;
+
+        setupQuestionInteraction(q);
+      }
+
+      function setupQuestionInteraction(q) {
+        const submitBtn = document.getElementById("submitBtn");
+        let selectedIndices = [];
+
+        if (q.type === "single" || q.type === "multi") {
+          const optButtons = document.querySelectorAll(".opt");
+          optButtons.forEach((btn) => {
+            btn.onclick = () => {
+              const idx = parseInt(btn.getAttribute("data-idx"));
+              if (q.type === "single") {
+                selectedIndices = [idx];
+                optButtons.forEach((b) => b.classList.remove("correct"));
+                submitBtn.removeAttribute("disabled");
+                // Vizual selectat temporar
+                optButtons.forEach(
+                  (b) => (b.style.borderColor = "var(--line)"),
+                );
+                btn.style.borderColor = "var(--blue)";
+              } else {
+                if (selectedIndices.includes(idx)) {
+                  selectedIndices = selectedIndices.filter((i) => i !== idx);
+                  btn.style.borderColor = "var(--line)";
+                } else {
+                  selectedIndices.push(idx);
+                  btn.style.borderColor = "var(--blue)";
+                }
+                if (selectedIndices.length > 0)
+                  submitBtn.removeAttribute("disabled");
+                else submitBtn.setAttribute("disabled", "true");
+              }
+            };
+          });
+        }
+
+        submitBtn.onclick = () => {
+          let isCorrect = false;
+          let userResponseText = "";
+
+          if (q.type === "single") {
+            const chosenIdx = selectedIndices[0];
+            isCorrect = q.options[chosenIdx].correct;
+            lockOptions(q, selectedIndices, [chosenIdx]);
+          } else if (q.type === "multi") {
+            const correctIndices = q.options
+              .map((o, i) => (o.correct ? i : null))
+              .filter((v) => v !== null);
+            isCorrect =
+              correctIndices.length === selectedIndices.length &&
+              selectedIndices.every((i) => correctIndices.includes(i));
+            lockOptions(q, correctIndices, selectedIndices);
+          } else if (q.type === "text") {
+            const input = document.getElementById("textAnswer");
+            const val = input.value.trim();
+            userResponseText = val;
+            input.setAttribute("disabled", "true");
+
+            if (q.answer) {
+              isCorrect = val.toLowerCase() === q.answer.toLowerCase();
+            } else {
+              const correctOpt = q.options.find((o) => o.correct);
+              isCorrect =
+                correctOpt &&
+                val.toLowerCase() === correctOpt.text.toLowerCase();
+            }
+
+            if (isCorrect) {
+              input.classList.add("correct");
+            } else {
+              input.classList.add("wrong");
+            }
+          }
+
+          answers[q.id] = { correct: isCorrect };
+          submitBtn.remove();
+
+          const fbContainer = document.getElementById("feedbackContainer");
+          fbContainer.innerHTML = `
+            <div class="feedback ${isCorrect ? "ok" : "bad"}">
+              <span class="ic">${isCorrect ? "✓" : "✕"}</span>
+              <div>
+                <b>${isCorrect ? "Răspuns corect!" : "Răspuns incorect."}</b>
+                <div>${q.explain}</div>
+                ${!isCorrect && q.answer ? `<div class="corr-line">Răspunsul corect era: <b>${q.answer}</b></div>` : ""}
+                ${!isCorrect && !q.answer && q.type === "text" ? `<div class="corr-line">Răspunsul corect era: <b>${q.options.find((o) => o.correct).text}</b></div>` : ""}
+              </div>
+            </div>
+            <div class="footer-next">
+              <button class="btn btn-next" id="nextBtn">Continuă ➔</button>
+            </div>
+          `;
+
+          updateTopbar();
+
+          document.getElementById("nextBtn").onclick = () => {
+            const cat = CATEGORIES[currentCatIndex];
+            const qs = questionsForCat(cat.key);
+            currentQIndex++;
+            if (currentQIndex >= qs.length) {
+              currentCatIndex++;
+              inIntro = true;
+            }
+            showCurrentState();
+          };
+        };
+      }
+
+      function lockOptions(q, correctIndices, selectedIndices) {
+        const optButtons = document.querySelectorAll(".opt");
+        optButtons.forEach((btn, idx) => {
+          btn.classList.add("locked");
+          btn.style.borderColor = "";
+
+          const isTargetCorrect = q.options[idx].correct;
+          const isTargetSelected = selectedIndices.includes(idx);
+
+          if (isTargetCorrect) {
+            btn.classList.add("correct");
+          } else if (isTargetSelected && !isTargetCorrect) {
+            btn.classList.add("wrong");
+          } else {
+            btn.classList.add("dim");
+          }
+        });
+      }
+
+      function renderResults() {
+        let breakdownHtml = "";
+        let totalQs = totalQuestions();
+        let totalCorr = totalCorrect();
+        const pct = totalQs ? Math.round((totalCorr / totalQs) * 100) : 0;
+
+        let verdict = "Mai ai de învățat!";
+        if (pct >= 85) verdict = "Excelent! Felicitări!";
+        else if (pct >= 50) verdict = "Un scor bun, dar se poate și mai bine!";
+
+        CATEGORIES.forEach((c) => {
+          const qs = questionsForCat(c.key);
+          if (qs.length === 0) return;
+          const correct = qs.filter(
+            (q) => answers[q.id] && answers[q.id].correct,
+          ).length;
+          const p = qs.length ? Math.round((correct / qs.length) * 100) : 0;
+
+          breakdownHtml += `
+            <div class="bd-row">
+              <div class="bd-name">${c.icon} ${c.label}</div>
+              <div class="bd-bar"><div class="bd-bar-fill" style="width:${p}%"></div></div>
+              <div class="bd-score">${correct}/${qs.length}</div>
+            </div>`;
+        });
+
+        main.innerHTML = `
+          <div class="result-screen">
+            <div class="num" style="font-family:var(--mono);color:var(--text-dim);letter-spacing:2px;text-transform:uppercase;font-size:13px;">Test finalizat</div>
+            <div class="big-score">${totalCorr}/${totalQs}</div>
+            <div class="sub">${verdict} Ai obținut ${pct}% răspunsuri corecte.</div>
+            <div class="breakdown">${breakdownHtml}</div>
+            <button class="restart-btn" id="restartBtn">↺ Reia testul de la zero</button>
+          </div>
+        `;
+
+        document.getElementById("progressLabel").textContent = "Test finalizat";
+        document.getElementById("progressFill").style.width = "100%";
+        document.getElementById("progressPct").textContent = "100%";
+
+        document.getElementById("restartBtn").onclick = () => {
+          initQuiz();
+        };
+      }
+
+      // Start application
+      window.onload = () => {
+        initQuiz();
+      };
+    </script>
+  </body>
+</html>
