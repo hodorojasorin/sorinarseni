@@ -1554,7 +1554,7 @@ function extractAnswerTokens(answer) {
 
 function renderInline(text) {
   let html = escapeHtml(text);
-  html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, `<img src="$2" alt="$1" style="max-width:120px;border-radius:8px;vertical-align:middle;margin:4px">`);
+  html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, `<img src="$2" alt="$1" style="max-width:100%;border-radius:8px;margin:8px 0;display:block">`);
   html = html.replace(/`([^`]+)`/g, "<code>$1</code>");
   html = html.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
   return html;
