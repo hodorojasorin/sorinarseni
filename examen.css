@@ -563,6 +563,47 @@ code {
   }
 }
 
+.blank-input {
+  display: inline-block;
+  min-width: 100px;
+  max-width: 220px;
+  width: auto;
+  padding: 4px 8px;
+  margin: 0 2px;
+  border: 1.5px solid var(--blue);
+  border-radius: 6px;
+  background: #ffffff;
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.94em;
+  line-height: 1.4;
+  text-align: center;
+  vertical-align: baseline;
+}
+
+.blank-input:focus {
+  outline: 3px solid rgba(37, 99, 235, 0.14);
+}
+
+.blank-input.correct {
+  border-color: var(--green);
+  background: rgba(21, 128, 61, 0.08);
+  color: var(--green);
+}
+
+.blank-input.incorrect {
+  border-color: var(--red);
+  background: rgba(220, 38, 38, 0.08);
+  color: var(--red);
+}
+
+.blank-correct-hint {
+  display: inline;
+  color: var(--green);
+  font-weight: 700;
+  font-size: 0.85em;
+}
+
 .match-area {
   display: grid;
   gap: 10px;

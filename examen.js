@@ -292,7 +292,18 @@ function parseQuestionSource(source) {
       matchPairs = extractMatchPairs(optionRows);
     }
 
-    if (optionRows.length && hasMarkedOptions && !correspondence) {
+    const hasBlankFill = /___/.test(rawPrompt) || /___/.test(title);
+    let blankAnswers = [];
+
+    if (hasBlankFill) {
+      const answerSource = answerRows.length ? answerRows.join("\n") : optionRows.filter(o => o.correct).map(o => o.text).join(", ");
+      blankAnswers = extractBlankAnswers(answerSource, rawPrompt + "\n" + title);
+    }
+
+    if (hasBlankFill && blankAnswers.length) {
+      answerMode = "blanks";
+      answer = answerRows.length ? answerRows.join("\n") : optionRows.map(o => o.text).join("\n");
+    } else if (optionRows.length && hasMarkedOptions && !correspondence) {
       options = optionRows.map((option, optionIndex) => ({
         id: `o${optionIndex + 1}`,
         text: option.text,
@@ -322,6 +333,7 @@ function parseQuestionSource(source) {
       answer,
       answerMode,
       matchPairs,
+      blankAnswers,
       codeSnippets: display.codeSnippets
     };
   });
@@ -404,6 +416,21 @@ function isReferenceAnswer(title, prompt, optionRows) {
     title.includes("↔") ||
     arrowCount >= 2
   );
+}
+
+function extractBlankAnswers(answerText, promptText) {
+  const blankCount = (promptText.match(/___/g) || []).length;
+  if (!blankCount) return [];
+
+  const codeTokens = Array.from(answerText.matchAll(/`([^`]+)`/g)).map(m => m[1].trim());
+  if (codeTokens.length >= blankCount) return codeTokens.slice(0, blankCount);
+
+  const cleaned = answerText.replace(/\*\*/g, "").replace(/`/g, "");
+  const tokens = cleaned
+    .split(/[,;/\n]/)
+    .map(t => t.replace(/^\s*\(.*?\)\s*$/, "").trim())
+    .filter(t => t.length > 0 && t.length < 60);
+  return tokens.slice(0, blankCount);
 }
 
 function extractMatchPairs(optionRows) {
@@ -1001,16 +1028,54 @@ function renderQuestion() {
   const inCurrentQueue = app.state.queue.includes(question.id);
   const locked = inCurrentQueue && Boolean(app.state.roundAnswers[question.id]);
   const result = locked ? app.state.results[question.id] : null;
-  const promptHtml = question.prompt
+  const isBlanks = question.answerMode === "blanks" && question.blankAnswers && question.blankAnswers.length > 0;
+
+  let promptHtml = question.prompt
     ? question.prompt.split("\n").map((line) => `<p>${renderInline(line)}</p>`).join("")
     : "";
-  const codeHtml = question.codeSnippets.length ? renderCodeBox(question.codeSnippets) : "";
+
+  let codeHtml = question.codeSnippets.length ? renderCodeBox(question.codeSnippets) : "";
+
+  if (isBlanks) {
+    const blankResults = locked && result ? (result.blankValues || []) : [];
+    let blankIndex = 0;
+
+    const replaceBlank = (html) => {
+      return html.replace(/___+/g, () => {
+        const i = blankIndex++;
+        const expected = question.blankAnswers[i] || "";
+        if (locked) {
+          const userVal = blankResults[i] || "";
+          const isOk = normalizePlain(userVal) === normalizePlain(expected);
+          return `<input class="blank-input ${isOk ? "correct" : "incorrect"}" value="${escapeHtml(userVal)}" disabled>` +
+            (!isOk ? ` <span class="blank-correct-hint">${escapeHtml(expected)}</span>` : "");
+        }
+        return `<input class="blank-input" data-blank-index="${i}" placeholder="..." autocomplete="off">`;
+      });
+    };
+
+    const codeHasBlanks = /___/.test(codeHtml);
+    const promptHasBlanks = /___/.test(promptHtml);
+
+    if (codeHasBlanks) {
+      codeHtml = replaceBlank(codeHtml);
+      if (promptHasBlanks) {
+        promptHtml = promptHtml.replace(/<code>[^<]*___[^<]*<\/code>/g, "______");
+        promptHtml = promptHtml.replace(/___+/g, "______");
+      }
+    } else {
+      promptHtml = replaceBlank(promptHtml);
+    }
+  }
+
   const isMatch = question.matchPairs && question.matchPairs.length > 0;
-  const answerHtml = isMatch
-    ? renderMatchQuestion(question, locked, result)
-    : question.options.length
-      ? renderOptionQuestion(question, locked, result)
-      : renderTextQuestion(question, locked, result);
+  const answerHtml = isBlanks
+    ? renderBlanksActions(question, locked, result)
+    : isMatch
+      ? renderMatchQuestion(question, locked, result)
+      : question.options.length
+        ? renderOptionQuestion(question, locked, result)
+        : renderTextQuestion(question, locked, result);
   const noticeHtml = app.roundNotice ? `<div class="round-notice">${escapeHtml(app.roundNotice)}</div>` : "";
   app.roundNotice = "";
 
@@ -1030,6 +1095,21 @@ function renderQuestion() {
     </section>
     ${codeHtml}
     ${answerHtml}
+  `;
+}
+
+function renderBlanksActions(question, locked, result) {
+  return `
+    <section class="question-section answer-area">
+      <h3 class="section-title">Metoda de răspuns</h3>
+      <p class="answer-method">Completați fiecare spațiu liber, apoi verificați.</p>
+      <div class="feedback-placeholder" id="validationMessage"></div>
+      ${locked ? renderFeedback(result) : ""}
+      <div class="actions">
+        ${locked ? "" : `<button class="primary-button" type="button" data-action="submit-blanks">Verifică</button>`}
+        <button class="secondary-button" type="button" data-action="next">Următoarea</button>
+      </div>
+    </section>
   `;
 }
 
@@ -1152,6 +1232,22 @@ function renderMatchQuestion(question, locked, result) {
   `;
 }
 
+function submitBlanksAnswer(question) {
+  const inputs = document.querySelectorAll(".blank-input");
+  const values = Array.from(inputs).map(input => input.value.trim());
+
+  if (values.some(v => !v)) {
+    showValidationMessage("Completează toate spațiile libere.");
+    return;
+  }
+
+  const correct = question.blankAnswers.every((expected, i) =>
+    normalizePlain(values[i] || "") === normalizePlain(expected)
+  );
+
+  completeQuestion(question.id, correct, { mode: "blanks", blankValues: values });
+}
+
 function shuffleArray(arr) {
   for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -1180,6 +1276,11 @@ function handleQuestionAction(event) {
 
   const action = button.dataset.action;
   const question = app.questionsById.get(app.state.currentId);
+
+  if (action === "submit-blanks") {
+    submitBlanksAnswer(question);
+    return;
+  }
 
   if (action === "submit-match") {
     submitMatchAnswer(question);
