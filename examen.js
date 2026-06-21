@@ -114,7 +114,9 @@ function parseQuestionSource(source) {
       });
     }
 
-    const prompt = promptLines.join("\n").trim();
+    const rawPrompt = promptLines.join("\n").trim();
+    const display = buildQuestionDisplay(title, rawPrompt);
+    const prompt = display.prompt;
     const correspondence = isReferenceAnswer(title, prompt, optionRows);
     const hasMarkedOptions = optionRows.some((option) => option.correct);
     let options = [];
@@ -147,7 +149,7 @@ function parseQuestionSource(source) {
       options,
       answer,
       answerMode,
-      codeSnippets: extractCodeSnippets(`${title}\n${prompt}`)
+      codeSnippets: display.codeSnippets
     };
   });
 }
@@ -167,7 +169,9 @@ function normalizeExtraQuestions(extraQuestions) {
         })
       : [];
 
-    const prompt = item.prompt || "";
+    const rawPrompt = item.prompt || "";
+    const display = buildQuestionDisplay(item.title || "", rawPrompt);
+    const prompt = display.prompt;
     return {
       id: `extra-${index + 1}`,
       sourceIndex: 10000 + index,
@@ -178,7 +182,7 @@ function normalizeExtraQuestions(extraQuestions) {
       options,
       answer: item.answer || "",
       answerMode: options.length ? "options" : "self",
-      codeSnippets: item.codeSnippets || extractCodeSnippets(`${item.title || ""}\n${prompt}`)
+      codeSnippets: item.codeSnippets || display.codeSnippets
     };
   });
 }
@@ -410,20 +414,70 @@ function addScore(scores, category, text, patterns, weight) {
   }
 }
 
+function buildQuestionDisplay(title, prompt) {
+  const source = `${title}\n${prompt}`;
+  const codeSnippets = extractCodeSnippets(source);
+  return {
+    prompt: cleanPromptCodeReferences(prompt, codeSnippets),
+    codeSnippets
+  };
+}
+
 function extractCodeSnippets(source) {
   const snippets = [];
-  const seen = new Set();
   for (const match of source.matchAll(/`([^`]+)`/g)) {
     const snippet = match[1].trim();
-    if (!snippet || seen.has(snippet) || !looksLikeCode(snippet)) continue;
-    seen.add(snippet);
-    snippets.push(snippet);
+    if (!snippet || !looksLikeCode(snippet)) continue;
+
+    const repeatCount = getInlineCodeRepeatCount(source, match.index);
+    snippets.push(Array.from({ length: repeatCount }, () => snippet).join("\n"));
   }
   return snippets.slice(0, 8);
 }
 
 function looksLikeCode(value) {
   return /[<>{};$()[\]=]|::|console|function|var\s|sudo|git|mysql|php artisan|@foreach|@forelse/.test(value);
+}
+
+function getInlineCodeRepeatCount(source, matchIndex) {
+  const before = normalizePlain(source.slice(Math.max(0, matchIndex - 40), matchIndex));
+
+  if (/(^|[ (])(?:trei|3)$/.test(before)) return 3;
+  if (/(^|[ (])(?:doua|doi|2)$/.test(before)) return 2;
+  if (/(^|[ (])(?:patru|4)$/.test(before)) return 4;
+  if (/(^|[ (])(?:cinci|5)$/.test(before)) return 5;
+
+  return 1;
+}
+
+function cleanPromptCodeReferences(prompt, codeSnippets) {
+  if (!prompt || !codeSnippets.length || !shouldMoveInlineCodeToBox(prompt)) {
+    return prompt;
+  }
+
+  const cleaned = prompt
+    .replace(/\s*\((?:un|una|doi|două|doua|trei|patru|cinci|\d+)\s+`[^`]+`\)\s*:?\s*/gi, " ")
+    .replace(/\s*\(`[^`]+`\)\s*:?\s*/g, " ")
+    .replace(/\s*`[^`]+`\s*:?\s*/g, " ")
+    .replace(/\s+\./g, ".")
+    .replace(/\s+\?/g, "?")
+    .replace(/\s+:/g, ":")
+    .replace(/cod\s*:$/i, "cod?")
+    .replace(/codului\s*:$/i, "codului?")
+    .replace(/secvență de cod\s*:$/i, "secvență de cod?")
+    .replace(/secventa de cod\s*:$/i, "secvență de cod?")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  if (/^(ce|care|cum|unde|în ce|in ce)\b/i.test(cleaned) && !/[?.!]$/.test(cleaned)) {
+    return `${cleaned}?`;
+  }
+
+  return cleaned;
+}
+
+function shouldMoveInlineCodeToBox(prompt) {
+  return /cod|secvență|secventa|fragment|afișa|afisa|afișează|afiseaza|următoarea|urmatoarea|fie dat/i.test(prompt);
 }
 
 function loadState() {
