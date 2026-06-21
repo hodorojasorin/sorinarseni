@@ -597,6 +597,51 @@ code {
   color: var(--red);
 }
 
+.blank-drop-inline {
+  display: inline-block;
+  min-width: 80px;
+  min-height: 28px;
+  padding: 3px 10px;
+  margin: 0 2px;
+  border: 2px dashed var(--blue);
+  border-radius: 6px;
+  background: #ffffff;
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.94em;
+  line-height: 1.4;
+  text-align: center;
+  vertical-align: baseline;
+  cursor: default;
+  transition: border-color 120ms ease, background 120ms ease;
+}
+
+.blank-drop-inline.drag-over {
+  border-color: var(--teal);
+  background: rgba(15, 118, 110, 0.06);
+}
+
+.blank-drop-inline.filled {
+  border-style: solid;
+  border-color: var(--line);
+  cursor: grab;
+}
+
+.blank-drop-inline.correct {
+  border-style: solid;
+  border-color: var(--green);
+  background: rgba(21, 128, 61, 0.08);
+  color: var(--green);
+  font-weight: 700;
+}
+
+.blank-drop-inline.incorrect {
+  border-style: solid;
+  border-color: var(--red);
+  background: rgba(220, 38, 38, 0.08);
+  color: var(--red);
+}
+
 .blank-correct-hint {
   display: inline;
   color: var(--green);
