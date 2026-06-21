@@ -417,8 +417,18 @@ function addScore(scores, category, text, patterns, weight) {
 function buildQuestionDisplay(title, prompt) {
   const source = `${title}\n${prompt}`;
   const codeSnippets = extractCodeSnippets(source);
+  const specialDisplay = getSpecialQuestionDisplay(title, prompt);
+  if (specialDisplay) {
+    return specialDisplay;
+  }
+
+  const bareTitleCode = extractBareTitleCode(title, prompt, codeSnippets);
+  if (bareTitleCode) {
+    codeSnippets.unshift(bareTitleCode);
+  }
+
   return {
-    prompt: cleanPromptCodeReferences(prompt, codeSnippets),
+    prompt: buildConditionText(title, cleanPromptCodeReferences(prompt, codeSnippets), bareTitleCode),
     codeSnippets
   };
 }
@@ -428,15 +438,117 @@ function extractCodeSnippets(source) {
   for (const match of source.matchAll(/`([^`]+)`/g)) {
     const snippet = match[1].trim();
     if (!snippet || !looksLikeCode(snippet)) continue;
+    if (isStandaloneTagReference(snippet)) continue;
 
     const repeatCount = getInlineCodeRepeatCount(source, match.index);
-    snippets.push(Array.from({ length: repeatCount }, () => snippet).join("\n"));
+    snippets.push(Array.from({ length: repeatCount }, () => formatCodeSnippet(snippet)).join("\n"));
   }
   return snippets.slice(0, 8);
 }
 
 function looksLikeCode(value) {
   return /[<>{};$()[\]=]|::|console|function|var\s|sudo|git|mysql|php artisan|@foreach|@forelse/.test(value);
+}
+
+function isStandaloneTagReference(value) {
+  return /^<\/?[a-z][a-z0-9-]*>$/i.test(value.trim());
+}
+
+function formatCodeSnippet(value) {
+  const trimmed = value.trim();
+
+  if (/^<style>/i.test(trimmed)) {
+    return trimmed.replace(/^<style>\s*(.*?)\s*$/i, "<style>\n  $1\n</style>");
+  }
+
+  if (looksLikeCssRule(trimmed)) {
+    return trimmed
+      .replace(/([a-z0-9.#]+)\+([a-z0-9.#]+)/gi, "$1 + $2")
+      .replace(/\{\s*/g, "{ ")
+      .replace(/\s*\}/g, " }")
+      .replace(/;\s*/g, ";\n  ")
+      .replace(/\{\s+([^{}\n]+)\s+\}/g, (_, body) => `{\n  ${body.trim()}\n}`)
+      .replace(/\n\s+\}/g, "\n}")
+      .trim();
+  }
+
+  return trimmed;
+}
+
+function looksLikeCssRule(value) {
+  return /^[.#]?[a-z][a-z0-9\s+.#>~:-]*\{[^{}]+\}$/i.test(value) && !/\b(function|for|if|while|switch|try|catch|return)\b/i.test(value);
+}
+
+function getSpecialQuestionDisplay(title, prompt) {
+  if (title === "Întrebarea 5") {
+    return {
+      prompt: "Se dă regula CSS de mai jos. Determinați lățimea totală a elementului <div>.",
+      codeSnippets: ["div {\n  width: 250px;\n  padding: 10px;\n  border: 5px solid gray;\n  margin: 10px;\n}"]
+    };
+  }
+
+  if (title === "Întrebarea 6") {
+    return {
+      prompt: "În ce caz se aplică stilul CSS definit de selectorul de mai jos?",
+      codeSnippets: ["div + p {\n  color: red;\n}"]
+    };
+  }
+
+  if (title === "Întrebarea 7") {
+    return {
+      prompt: "Se dau stilurile CSS de mai jos. Determinați înălțimea finală aplicată elementului <div>.",
+      codeSnippets: [
+        "/* style.css */\ndiv {\n  height: 20px;\n}\n\n<!-- HTML: link extern către style.css -->\n<style>\n  div { height: 10px !important; }\n</style>\n<div style=\"height:15px;\">TEXT 1</div>"
+      ]
+    };
+  }
+
+  if (title === "Întrebarea 8") {
+    return {
+      prompt: "Care este codul HTML corect pentru conectarea unei foi de stil externe?",
+      codeSnippets: []
+    };
+  }
+
+  return null;
+}
+
+function extractBareTitleCode(title, prompt, existingSnippets) {
+  if (prompt.trim() || existingSnippets.length || isGenericQuestionTitle(title)) {
+    return "";
+  }
+
+  const cleanedTitle = title.replace(/\s*\(rep\.\)\s*/i, "").trim();
+  if (/^(console\.log|document\.write|alert|try\s*\{|var\s|a=|Math\.)/i.test(cleanedTitle)) {
+    return formatCodeSnippet(cleanedTitle);
+  }
+
+  return "";
+}
+
+function buildConditionText(title, prompt, movedTitleCode) {
+  const cleanedPrompt = prompt.trim();
+  if (cleanedPrompt) {
+    return cleanedPrompt;
+  }
+
+  if (movedTitleCode) {
+    if (/math\.log/i.test(movedTitleCode)) {
+      return "Pentru ce valoare a lui x expresia de mai jos returnează 1?";
+    }
+
+    return "Ce va afișa următorul cod?";
+  }
+
+  if (!isGenericQuestionTitle(title)) {
+    return title.trim();
+  }
+
+  return "Selectați răspunsul corect.";
+}
+
+function isGenericQuestionTitle(title) {
+  return /^Întrebarea\s+\d+\b/i.test(title.trim());
 }
 
 function getInlineCodeRepeatCount(source, matchIndex) {
@@ -451,14 +563,27 @@ function getInlineCodeRepeatCount(source, matchIndex) {
 }
 
 function cleanPromptCodeReferences(prompt, codeSnippets) {
-  if (!prompt || !codeSnippets.length || !shouldMoveInlineCodeToBox(prompt)) {
+  if (!prompt || !codeSnippets.length) {
     return prompt;
   }
 
+  const promptWithoutCode = prompt.replace(/`([^`]+)`/g, (_, snippet) => {
+    return shouldRemoveInlineCode(snippet) ? "" : snippet;
+  }).trim();
+  const codeOnlyPrompt = !promptWithoutCode;
+
+  if (!codeOnlyPrompt && !shouldMoveInlineCodeToBox(prompt)) {
+    return prompt;
+  }
+
+  if (codeOnlyPrompt) {
+    return "Ce va afișa următorul cod?";
+  }
+
   const cleaned = prompt
-    .replace(/\s*\((?:un|una|doi|două|doua|trei|patru|cinci|\d+)\s+`[^`]+`\)\s*:?\s*/gi, " ")
-    .replace(/\s*\(`[^`]+`\)\s*:?\s*/g, " ")
-    .replace(/\s*`[^`]+`\s*:?\s*/g, " ")
+    .replace(/`([^`]+)`/g, (full, snippet) => shouldRemoveInlineCode(snippet) ? "" : full)
+    .replace(/\((?:un|una|doi|două|doua|trei|patru|cinci|\d+)?\s*\)\s*:?\s*/gi, " ")
+    .replace(/\s*\+\s*\+\s*/g, " ")
     .replace(/\s+\./g, ".")
     .replace(/\s+\?/g, "?")
     .replace(/\s+:/g, ":")
@@ -476,8 +601,12 @@ function cleanPromptCodeReferences(prompt, codeSnippets) {
   return cleaned;
 }
 
+function shouldRemoveInlineCode(snippet) {
+  return looksLikeCode(snippet) && !isStandaloneTagReference(snippet);
+}
+
 function shouldMoveInlineCodeToBox(prompt) {
-  return /cod|secvență|secventa|fragment|afișa|afisa|afișează|afiseaza|următoarea|urmatoarea|fie dat/i.test(prompt);
+  return /cod|secvență|secventa|fragment|afișa|afisa|afișează|afiseaza|următoarea|urmatoarea|fie dat|selector|formular|completați|completează|completati|completeaza/i.test(prompt);
 }
 
 function loadState() {
@@ -651,13 +780,18 @@ function renderQuestion() {
 
   card.innerHTML = `
     ${noticeHtml}
-    <div class="question-meta">
-      <span class="pill category">${escapeHtml(question.category)}</span>
-      <span class="pill">Întrebarea ${question.categoryIndex}</span>
-      <span class="pill">Sursa #${question.sourceIndex}</span>
+    <div class="question-heading">
+      <p class="eyebrow">Întrebarea</p>
+      <h2 class="question-title">Întrebarea ${question.sourceIndex}</h2>
+      <div class="question-meta">
+        <span class="pill category">${escapeHtml(question.category)}</span>
+        <span class="pill">În ${escapeHtml(question.category)}: #${question.categoryIndex}</span>
+      </div>
     </div>
-    <h2 class="question-title">${renderInline(question.title)}</h2>
-    ${promptHtml ? `<div class="prompt">${promptHtml}</div>` : ""}
+    <section class="question-section">
+      <h3 class="section-title">Condiție</h3>
+      <div class="prompt">${promptHtml || "<p>Selectați răspunsul corect.</p>"}</div>
+    </section>
     ${codeHtml}
     ${answerHtml}
   `;
@@ -675,6 +809,7 @@ function renderCodeBox(snippets) {
 function renderOptionQuestion(question, locked, result) {
   const multiple = question.options.filter((option) => option.correct).length > 1;
   const selected = new Set(locked && result ? result.selectedOptionIds || [] : []);
+  const method = multiple ? "Alegeți toate variantele corecte." : "Alegeți varianta corectă.";
 
   const options = question.options.map((option) => {
     const chosen = selected.has(option.id);
@@ -695,7 +830,9 @@ function renderOptionQuestion(question, locked, result) {
   }).join("");
 
   return `
-    <div class="answer-area">
+    <section class="question-section answer-area">
+      <h3 class="section-title">Metoda de răspuns</h3>
+      <p class="answer-method">${method}</p>
       <ul class="option-list">${options}</ul>
       <div class="feedback-placeholder" id="validationMessage"></div>
       ${locked ? renderFeedback(result) : ""}
@@ -703,7 +840,7 @@ function renderOptionQuestion(question, locked, result) {
         ${locked ? "" : `<button class="primary-button" type="button" data-action="submit-options">Verifică</button>`}
         <button class="secondary-button" type="button" data-action="next">Următoarea</button>
       </div>
-    </div>
+    </section>
   `;
 }
 
@@ -713,7 +850,9 @@ function renderTextQuestion(question, locked, result) {
   const canAutoCheck = canAutoCheckAnswer(question);
 
   return `
-    <div class="answer-area">
+    <section class="question-section answer-area">
+      <h3 class="section-title">Metoda de răspuns</h3>
+      <p class="answer-method">Scrieți răspunsul, apoi verificați-l cu răspunsul corect.</p>
       ${locked ? "" : `<textarea class="text-answer" id="textAnswer" placeholder="Scrie răspunsul"></textarea>`}
       ${revealed ? `<div class="expected-answer"><strong>Răspuns corect</strong>${renderMultiline(expected)}</div>` : ""}
       ${locked ? renderFeedback(result) : ""}
@@ -724,7 +863,7 @@ function renderTextQuestion(question, locked, result) {
         ${revealed && !locked ? `<button class="ghost-button" type="button" data-action="self-wrong">Am greșit</button>` : ""}
         <button class="secondary-button" type="button" data-action="next">Următoarea</button>
       </div>
-    </div>
+    </section>
   `;
 }
 

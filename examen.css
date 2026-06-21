@@ -130,11 +130,16 @@ h1 {
   padding: 26px;
 }
 
+.question-heading {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
 .question-meta {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 14px;
 }
 
 .pill {
@@ -157,9 +162,28 @@ h1 {
 }
 
 .question-title {
-  margin: 0 0 14px;
+  margin: 0;
   font-size: clamp(1.45rem, 2vw, 2.1rem);
   line-height: 1.15;
+}
+
+.question-section {
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+
+.question-section + .question-section,
+.code-box + .question-section {
+  margin-top: 22px;
+}
+
+.section-title {
+  margin: 0 0 10px;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 850;
+  letter-spacing: 0;
+  text-transform: uppercase;
 }
 
 .prompt {
@@ -188,7 +212,7 @@ code {
 }
 
 .code-box {
-  margin: 18px 0;
+  margin: 22px 0 0;
   border: 1px solid #c8d7ee;
   border-left: 4px solid var(--blue);
   border-radius: 8px;
@@ -221,6 +245,12 @@ code {
 
 .answer-area {
   margin-top: 22px;
+}
+
+.answer-method {
+  margin-bottom: 12px;
+  color: var(--ink);
+  font-weight: 750;
 }
 
 .option-list {
