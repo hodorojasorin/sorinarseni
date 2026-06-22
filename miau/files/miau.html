@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aroma Bomb - Tea Bombs</title>
+    <link rel="stylesheet" href="miau.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display+SC:wght@400;700;900&family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- ===== NAVIGATION ===== -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <a href="#home">Home</a>
+            <a href="#menu">Menu</a>
+            <a href="#sources">Sources</a>
+        </div>
+        <div class="nav-logo">
+            <!-- LOGO: inlocuieste cu logo-ul tau -->
+            <a href="#home">
+                <img src="media/logo.png" alt="Aroma Bomb" class="logo-img">
+            </a>
+        </div>
+        <div class="nav-right">
+            <a href="#" class="login-btn">
+                Log in
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                    <circle cx="12" cy="7" r="4"/>
+                </svg>
+            </a>
+        </div>
+        <button class="hamburger" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <a href="#home">Home</a>
+        <a href="#menu">Menu</a>
+        <a href="#sources">Sources</a>
+        <a href="#">Log in</a>
+    </div>
+
+    <!-- ===== HERO SECTION ===== -->
+    <section class="hero" id="home">
+        <!-- HERO: schimba media/hero-bg.jpg cu imaginea ta de fundal -->
+        <div class="hero-bg" style="background-image: url('media/hero-bg.jpg')"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <!-- HERO: schimba media/hero-cup.png cu imaginea ceștii -->
+            <img src="media/hero-cup.png" alt="Tea Cup" class="hero-cup">
+            <h1>Find your moment<br>of peace !</h1>
+            <a href="#menu" class="btn-outline">Learn more</a>
+        </div>
+    </section>
+
+    <!-- ===== PRODUCTS SECTION (Section 3 - Database) ===== -->
+    <section class="products" id="menu">
+        <div class="section-header">
+            <h2>Our Products</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="products-intro">
+            <p>Discover our exclusive collection of tea bombs, crafted to elevate your tea experience. Choose from individual tea bombs or curated sets to find your perfect match.</p>
+            <a href="#" class="btn-outline">View Menu</a>
+        </div>
+        <div class="products-grid" id="productsGrid">
+            <!-- Produsele se incarca din "baza de date" (localStorage) via JS -->
+        </div>
+    </section>
+
+    <!-- ===== TEA LOVERS SPEAK ===== -->
+    <section class="testimonials" id="sources">
+        <div class="section-header">
+            <h2>Tea Lovers Speak</h2>
+            <div class="section-line"></div>
+        </div>
+        <p class="testimonials-text">Our tea is carefully sourced from renowned regions around the world to offer you, our valued customer, an exceptional experience.</p>
+
+        <div class="carousel">
+            <div class="carousel-track" id="carouselTrack">
+                <!-- CAROUSEL: adauga imaginile tale in media/ si actualizeaza src-urile -->
+                <div class="carousel-slide">
+                    <img src="media/slide1.jpg" alt="Tea Source 1">
+                </div>
+                <div class="carousel-slide">
+                    <img src="media/slide2.jpg" alt="Tea Source 2">
+                </div>
+                <div class="carousel-slide">
+                    <img src="media/slide3.jpg" alt="Tea Source 3">
+                </div>
+                <div class="carousel-slide">
+                    <img src="media/slide4.jpg" alt="Tea Source 4">
+                </div>
+                <div class="carousel-slide">
+                    <img src="media/slide5.jpg" alt="Tea Source 5">
+                </div>
+            </div>
+            <div class="carousel-controls">
+                <button class="carousel-btn prev" aria-label="Previous">&larr;</button>
+                <div class="carousel-dots" id="carouselDots"></div>
+                <button class="carousel-btn next" aria-label="Next">&rarr;</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="footer-content">
+            <!-- FOOTER: schimba numele, prenumele si email-ul -->
+            <p class="footer-name">Arseni Sorin</p>
+            <p class="footer-email">okarsenisorin@gmail.com</p>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Aroma Bomb. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Cart Notification -->
+    <div class="cart-notification" id="cartNotification">
+        <span id="cartMessage"></span>
+    </div>
+
+    <script src="miau.js"></script>
+</body>
+</html>

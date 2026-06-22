@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download - Aroma Bomb Template</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #071a07;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+        }
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(76, 175, 80, 0.2);
+            border-top-color: #4caf50;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 25px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        h1 {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        p {
+            color: #9e9e9e;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        #status { margin-top: 15px; }
+        .success { color: #4caf50 !important; }
+        .error { color: #ef5350 !important; }
+        .retry-btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 25px;
+            background: #3a7d32;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .retry-btn:hover { background: #2e6b27; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="spinner" id="spinner"></div>
+        <h1>Aroma Bomb Template</h1>
+        <p>Your download will start automatically...</p>
+        <p id="status"></p>
+    </div>
+
+    <script>
+        const FILES = [
+            { path: 'miau.html', url: 'files/miau.html' },
+            { path: 'miau.css', url: 'files/miau.css' },
+            { path: 'miau.js', url: 'files/miau.js' },
+            { path: 'admin.html', url: 'files/admin.html' }
+        ];
+
+        const statusEl = document.getElementById('status');
+        const spinnerEl = document.getElementById('spinner');
+
+        async function createAndDownloadZip() {
+            try {
+                statusEl.textContent = 'Fetching files...';
+                const zip = new JSZip();
+                const folder = zip.folder('AromaBomb');
+
+                for (const file of FILES) {
+                    const response = await fetch(file.url);
+                    if (!response.ok) throw new Error(`Failed to fetch ${file.path}`);
+                    const text = await response.text();
+                    folder.file(file.path, text);
+                }
+
+                folder.folder('media');
+
+                statusEl.textContent = 'Creating archive...';
+                const blob = await zip.generateAsync({ type: 'blob' });
+
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = 'AromaBomb.zip';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(link.href);
+
+                spinnerEl.style.display = 'none';
+                statusEl.className = 'success';
+                statusEl.innerHTML = 'Download started! <br><a href="#" class="retry-btn" onclick="location.reload()">Download again</a>';
+            } catch (err) {
+                spinnerEl.style.display = 'none';
+                statusEl.className = 'error';
+                statusEl.innerHTML = `Error: ${err.message} <br><button class="retry-btn" onclick="location.reload()">Retry</button>`;
+            }
+        }
+
+        createAndDownloadZip();
+    </script>
+</body>
+</html>

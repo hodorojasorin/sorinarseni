@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Aroma Bomb</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #071a07;
+            --bg-card: #0d2b0d;
+            --bg-input: #0a200a;
+            --green: #3a7d32;
+            --green-light: #4caf50;
+            --green-hover: #2e6b27;
+            --red: #c62828;
+            --red-hover: #a51c1c;
+            --yellow: #f9a825;
+            --white: #ffffff;
+            --gray: #9e9e9e;
+            --border: rgba(58, 125, 50, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg);
+            color: var(--white);
+            min-height: 100vh;
+        }
+
+        .admin-header {
+            background: rgba(4, 14, 4, 0.95);
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .admin-header h1 {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .admin-header a {
+            color: var(--green-light);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .admin-header a:hover {
+            color: var(--white);
+        }
+
+        .admin-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        .admin-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .admin-actions h2 {
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-primary {
+            background: var(--green);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--green-hover);
+        }
+
+        .btn-danger {
+            background: var(--red);
+            color: var(--white);
+        }
+
+        .btn-danger:hover {
+            background: var(--red-hover);
+        }
+
+        .btn-edit {
+            background: transparent;
+            border: 1px solid var(--yellow);
+            color: var(--yellow);
+        }
+
+        .btn-edit:hover {
+            background: var(--yellow);
+            color: var(--bg);
+        }
+
+        .btn-sm {
+            padding: 6px 14px;
+            font-size: 12px;
+        }
+
+        /* TABLE */
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--bg-card);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .admin-table thead {
+            background: rgba(58, 125, 50, 0.15);
+        }
+
+        .admin-table th {
+            padding: 14px 18px;
+            text-align: left;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--gray);
+        }
+
+        .admin-table td {
+            padding: 12px 18px;
+            font-size: 14px;
+            border-top: 1px solid var(--border);
+            vertical-align: middle;
+        }
+
+        .admin-table tr:hover td {
+            background: rgba(58, 125, 50, 0.05);
+        }
+
+        .admin-table .product-thumb {
+            width: 50px;
+            height: 50px;
+            border-radius: 6px;
+            object-fit: cover;
+            background: #f5f5f5;
+        }
+
+        .admin-table .actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        /* MODAL */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 30px;
+            width: 100%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--gray);
+            margin-bottom: 6px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px 14px;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--white);
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--green-light);
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 25px;
+        }
+
+        .btn-cancel {
+            background: transparent;
+            border: 1px solid var(--gray);
+            color: var(--gray);
+        }
+
+        .btn-cancel:hover {
+            border-color: var(--white);
+            color: var(--white);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--gray);
+        }
+
+        .empty-state p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .stat-card .stat-label {
+            font-size: 12px;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-card .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--green-light);
+            margin-top: 5px;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--white);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.4s;
+            z-index: 2000;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast.success { background: var(--green); }
+        .toast.error { background: var(--red); }
+
+        @media (max-width: 768px) {
+            .admin-table {
+                display: block;
+                overflow-x: auto;
+            }
+
+            .stats {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .admin-actions {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .modal {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="admin-header">
+        <h1>Admin Panel</h1>
+        <a href="miau.html">&larr; Back to Site</a>
+    </header>
+
+    <div class="admin-container">
+        <div class="stats" id="statsContainer"></div>
+
+        <div class="admin-actions">
+            <h2>Products</h2>
+            <button class="btn btn-primary" onclick="openAddModal()">+ Add Product</button>
+        </div>
+
+        <div id="tableContainer"></div>
+    </div>
+
+    <!-- Add/Edit Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <h3 id="modalTitle">Add Product</h3>
+            <form id="productForm" onsubmit="handleSubmit(event)">
+                <input type="hidden" id="productId">
+                <div class="form-group">
+                    <label for="productName">Product Name</label>
+                    <input type="text" id="productName" required placeholder="e.g. Blueberry Tea Bomb">
+                </div>
+                <div class="form-group">
+                    <label for="productPrice">Price ($)</label>
+                    <input type="number" id="productPrice" step="0.01" min="0" required placeholder="e.g. 8.50">
+                </div>
+                <div class="form-group">
+                    <label for="productBadge">Badge</label>
+                    <select id="productBadge">
+                        <option value="">No badge</option>
+                        <option value="Popular">Popular</option>
+                        <option value="New">New</option>
+                        <option value="Sale">Sale</option>
+                        <option value="Best Seller">Best Seller</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="productImage">Image Path</label>
+                    <input type="text" id="productImage" placeholder="media/product1.jpg">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-cancel" onclick="closeModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="submitBtn">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal-overlay" id="deleteOverlay">
+        <div class="modal" style="text-align: center;">
+            <h3>Delete Product?</h3>
+            <p style="color: var(--gray); margin-bottom: 25px; font-size: 14px;">
+                This action cannot be undone. The product "<span id="deleteName"></span>" will be permanently removed.
+            </p>
+            <div class="modal-actions" style="justify-content: center;">
+                <button class="btn btn-cancel" onclick="closeDeleteModal()">Cancel</button>
+                <button class="btn btn-danger" id="confirmDeleteBtn" onclick="confirmDelete()">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        const DB_KEY = 'aromabomb_products';
+
+        const defaultProducts = [
+            { id: 1, name: 'Blueberry Borage Tea Bomb', price: 8.20, badge: 'Popular', image: 'media/product1.jpg' },
+            { id: 2, name: 'Blue Moon Latte Bomb', price: 9.10, badge: 'Popular', image: 'media/product2.jpg' },
+            { id: 3, name: 'Earl Grey Rose Tea Bomb', price: 9.10, badge: 'Popular', image: 'media/product3.jpg' },
+            { id: 4, name: 'London Fog Tea Bomb', price: 7.50, badge: 'Popular', image: 'media/product4.jpg' }
+        ];
+
+        let deleteTargetId = null;
+
+        function getProducts() {
+            const data = localStorage.getItem(DB_KEY);
+            if (!data) {
+                localStorage.setItem(DB_KEY, JSON.stringify(defaultProducts));
+                return [...defaultProducts];
+            }
+            return JSON.parse(data);
+        }
+
+        function saveProducts(products) {
+            localStorage.setItem(DB_KEY, JSON.stringify(products));
+        }
+
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = `toast ${type} show`;
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        function renderStats() {
+            const products = getProducts();
+            const totalProducts = products.length;
+            const avgPrice = products.length ? (products.reduce((sum, p) => sum + p.price, 0) / products.length).toFixed(2) : '0.00';
+            const popularCount = products.filter(p => p.badge === 'Popular').length;
+
+            document.getElementById('statsContainer').innerHTML = `
+                <div class="stat-card">
+                    <div class="stat-label">Total Products</div>
+                    <div class="stat-value">${totalProducts}</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Average Price</div>
+                    <div class="stat-value">$${avgPrice}</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Popular Items</div>
+                    <div class="stat-value">${popularCount}</div>
+                </div>
+            `;
+        }
+
+        function renderTable() {
+            const products = getProducts();
+            const container = document.getElementById('tableContainer');
+
+            if (products.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <p>No products yet</p>
+                        <button class="btn btn-primary" onclick="openAddModal()">+ Add First Product</button>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = `
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Badge</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${products.map(p => `
+                            <tr>
+                                <td>#${p.id}</td>
+                                <td><img class="product-thumb" src="${p.image}" alt="${p.name}" onerror="this.style.background='#333'"></td>
+                                <td>${p.name}</td>
+                                <td>$${p.price.toFixed(2)}</td>
+                                <td>${p.badge || '—'}</td>
+                                <td>
+                                    <div class="actions">
+                                        <button class="btn btn-edit btn-sm" onclick="openEditModal(${p.id})">Edit</button>
+                                        <button class="btn btn-danger btn-sm" onclick="openDeleteModal(${p.id})">Delete</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+        }
+
+        function openAddModal() {
+            document.getElementById('modalTitle').textContent = 'Add Product';
+            document.getElementById('submitBtn').textContent = 'Add';
+            document.getElementById('productForm').reset();
+            document.getElementById('productId').value = '';
+            document.getElementById('modalOverlay').classList.add('active');
+        }
+
+        function openEditModal(id) {
+            const products = getProducts();
+            const product = products.find(p => p.id === id);
+            if (!product) return;
+
+            document.getElementById('modalTitle').textContent = 'Edit Product';
+            document.getElementById('submitBtn').textContent = 'Save';
+            document.getElementById('productId').value = product.id;
+            document.getElementById('productName').value = product.name;
+            document.getElementById('productPrice').value = product.price;
+            document.getElementById('productBadge').value = product.badge || '';
+            document.getElementById('productImage').value = product.image || '';
+            document.getElementById('modalOverlay').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.remove('active');
+        }
+
+        function openDeleteModal(id) {
+            const products = getProducts();
+            const product = products.find(p => p.id === id);
+            if (!product) return;
+
+            deleteTargetId = id;
+            document.getElementById('deleteName').textContent = product.name;
+            document.getElementById('deleteOverlay').classList.add('active');
+        }
+
+        function closeDeleteModal() {
+            document.getElementById('deleteOverlay').classList.remove('active');
+            deleteTargetId = null;
+        }
+
+        function confirmDelete() {
+            if (deleteTargetId === null) return;
+            const products = getProducts().filter(p => p.id !== deleteTargetId);
+            saveProducts(products);
+            closeDeleteModal();
+            renderAll();
+            showToast('Product deleted');
+        }
+
+        function handleSubmit(e) {
+            e.preventDefault();
+            const id = document.getElementById('productId').value;
+            const product = {
+                name: document.getElementById('productName').value.trim(),
+                price: parseFloat(document.getElementById('productPrice').value),
+                badge: document.getElementById('productBadge').value,
+                image: document.getElementById('productImage').value.trim() || 'media/placeholder.jpg'
+            };
+
+            if (id) {
+                const products = getProducts();
+                const index = products.findIndex(p => p.id === parseInt(id));
+                if (index !== -1) {
+                    products[index] = { ...products[index], ...product };
+                    saveProducts(products);
+                }
+                showToast('Product updated');
+            } else {
+                const products = getProducts();
+                product.id = products.length ? Math.max(...products.map(p => p.id)) + 1 : 1;
+                products.push(product);
+                saveProducts(products);
+                showToast('Product added');
+            }
+
+            closeModal();
+            renderAll();
+        }
+
+        function renderAll() {
+            renderStats();
+            renderTable();
+        }
+
+        document.getElementById('modalOverlay').addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) closeModal();
+        });
+
+        document.getElementById('deleteOverlay').addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) closeDeleteModal();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+                closeDeleteModal();
+            }
+        });
+
+        renderAll();
+    </script>
+</body>
+</html>
