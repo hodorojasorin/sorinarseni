@@ -53,8 +53,8 @@
           socials_photo_placeholder: "pune<br />socials-photo.jpg<br />aici",
           instagram_handle: "@sorinarseni / aici respir",
           tiktok_handle: "@suorinarseni / aici râd",
-          youtube_handle: "Sorin Arseni / aici mănânc",
-          twitter_handle: "@sorinarsen1 / aici dorm",
+          youtube_handle: "@sorinarseni / aici mănânc",
+          twitter_handle: "@suorinarseni / aici dorm",
           bereal_label: "// be f real //",
           open_bereal_1: "Deschide BeReal 1",
           open_bereal_2: "Deschide BeReal 2",
@@ -66,11 +66,11 @@
           bereal_caption_4: "la valea morilor pe aleea florilor",
           overview_label: "// overview //",
           overview_main:
-            "✓ elev computer science - ceiti<br />✓ viitor student la producție multimedia - usm<br />✗ nu-mi plac macaroanele cu brânză",
+            "✓ absolvent computer science - ceiti<br />✓ viitor student la producție multimedia - usm<br />✗ nu-mi plac macaroanele cu brânză",
           overview_contact:
             "👇 pentru inquiries, team-up<br />contact@sorinarseni.com",
-          spotify_label: "playlist tipa nostalgic",
-          youtube_embed_label: "eu când am iesit din sesiune",
+          spotify_label: "playlist vama veche 2012 color",
+          youtube_embed_label: "eu când am absolvit colegiul",
           image_preview: "Previzualizare imagine",
           footer_copy:
             "© 2026 SORIN ARSENI · HANDCRAFTED BY MYSELF · ALL RIGHTS WHATEVER",
@@ -97,8 +97,8 @@
           socials_photo_placeholder: "put<br />socials-photo.jpg<br />here",
           instagram_handle: "@sorinarseni / i breathe here",
           tiktok_handle: "@suorinarseni / i laugh here",
-          youtube_handle: "Sorin Arseni / i eat here",
-          twitter_handle: "@sorinarsen1 / i sleep here",
+          youtube_handle: "@sorinarseni / i eat here",
+          twitter_handle: "@suorinarseni / i sleep here",
           bereal_label: "// be f real //",
           open_bereal_1: "Open BeReal 1",
           open_bereal_2: "Open BeReal 2",
@@ -110,12 +110,57 @@
           bereal_caption_4: "at valea morilor on the flower alley",
           overview_label: "// overview //",
           overview_main:
-            "✓ student computer science - ceiti<br />✓ future multimedia production student - usm<br />✗ i don't like mac and cheese",
+            "✓ computer science graduate - ceiti<br />✓ future multimedia production student - usm<br />✗ i don't like mac and cheese",
           overview_contact:
             "👇 for inquiries, team-ups<br />contact@sorinarseni.com",
-          spotify_label: "the nostalgic kinda playlist",
-          youtube_embed_label: "me when i finished my exams",
+          spotify_label: "vama veche 2012 color playlist",
+          youtube_embed_label: "me when i graduated college",
           image_preview: "Image preview",
+          footer_copy:
+            "© 2026 SORIN ARSENI · HANDCRAFTED BY MYSELF · ALL RIGHTS WHATEVER",
+        },
+        it: {
+          header_sub: "Digital Creator",
+          barcode_label:
+            "LOCATION: CHISINAU, MOLDOVA, mcdonald's centro<br />STATUS: ONLINE, probabilmente sto scrollando su TikTok",
+          open_portrait: "Apri il ritratto",
+          me_placeholder: "metti<br />me.jpg<br />qui",
+          play_pause: "Riproduci/Pausa",
+          previous_track: "Traccia precedente",
+          next_track: "Traccia successiva",
+          repeat_track: "Ripeti",
+          sticky_coachella:
+            'ancora oggi mi lamento di non essere andato al coachella<br /><br /><em style="font-size: 0.88rem">"like baby, baby, baby, oh"</em>',
+          sticky_account:
+            "✦ ma tu chi sei siroja<br />per rubarmi l'account così?<br />ti sembra normale?? ✦",
+          open_wood_photo: "Apri la foto sul legno",
+          open_socials_photo: "Apri la foto dei social",
+          wood_placeholder: "metti<br />wood-photo.jpg<br />qui",
+          language_label: "lingua",
+          socials_label: "// socials //",
+          socials_photo_placeholder: "metti<br />socials-photo.jpg<br />qui",
+          instagram_handle: "@sorinarseni / qui respiro",
+          tiktok_handle: "@suorinarseni / qui rido",
+          youtube_handle: "@sorinarseni / qui mangio",
+          twitter_handle: "@suorinarseni / qui dormo",
+          bereal_label: "// be f real //",
+          open_bereal_1: "Apri BeReal 1",
+          open_bereal_2: "Apri BeReal 2",
+          open_bereal_3: "Apri BeReal 3",
+          open_bereal_4: "Apri BeReal 4",
+          bereal_caption_1: "mi mancherà il ceiti",
+          bereal_caption_2: "non hanno zara qui a bistrita",
+          bereal_caption_3:
+            "sono venuto al mc per il bagno e ho buttato lo scontrino",
+          bereal_caption_4: "a valea morilor sul viale dei fiori",
+          overview_label: "// overview //",
+          overview_main:
+            "✓ diplomato in computer science - ceiti<br />✓ futuro studente di produzione multimediale - usm<br />✗ non mi piacciono i maccheroni al formaggio",
+          overview_contact:
+            "👇 per richieste, collaborazioni<br />contact@sorinarseni.com",
+          spotify_label: "playlist vama veche 2012 a colori",
+          youtube_embed_label: "io quando mi sono diplomato al college",
+          image_preview: "Anteprima immagine",
           footer_copy:
             "© 2026 SORIN ARSENI · HANDCRAFTED BY MYSELF · ALL RIGHTS WHATEVER",
         },
@@ -124,7 +169,7 @@
       const langButtons = document.querySelectorAll(".lang-btn");
 
       function applyLanguage(lang) {
-        const nextLang = lang === "en" ? "en" : "ro";
+        const nextLang = translations[lang] ? lang : "ro";
         const dict = translations[nextLang];
         document.documentElement.lang = nextLang;
 
