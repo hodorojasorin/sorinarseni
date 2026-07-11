@@ -491,6 +491,82 @@
       window.addEventListener("load", syncHeroPanelHeight);
       window.addEventListener("resize", syncHeroPanelHeight);
 
+      const siteLoader = document.getElementById("siteLoader");
+      if (siteLoader) {
+        const loaderStart = performance.now();
+        window.addEventListener("load", () => {
+          const minShow = 2000;
+          const wait = Math.max(0, minShow - (performance.now() - loaderStart));
+          setTimeout(() => {
+            siteLoader.classList.add("is-hidden");
+            setTimeout(() => siteLoader.remove(), 600);
+          }, wait);
+        });
+      }
+
+      if (window.matchMedia("(pointer: fine)").matches) {
+        document.documentElement.classList.add("custom-cursor");
+
+        const cursorDot = document.createElement("div");
+        cursorDot.className = "cursor-dot";
+        document.body.appendChild(cursorDot);
+
+        const cursorShadow = document.createElement("div");
+        cursorShadow.className = "cursor-shadow";
+        document.body.appendChild(cursorShadow);
+
+        const clickableSelector =
+          "a, button, summary, label, input, [role='button'], .pl-dot, .progress-bar";
+
+        let mouseX = 0;
+        let mouseY = 0;
+        let shadowX = 0;
+        let shadowY = 0;
+        let cursorVisible = false;
+
+        function hideCursor() {
+          cursorVisible = false;
+          cursorDot.style.opacity = "0";
+          cursorShadow.style.opacity = "0";
+        }
+
+        document.addEventListener("mousemove", (event) => {
+          mouseX = event.clientX;
+          mouseY = event.clientY;
+          if (!cursorVisible) {
+            cursorVisible = true;
+            shadowX = mouseX;
+            shadowY = mouseY;
+            cursorDot.style.opacity = "1";
+            cursorShadow.style.opacity = "1";
+          }
+          cursorDot.classList.toggle(
+            "is-link",
+            Boolean(event.target.closest(clickableSelector)),
+          );
+        });
+
+        document.addEventListener("mouseleave", hideCursor);
+
+        document.addEventListener("mouseout", (event) => {
+          if (
+            event.relatedTarget &&
+            event.relatedTarget.tagName === "IFRAME"
+          ) {
+            hideCursor();
+          }
+        });
+
+        (function animateCursor() {
+          const dotSize = cursorDot.classList.contains("is-link") ? 16 : 10;
+          cursorDot.style.transform = `translate(${mouseX - dotSize / 2}px, ${mouseY - dotSize / 2}px)`;
+          shadowX += (mouseX - shadowX) * 0.25;
+          shadowY += (mouseY - shadowY) * 0.25;
+          cursorShadow.style.transform = `translate(${shadowX - 10}px, ${shadowY - 10}px)`;
+          requestAnimationFrame(animateCursor);
+        })();
+      }
+
       buildDots();
       loadTrack(0, false);
       applyLanguage(window.localStorage.getItem("siteLang") || "ro");

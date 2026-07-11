@@ -13,6 +13,128 @@
         --shadow: rgba(0, 0, 0, 0.16);
       }
 
+      html.custom-cursor,
+      html.custom-cursor * {
+        cursor: none !important;
+      }
+
+      .site-loader {
+        position: fixed;
+        inset: 0;
+        z-index: 20000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #d6cfc4;
+        transition: opacity 0.5s ease;
+      }
+
+      .site-loader.is-hidden {
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .loader {
+        width: fit-content;
+        padding: 0.2em 0.3em;
+        font-size: clamp(28px, 6vw, 48px);
+        font-family: "Permanent Marker", cursive;
+        font-weight: bold;
+        text-transform: uppercase;
+        color: #0000;
+        -webkit-text-stroke: 1px var(--ink);
+        background: conic-gradient(var(--ink) 0 0) text;
+        animation: l8 2s linear infinite;
+      }
+
+      .loader:before {
+        content: "Sorin Arseni";
+      }
+
+      @keyframes l8 {
+        0%,
+        2%,
+        8%,
+        11%,
+        15%,
+        21%,
+        30%,
+        32%,
+        35%,
+        40%,
+        46%,
+        47%,
+        53%,
+        61%,
+        70%,
+        72%,
+        77%,
+        80%,
+        86% {
+          background-size: 0 0;
+        }
+        1%,
+        9%,
+        10%,
+        16%,
+        20%,
+        31%,
+        34%,
+        41%,
+        45%,
+        48%,
+        52%,
+        55%,
+        60%,
+        73%,
+        76%,
+        81%,
+        85%,
+        96%,
+        100% {
+          background-size: 100% 100%;
+        }
+      }
+
+      .cursor-dot {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--ink);
+        pointer-events: none;
+        z-index: 10000;
+        opacity: 0;
+        transition:
+          width 0.15s ease,
+          height 0.15s ease,
+          background 0.15s ease;
+      }
+
+      .cursor-dot.is-link {
+        width: 16px;
+        height: 16px;
+        background: var(--accent);
+        border: 2px solid var(--ink);
+      }
+
+      .cursor-shadow {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: rgba(0, 0, 0, 0.35);
+        filter: blur(5px);
+        pointer-events: none;
+        z-index: 9999;
+        opacity: 0;
+        transition: opacity 0.25s ease;
+      }
+
       body {
         background-color: #d6cfc4;
         background-image:
