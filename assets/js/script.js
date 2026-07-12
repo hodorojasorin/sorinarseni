@@ -42,7 +42,7 @@
           next_track: "Piesa următoare",
           repeat_track: "Repetă",
           sticky_coachella:
-            'digital creator, programator, activist, om, organism eucariot<br /><br /><em style="font-size: 0.88rem">"vedeți că pe website sunt easter egg-uri"</em>',
+            'digital creator, programator, activist, om, organism eucariot<br /><br /><em style="font-size: 0.88rem"><a href="https://cv.sorinarseni.com" style="color: inherit">"duh"</a></em>',
           sticky_account:
             "✦ da tu șini iești sirioja<br />să-mi furi tu mie kontu'<br />țî sî parîi normal?? ✦",
           open_wood_photo: "Deschide poza de pe lemn",
@@ -86,7 +86,7 @@
           next_track: "Next track",
           repeat_track: "Repeat",
           sticky_coachella:
-            'digital creator, programmer, activist, human, eukaryotic organism<br /><br /><em style="font-size: 0.88rem">"heads up, there are easter eggs on this website"</em>',
+            'digital creator, programmer, activist, human, eukaryotic organism<br /><br /><em style="font-size: 0.88rem"><a href="https://cv.sorinarseni.com" style="color: inherit">"duh"</a></em>',
           sticky_account:
             "✦ and you really think it's normal<br />siroja to steal my account like that?<br />are you kidding? ✦",
           open_wood_photo: "Open wood photo",
@@ -130,7 +130,7 @@
           next_track: "Traccia successiva",
           repeat_track: "Ripeti",
           sticky_coachella:
-            'digital creator, programmatore, attivista, essere umano, organismo eucariote<br /><br /><em style="font-size: 0.88rem">"occhio, sul sito ci sono degli easter egg"</em>',
+            'digital creator, programmatore, attivista, essere umano, organismo eucariote<br /><br /><em style="font-size: 0.88rem"><a href="https://cv.sorinarseni.com" style="color: inherit">"duh"</a></em>',
           sticky_account:
             "✦ ma tu chi sei siroja<br />per rubarmi l'account così?<br />ti sembra normale?? ✦",
           open_wood_photo: "Apri la foto sul legno",
