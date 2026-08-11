@@ -66,7 +66,7 @@
           bereal_caption_4: "la valea morilor pe aleea florilor",
           overview_label: "// overview //",
           overview_main:
-            "✓ absolvent computer science - ceiti<br />✓ student la producție multimedia - usm<br />✗ nu-mi plac macaroanele cu brânză",
+            "✓ student la producție multimedia - usm<br />✓ am absolvit colegiul computer science - ceiti<br />✗ nu-mi plac macaroanele cu brânză",
           overview_contact:
             "👇 pentru inquiries, team-up<br />contact@sorinarseni.com",
           spotify_label: "playlist vama veche 2012 color",
@@ -110,7 +110,7 @@
           bereal_caption_4: "at valea morilor on the flower alley",
           overview_label: "// overview //",
           overview_main:
-            "✓ computer science graduate - ceiti<br />✓ multimedia production student - usm<br />✗ i don't like mac and cheese",
+            "✓ multimedia production student - usm<br />✓ graduated college in computer science - ceiti<br />✗ i don't like mac and cheese",
           overview_contact:
             "👇 for inquiries, team-ups<br />contact@sorinarseni.com",
           spotify_label: "vama veche 2012 color playlist",
@@ -155,7 +155,7 @@
           bereal_caption_4: "a valea morilor sul viale dei fiori",
           overview_label: "// overview //",
           overview_main:
-            "✓ diplomato in computer science - ceiti<br />✓ studente di produzione multimediale - usm<br />✗ non mi piacciono i maccheroni al formaggio",
+            "✓ studente di produzione multimediale - usm<br />✓ diplomato al collegio in computer science - ceiti<br />✗ non mi piacciono i maccheroni al formaggio",
           overview_contact:
             "👇 per richieste, collaborazioni<br />contact@sorinarseni.com",
           spotify_label: "playlist vama veche 2012 a colori",
