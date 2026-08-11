@@ -493,12 +493,21 @@
 
       const siteLoader = document.getElementById("siteLoader");
       if (siteLoader) {
+        const loaderAudio = new Audio("assets/audio/loading.mp3");
+        loaderAudio.loop = true;
+        loaderAudio.volume = 0.6;
+        const loaderPlay = loaderAudio.play();
+        if (loaderPlay && typeof loaderPlay.catch === "function") {
+          loaderPlay.catch(() => {});
+        }
+
         const loaderStart = performance.now();
         window.addEventListener("load", () => {
           const minShow = 2000;
           const wait = Math.max(0, minShow - (performance.now() - loaderStart));
           setTimeout(() => {
             siteLoader.classList.add("is-hidden");
+            loaderAudio.pause();
             setTimeout(() => siteLoader.remove(), 600);
           }, wait);
         });
