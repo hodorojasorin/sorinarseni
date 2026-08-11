@@ -494,7 +494,6 @@
       const siteLoader = document.getElementById("siteLoader");
       if (siteLoader) {
         const loaderAudio = new Audio("assets/audio/loading.mp3");
-        loaderAudio.loop = true;
         loaderAudio.volume = 0.6;
         const loaderPlay = loaderAudio.play();
         if (loaderPlay && typeof loaderPlay.catch === "function") {
@@ -502,14 +501,29 @@
         }
 
         const loaderStart = performance.now();
+        const getAudioDuration = () =>
+          new Promise((resolve) => {
+            if (loaderAudio.duration && !isNaN(loaderAudio.duration)) {
+              resolve(loaderAudio.duration * 1000);
+              return;
+            }
+            loaderAudio.addEventListener(
+              "loadedmetadata",
+              () => resolve(loaderAudio.duration * 1000),
+              { once: true },
+            );
+            setTimeout(() => resolve(2000), 5000);
+          });
+
         window.addEventListener("load", () => {
-          const minShow = 2000;
-          const wait = Math.max(0, minShow - (performance.now() - loaderStart));
-          setTimeout(() => {
-            siteLoader.classList.add("is-hidden");
-            loaderAudio.pause();
-            setTimeout(() => siteLoader.remove(), 600);
-          }, wait);
+          getAudioDuration().then((minShow) => {
+            const wait = Math.max(0, minShow - (performance.now() - loaderStart));
+            setTimeout(() => {
+              siteLoader.classList.add("is-hidden");
+              loaderAudio.pause();
+              setTimeout(() => siteLoader.remove(), 600);
+            }, wait);
+          });
         });
       }
 
