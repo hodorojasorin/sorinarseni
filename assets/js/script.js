@@ -32,7 +32,7 @@
 
       const translations = {
         ro: {
-          header_sub: "Digital Creator",
+          header_sub: "Multimedia Production Student",
           barcode_label:
             "LOCATION: CHIȘINĂU, MOLDOVA, mc centru<br />STATUS: ONLINE, probabil dau scroll pe TikTok",
           open_portrait: "Deschide portretul",
@@ -76,7 +76,7 @@
             "© 2026 SORIN ARSENI · HANDCRAFTED BY MYSELF · ALL RIGHTS WHATEVER",
         },
         en: {
-          header_sub: "Digital Creator",
+          header_sub: "Multimedia Production Student",
           barcode_label:
             "LOCATION: CHISINAU, MOLDOVA, mcdonald's center<br />STATUS: ONLINE, probably scrolling TikTok",
           open_portrait: "Open portrait",
@@ -120,7 +120,7 @@
             "© 2026 SORIN ARSENI · HANDCRAFTED BY MYSELF · ALL RIGHTS WHATEVER",
         },
         it: {
-          header_sub: "Digital Creator",
+          header_sub: "Multimedia Production Student",
           barcode_label:
             "LOCATION: CHISINAU, MOLDOVA, mcdonald's centro<br />STATUS: ONLINE, probabilmente sto scrollando su TikTok",
           open_portrait: "Apri il ritratto",
