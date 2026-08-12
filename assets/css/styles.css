@@ -1610,13 +1610,14 @@
 
       .whiteboard-links {
         display: flex;
-        flex-wrap: wrap;
         gap: 8px;
       }
 
       .whiteboard-link {
         display: inline-flex;
+        flex: 1;
         align-items: center;
+        justify-content: center;
         gap: 8px;
         padding: 7px 12px;
         border: 2px dashed #c13584;
@@ -1648,6 +1649,23 @@
       .whiteboard-link-tiktok:focus-visible {
         background: rgba(26, 26, 26, 0.06);
         transform: rotate(0deg) translateY(-1px);
+      }
+
+      .whiteboard-note {
+        position: relative;
+        border-color: #1c4fb0;
+        color: #1c4fb0;
+        cursor: default;
+      }
+
+      .whiteboard-note::after {
+        content: "";
+        position: absolute;
+        right: 8px;
+        top: 100%;
+        width: 0;
+        height: 16px;
+        border-left: 2px dashed #1c4fb0;
       }
 
       .palmares-board {
@@ -1876,6 +1894,14 @@
       }
 
       @media (max-width: 640px) {
+        .whiteboard-link {
+          padding: 6px 6px;
+          font-size: 0.56rem;
+          white-space: normal;
+          text-align: center;
+          line-height: 1.3;
+        }
+
         .page {
           padding: 14px 14px 44px;
         }
