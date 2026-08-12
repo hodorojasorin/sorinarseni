@@ -1608,11 +1608,16 @@
         color: #2c2c2c;
       }
 
+      .whiteboard-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
       .whiteboard-link {
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        align-self: flex-start;
         padding: 7px 12px;
         border: 2px dashed #c13584;
         border-radius: 3px;
@@ -1630,6 +1635,18 @@
       .whiteboard-link:hover,
       .whiteboard-link:focus-visible {
         background: rgba(193, 53, 132, 0.08);
+        transform: rotate(0deg) translateY(-1px);
+      }
+
+      .whiteboard-link-tiktok {
+        border-color: #1a1a1a;
+        color: #1a1a1a;
+        transform: rotate(0.5deg);
+      }
+
+      .whiteboard-link-tiktok:hover,
+      .whiteboard-link-tiktok:focus-visible {
+        background: rgba(26, 26, 26, 0.06);
         transform: rotate(0deg) translateY(-1px);
       }
 
