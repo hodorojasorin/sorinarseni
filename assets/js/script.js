@@ -73,8 +73,6 @@
           youtube_embed_label: "eu când am absolvit colegiul",
           experience_role:
             "Fost Coordonator EPM CEITI & membru al departamentului de Editare Video.",
-          experience_desc:
-            "Anul IV de colegiu. Am coordonat echipa de producție multimedia a CEITI: filmări, montaj și conținut pentru evenimentele instituției.",
           palmares_label: "Palmares",
           competition1_title: "Romanian Business Challenge",
           competition1_date: "Mai 2026",
@@ -132,8 +130,6 @@
           youtube_embed_label: "me when i graduated college",
           experience_role:
             "Former Coordinator EPM CEITI & member of the Video Editing department.",
-          experience_desc:
-            "4th year of college. Coordinated CEITI's multimedia production team: filming, editing and content for the institution's events.",
           palmares_label: "Palmares",
           competition1_title: "Romanian Business Challenge",
           competition1_date: "May 2026",
@@ -191,8 +187,6 @@
           youtube_embed_label: "io quando mi sono diplomato al college",
           experience_role:
             "Ex Coordinatore EPM CEITI & membro del dipartimento di Montaggio Video.",
-          experience_desc:
-            "Quarto anno di collegio. Ho coordinato il team di produzione multimediale del CEITI: riprese, montaggio e contenuti per gli eventi dell'istituto.",
           palmares_label: "Palmares",
           competition1_title: "Romanian Business Challenge",
           competition1_date: "Maggio 2026",

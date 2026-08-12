@@ -1589,6 +1589,16 @@
         letter-spacing: 0.08em;
         text-transform: uppercase;
         align-self: center;
+        text-decoration: none;
+        transition:
+          transform 0.12s ease,
+          box-shadow 0.12s ease;
+      }
+
+      .section-label-whiteboard:hover,
+      .section-label-whiteboard:focus-visible {
+        transform: rotate(0deg) translateY(-1px);
+        box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.3);
       }
 
       .whiteboard-text {
@@ -1603,7 +1613,6 @@
         align-items: center;
         gap: 8px;
         align-self: flex-start;
-        margin-top: auto;
         padding: 7px 12px;
         border: 2px dashed #c13584;
         border-radius: 3px;
@@ -1626,12 +1635,9 @@
 
       .palmares-board {
         display: grid;
-        grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.15fr) minmax(
-            0,
-            0.95fr
-          );
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
         gap: 24px;
-        align-items: stretch;
+        align-items: start;
       }
 
       .palmares-col {
@@ -1639,6 +1645,12 @@
         flex-direction: column;
         gap: 10px;
         min-width: 0;
+      }
+
+      .palmares-info .youtube-wrap {
+        flex: none;
+        min-height: 0;
+        aspect-ratio: 16 / 9;
       }
 
       .palmares-competitions {
