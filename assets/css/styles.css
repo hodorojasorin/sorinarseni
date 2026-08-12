@@ -1564,6 +1564,211 @@
         display: block;
       }
 
+      .experience-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 28px;
+        align-items: stretch;
+      }
+
+      .whiteboard-panel {
+        background: #fbfbf8;
+        background-image:
+          linear-gradient(rgba(20, 70, 130, 0.07) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(20, 70, 130, 0.07) 1px, transparent 1px);
+        background-size: 22px 22px;
+        border: 8px solid #e7e0cf;
+        box-shadow:
+          8px 10px 24px rgba(0, 0, 0, 0.16),
+          inset 0 0 0 2px rgba(0, 0, 0, 0.05);
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding-bottom: 32px;
+      }
+
+      .section-label-whiteboard {
+        font-size: 1.05rem;
+        color: #fff;
+        background: #1c4fb0;
+        padding: 4px 12px 5px;
+        transform: rotate(-1deg);
+        box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.25);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        align-self: flex-start;
+      }
+
+      .whiteboard-title {
+        font-family: "Permanent Marker", cursive;
+        font-size: 1rem;
+        line-height: 1.35;
+        color: #1c4fb0;
+        transform: rotate(-0.4deg);
+      }
+
+      .whiteboard-text {
+        font-family: "Kalam", cursive;
+        font-size: 0.92rem;
+        line-height: 1.5;
+        color: #2c2c2c;
+      }
+
+      .whiteboard-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        align-self: flex-start;
+        margin-top: auto;
+        padding: 7px 12px;
+        border: 2px dashed #c13584;
+        border-radius: 3px;
+        color: #c13584;
+        font-family: "Special Elite", serif;
+        font-size: 0.7rem;
+        letter-spacing: 0.03em;
+        text-decoration: none;
+        transform: rotate(-0.5deg);
+        transition:
+          transform 0.12s ease,
+          background 0.12s ease;
+      }
+
+      .whiteboard-link:hover,
+      .whiteboard-link:focus-visible {
+        background: rgba(193, 53, 132, 0.08);
+        transform: rotate(0deg) translateY(-1px);
+      }
+
+      .whiteboard-tray {
+        position: absolute;
+        left: 24px;
+        right: 24px;
+        bottom: 12px;
+        display: flex;
+        gap: 10px;
+        align-items: flex-end;
+      }
+
+      .whiteboard-marker {
+        width: 30px;
+        height: 8px;
+        border-radius: 4px 7px 7px 4px;
+        box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.28);
+      }
+
+      .whiteboard-marker.blue {
+        background: #2f6fed;
+      }
+
+      .whiteboard-marker.red {
+        background: #e8115a;
+      }
+
+      .whiteboard-marker.black {
+        background: #1a1a1a;
+      }
+
+      .competitions-panel {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .section-label-competitions {
+        display: table;
+        margin: 0 auto 2px;
+      }
+
+      .competitions-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        flex: 1;
+        justify-content: center;
+      }
+
+      .competition-item {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.55);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        padding: 10px;
+        box-shadow: 3px 4px 0 rgba(0, 0, 0, 0.14);
+      }
+
+      .competition-item:nth-child(odd) {
+        transform: rotate(0.6deg);
+      }
+
+      .competition-item:nth-child(even) {
+        transform: rotate(-0.6deg);
+      }
+
+      .competition-photo {
+        width: 72px;
+        height: 72px;
+        flex: 0 0 72px;
+        border: 3px solid rgba(255, 248, 238, 0.85);
+        box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+        background: #e8e0d0;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .competition-photo img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .competition-placeholder {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 4px;
+        font-family: "Special Elite", serif;
+        font-size: 0.4rem;
+        line-height: 1.4;
+        color: #777;
+      }
+
+      .competition-info {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        min-width: 0;
+      }
+
+      .competition-title {
+        font-family: "Permanent Marker", cursive;
+        font-size: 0.8rem;
+        line-height: 1.25;
+        color: var(--ink);
+      }
+
+      .competition-date {
+        font-family: "Special Elite", serif;
+        font-size: 0.55rem;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: #888;
+      }
+
+      .competition-desc {
+        font-family: "Kalam", cursive;
+        font-size: 0.78rem;
+        line-height: 1.4;
+        color: #444;
+      }
+
       @media (max-width: 980px) {
         .embeds-grid {
           grid-template-columns: 1fr;
@@ -1636,7 +1841,8 @@
 
       @media (max-width: 980px) {
         .hero-grid,
-        .content-grid {
+        .content-grid,
+        .experience-grid {
           grid-template-columns: 1fr;
         }
 

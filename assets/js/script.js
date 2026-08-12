@@ -71,6 +71,22 @@
             "👇 pentru inquiries, team-up<br />contact@sorinarseni.com",
           spotify_label: "playlist vama veche 2012 color",
           youtube_embed_label: "eu când am absolvit colegiul",
+          experience_label: "// experiență //",
+          experience_role: "Coordonator — Echipa de Producție Multimedia CEITI",
+          experience_desc:
+            "Anul IV de colegiu. Am coordonat echipa de producție multimedia a CEITI: filmări, montaj și conținut pentru evenimentele instituției.",
+          experience_youtube_label: "echipa la treabă",
+          competitions_label: "// competiții //",
+          competition1_title: "Romanian Business Challenge",
+          competition1_date: "Mai 2026",
+          competition1_desc:
+            "Locul 2, ediția a XIV-a — Camera de Comerț și Industrie Prahova, Ploiești.",
+          competition1_placeholder: "pune<br />competition1.jpg<br />aici",
+          competition2_title: "DATASTORM — Innovation through Data",
+          competition2_date: "Oct 2025",
+          competition2_desc:
+            "Mențiune de onoare, competiție de data science.",
+          competition2_placeholder: "pune<br />competition2.jpg<br />aici",
           image_preview: "Previzualizare imagine",
           footer_copy:
             "© 2026 SORIN ARSENI · HANDCRAFTED BY MYSELF · ALL RIGHTS WHATEVER",
@@ -115,6 +131,21 @@
             "👇 for inquiries, team-ups<br />contact@sorinarseni.com",
           spotify_label: "vama veche 2012 color playlist",
           youtube_embed_label: "me when i graduated college",
+          experience_label: "// experience //",
+          experience_role: "Coordinator — CEITI Multimedia Production Team",
+          experience_desc:
+            "4th year of college. Coordinated CEITI's multimedia production team: filming, editing and content for the institution's events.",
+          experience_youtube_label: "the team at work",
+          competitions_label: "// competitions //",
+          competition1_title: "Romanian Business Challenge",
+          competition1_date: "May 2026",
+          competition1_desc:
+            "2nd Place, 14th edition — Prahova Chamber of Commerce and Industry, Ploiești.",
+          competition1_placeholder: "put<br />competition1.jpg<br />here",
+          competition2_title: "DATASTORM — Innovation through Data",
+          competition2_date: "Oct 2025",
+          competition2_desc: "Honorable Mention, a data science competition.",
+          competition2_placeholder: "put<br />competition2.jpg<br />here",
           image_preview: "Image preview",
           footer_copy:
             "© 2026 SORIN ARSENI · HANDCRAFTED BY MYSELF · ALL RIGHTS WHATEVER",
@@ -160,6 +191,23 @@
             "👇 per richieste, collaborazioni<br />contact@sorinarseni.com",
           spotify_label: "playlist vama veche 2012 a colori",
           youtube_embed_label: "io quando mi sono diplomato al college",
+          experience_label: "// esperienza //",
+          experience_role:
+            "Coordinatore — Team di Produzione Multimediale CEITI",
+          experience_desc:
+            "Quarto anno di collegio. Ho coordinato il team di produzione multimediale del CEITI: riprese, montaggio e contenuti per gli eventi dell'istituto.",
+          experience_youtube_label: "il team al lavoro",
+          competitions_label: "// competizioni //",
+          competition1_title: "Romanian Business Challenge",
+          competition1_date: "Maggio 2026",
+          competition1_desc:
+            "2° posto, XIV edizione — Camera di Commercio e Industria di Prahova, Ploiești.",
+          competition1_placeholder: "metti<br />competition1.jpg<br />qui",
+          competition2_title: "DATASTORM — Innovation through Data",
+          competition2_date: "Ott 2025",
+          competition2_desc:
+            "Menzione d'onore, competizione di data science.",
+          competition2_placeholder: "metti<br />competition2.jpg<br />qui",
           image_preview: "Anteprima immagine",
           footer_copy:
             "© 2026 SORIN ARSENI · HANDCRAFTED BY MYSELF · ALL RIGHTS WHATEVER",
