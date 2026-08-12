@@ -72,7 +72,7 @@
           spotify_label: "playlist vama veche 2012 color",
           youtube_embed_label: "eu când am absolvit colegiul",
           experience_role:
-            "Fost Coordonator EPM CEITI & membru al departamentului de Editare Video.",
+            "Fost Coordonator EPM CEITI & fost membru al departamentului de Editare Video.",
           palmares_label: "Palmares",
           competition1_title: "Romanian Business Challenge",
           competition1_date: "Mai 2026",
@@ -129,7 +129,7 @@
           spotify_label: "vama veche 2012 color playlist",
           youtube_embed_label: "me when i graduated college",
           experience_role:
-            "Former Coordinator EPM CEITI & member of the Video Editing department.",
+            "Former Coordinator EPM CEITI & former member of the Video Editing department.",
           palmares_label: "Palmares",
           competition1_title: "Romanian Business Challenge",
           competition1_date: "May 2026",
@@ -186,7 +186,7 @@
           spotify_label: "playlist vama veche 2012 a colori",
           youtube_embed_label: "io quando mi sono diplomato al college",
           experience_role:
-            "Ex Coordinatore EPM CEITI & membro del dipartimento di Montaggio Video.",
+            "Ex Coordinatore EPM CEITI & ex membro del dipartimento di Montaggio Video.",
           palmares_label: "Palmares",
           competition1_title: "Romanian Business Challenge",
           competition1_date: "Maggio 2026",

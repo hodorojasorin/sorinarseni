@@ -1637,7 +1637,7 @@
         display: grid;
         grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
         gap: 24px;
-        align-items: start;
+        align-items: stretch;
       }
 
       .palmares-col {
@@ -1645,12 +1645,6 @@
         flex-direction: column;
         gap: 10px;
         min-width: 0;
-      }
-
-      .palmares-info .youtube-wrap {
-        flex: none;
-        min-height: 0;
-        aspect-ratio: 16 / 9;
       }
 
       .palmares-competitions {
