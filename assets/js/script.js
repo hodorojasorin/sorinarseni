@@ -71,10 +71,10 @@
             "👇 pentru inquiries, team-up<br />contact@sorinarseni.com",
           spotify_label: "playlist vama veche 2012 color",
           youtube_embed_label: "eu când am absolvit colegiul",
-          experience_role: "Coordonator — Echipa de Producție Multimedia CEITI",
+          experience_role:
+            "Fost Coordonator EPM CEITI & membru al departamentului de Editare Video.",
           experience_desc:
             "Anul IV de colegiu. Am coordonat echipa de producție multimedia a CEITI: filmări, montaj și conținut pentru evenimentele instituției.",
-          experience_youtube_label: "echipa la treabă",
           palmares_label: "Palmares",
           competition1_title: "Romanian Business Challenge",
           competition1_date: "Mai 2026",
@@ -130,10 +130,10 @@
             "👇 for inquiries, team-ups<br />contact@sorinarseni.com",
           spotify_label: "vama veche 2012 color playlist",
           youtube_embed_label: "me when i graduated college",
-          experience_role: "Coordinator — CEITI Multimedia Production Team",
+          experience_role:
+            "Former Coordinator EPM CEITI & member of the Video Editing department.",
           experience_desc:
             "4th year of college. Coordinated CEITI's multimedia production team: filming, editing and content for the institution's events.",
-          experience_youtube_label: "the team at work",
           palmares_label: "Palmares",
           competition1_title: "Romanian Business Challenge",
           competition1_date: "May 2026",
@@ -190,10 +190,9 @@
           spotify_label: "playlist vama veche 2012 a colori",
           youtube_embed_label: "io quando mi sono diplomato al college",
           experience_role:
-            "Coordinatore — Team di Produzione Multimediale CEITI",
+            "Ex Coordinatore EPM CEITI & membro del dipartimento di Montaggio Video.",
           experience_desc:
             "Quarto anno di collegio. Ho coordinato il team di produzione multimediale del CEITI: riprese, montaggio e contenuti per gli eventi dell'istituto.",
-          experience_youtube_label: "il team al lavoro",
           palmares_label: "Palmares",
           competition1_title: "Romanian Business Challenge",
           competition1_date: "Maggio 2026",
