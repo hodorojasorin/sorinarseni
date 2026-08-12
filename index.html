@@ -611,103 +611,89 @@
           </div>
         </section>
 
-        <section class="experience-grid">
+        <div
+          class="panel-card whiteboard-panel whiteboard-wide pop"
+          style="animation-delay: 0.7s"
+        >
           <div
-            class="panel-card whiteboard-panel pop"
-            style="animation-delay: 0.7s"
+            class="section-label-embed section-label-whiteboard"
+            data-i18n="palmares_label"
           >
-            <div
-              class="section-label-embed section-label-whiteboard"
-              data-i18n="experience_label"
-            >
-              // experiență //
-            </div>
-            <h3 class="whiteboard-title" data-i18n="experience_role">
-              Coordonator — Echipa de Producție Multimedia CEITI
-            </h3>
-            <p class="whiteboard-text" data-i18n="experience_desc">
-              Anul IV de colegiu. Am coordonat echipa de producție multimedia
-              a CEITI: filmări, montaj și conținut pentru evenimentele
-              instituției.
-            </p>
-            <a
-              class="whiteboard-link"
-              href="https://www.instagram.com/epm.ceiti.md/"
-              target="_blank"
-              rel="noopener"
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                <rect
-                  x="2"
-                  y="2"
-                  width="20"
-                  height="20"
-                  rx="5"
-                  stroke="#c13584"
-                  stroke-width="2"
-                />
-                <circle
-                  cx="12"
-                  cy="12"
-                  r="4.5"
-                  stroke="#c13584"
-                  stroke-width="2"
-                />
-                <circle cx="17.5" cy="6.5" r="1.2" fill="#c13584" />
-              </svg>
-              @epm.ceiti.md
-            </a>
-            <div class="whiteboard-tray">
-              <span class="whiteboard-marker blue"></span>
-              <span class="whiteboard-marker red"></span>
-              <span class="whiteboard-marker black"></span>
-            </div>
+            Palmares
           </div>
+          <div class="palmares-board">
+            <div class="palmares-col palmares-info">
+              <h3 class="whiteboard-title" data-i18n="experience_role">
+                Coordonator — Echipa de Producție Multimedia CEITI
+              </h3>
+              <p class="whiteboard-text" data-i18n="experience_desc">
+                Anul IV de colegiu. Am coordonat echipa de producție
+                multimedia a CEITI: filmări, montaj și conținut pentru
+                evenimentele instituției.
+              </p>
+              <a
+                class="whiteboard-link"
+                href="https://www.instagram.com/epm.ceiti.md/"
+                target="_blank"
+                rel="noopener"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <rect
+                    x="2"
+                    y="2"
+                    width="20"
+                    height="20"
+                    rx="5"
+                    stroke="#c13584"
+                    stroke-width="2"
+                  />
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="4.5"
+                    stroke="#c13584"
+                    stroke-width="2"
+                  />
+                  <circle cx="17.5" cy="6.5" r="1.2" fill="#c13584" />
+                </svg>
+                @epm.ceiti.md
+              </a>
+            </div>
 
-          <div
-            class="panel-card embed-panel youtube-panel pop"
-            style="animation-delay: 0.78s"
-          >
-            <div class="embed-tape embed-tape-left"></div>
-            <div class="embed-tape embed-tape-right"></div>
-            <div
-              class="section-label-embed section-label-youtube"
-              data-i18n="experience_youtube_label"
-            >
-              echipa la treabă
+            <div class="palmares-col palmares-video">
+              <span
+                class="palmares-subtitle"
+                data-i18n="experience_youtube_label"
+              >
+                echipa la treabă
+              </span>
+              <div class="youtube-wrap">
+                <iframe
+                  src="https://www.youtube.com/embed/pu8-mA47cO4"
+                  title="YouTube video player"
+                  frameborder="0"
+                  allow="
+                    accelerometer;
+                    autoplay;
+                    clipboard-write;
+                    encrypted-media;
+                    gyroscope;
+                    picture-in-picture;
+                    web-share;
+                  "
+                  referrerpolicy="strict-origin-when-cross-origin"
+                  allowfullscreen
+                ></iframe>
+              </div>
             </div>
-            <div class="youtube-wrap">
-              <iframe
-                src="https://www.youtube.com/embed/pu8-mA47cO4"
-                title="YouTube video player"
-                frameborder="0"
-                allow="
-                  accelerometer;
-                  autoplay;
-                  clipboard-write;
-                  encrypted-media;
-                  gyroscope;
-                  picture-in-picture;
-                  web-share;
-                "
-                referrerpolicy="strict-origin-when-cross-origin"
-                allowfullscreen
-              ></iframe>
-            </div>
-          </div>
 
-          <div
-            class="panel-card competitions-panel pop"
-            style="animation-delay: 0.86s"
-          >
-            <div
-              class="section-label-bereal section-label-competitions"
-              data-i18n="competitions_label"
-            >
-              // competiții //
-            </div>
-            <div class="competitions-grid">
-              <div class="competition-item">
+            <div class="palmares-col palmares-competitions">
+              <a
+                class="competition-item competition-link"
+                href="https://cciph.ro/romanian-business-challenge-editia-a-xiv-a/"
+                target="_blank"
+                rel="noopener"
+              >
                 <div class="competition-photo">
                   <img
                     src="assets/images/competition1.jpg"
@@ -724,8 +710,10 @@
                   >
                     pune<br />competition1.jpg<br />aici
                   </div>
+                  <span class="competition-open">↗</span>
                 </div>
                 <div class="competition-info">
+                  <span class="competition-domain">cciph.ro</span>
                   <span
                     class="competition-title"
                     data-i18n="competition1_title"
@@ -746,9 +734,14 @@
                     Prahova, Ploiești.
                   </span>
                 </div>
-              </div>
+              </a>
 
-              <div class="competition-item">
+              <a
+                class="competition-item competition-link"
+                href="https://it4ba.ase.md/event2025_8.html"
+                target="_blank"
+                rel="noopener"
+              >
                 <div class="competition-photo">
                   <img
                     src="assets/images/competition2.jpg"
@@ -765,8 +758,10 @@
                   >
                     pune<br />competition2.jpg<br />aici
                   </div>
+                  <span class="competition-open">↗</span>
                 </div>
                 <div class="competition-info">
+                  <span class="competition-domain">it4ba.ase.md</span>
                   <span
                     class="competition-title"
                     data-i18n="competition2_title"
@@ -786,10 +781,15 @@
                     Mențiune de onoare, competiție de data science.
                   </span>
                 </div>
-              </div>
+              </a>
             </div>
           </div>
-        </section>
+          <div class="whiteboard-tray">
+            <span class="whiteboard-marker blue"></span>
+            <span class="whiteboard-marker red"></span>
+            <span class="whiteboard-marker black"></span>
+          </div>
+        </div>
 
         <section class="content-grid">
           <section class="panel-card bereal-panel">

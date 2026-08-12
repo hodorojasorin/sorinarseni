@@ -71,12 +71,11 @@
             "👇 pentru inquiries, team-up<br />contact@sorinarseni.com",
           spotify_label: "playlist vama veche 2012 color",
           youtube_embed_label: "eu când am absolvit colegiul",
-          experience_label: "// experiență //",
           experience_role: "Coordonator — Echipa de Producție Multimedia CEITI",
           experience_desc:
             "Anul IV de colegiu. Am coordonat echipa de producție multimedia a CEITI: filmări, montaj și conținut pentru evenimentele instituției.",
           experience_youtube_label: "echipa la treabă",
-          competitions_label: "// competiții //",
+          palmares_label: "Palmares",
           competition1_title: "Romanian Business Challenge",
           competition1_date: "Mai 2026",
           competition1_desc:
@@ -131,12 +130,11 @@
             "👇 for inquiries, team-ups<br />contact@sorinarseni.com",
           spotify_label: "vama veche 2012 color playlist",
           youtube_embed_label: "me when i graduated college",
-          experience_label: "// experience //",
           experience_role: "Coordinator — CEITI Multimedia Production Team",
           experience_desc:
             "4th year of college. Coordinated CEITI's multimedia production team: filming, editing and content for the institution's events.",
           experience_youtube_label: "the team at work",
-          competitions_label: "// competitions //",
+          palmares_label: "Palmares",
           competition1_title: "Romanian Business Challenge",
           competition1_date: "May 2026",
           competition1_desc:
@@ -191,13 +189,12 @@
             "👇 per richieste, collaborazioni<br />contact@sorinarseni.com",
           spotify_label: "playlist vama veche 2012 a colori",
           youtube_embed_label: "io quando mi sono diplomato al college",
-          experience_label: "// esperienza //",
           experience_role:
             "Coordinatore — Team di Produzione Multimediale CEITI",
           experience_desc:
             "Quarto anno di collegio. Ho coordinato il team di produzione multimediale del CEITI: riprese, montaggio e contenuti per gli eventi dell'istituto.",
           experience_youtube_label: "il team al lavoro",
-          competitions_label: "// competizioni //",
+          palmares_label: "Palmares",
           competition1_title: "Romanian Business Challenge",
           competition1_date: "Maggio 2026",
           competition1_desc:
