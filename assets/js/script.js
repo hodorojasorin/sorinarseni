@@ -42,9 +42,9 @@
           next_track: "Piesa următoare",
           repeat_track: "Repetă",
           sticky_coachella:
-            'student producție multimedia, programator, activist, om, organism eucariot<br /><br /><em style="font-size: 0.88rem"><a href="https://cv.sorinarseni.com" style="color: inherit">"duh"</a></em>',
+            'student producție multimedia, programator, om uspesnai, organism eucariot<br /><br /><em style="font-size: 0.88rem"><a href="https://cv.sorinarseni.com" style="color: inherit">"duh"</a></em>',
           sticky_account:
-            "✦ da tu șini iești sirioja<br />să-mi furi tu mie kontu'<br />țî sî parîi normal?? ✦",
+            "◆ <a href='https://www.linkedin.com/in/sorin-arseni-hodoroja' target='_blank' rel='noopener' style='color: inherit; text-decoration: none'>Află mai multe despre mine pe <span style='text-decoration: underline'>LinkedIn</span></a> ◆",
           open_wood_photo: "Deschide poza de pe lemn",
           open_socials_photo: "Deschide poza din socials",
           wood_placeholder: "pune<br />wood-photo.jpg<br />aici",
@@ -99,9 +99,9 @@
           next_track: "Next track",
           repeat_track: "Repeat",
           sticky_coachella:
-            'multimedia production student, programmer, activist, human, eukaryotic organism<br /><br /><em style="font-size: 0.88rem"><a href="https://cv.sorinarseni.com" style="color: inherit">"duh"</a></em>',
+            'multimedia production student, programmer, successful human, eukaryotic organism<br /><br /><em style="font-size: 0.88rem"><a href="https://cv.sorinarseni.com" style="color: inherit">"duh"</a></em>',
           sticky_account:
-            "✦ and you really think it's normal<br />siroja to steal my account like that?<br />are you kidding? ✦",
+            "◆ <a href='https://www.linkedin.com/in/sorin-arseni-hodoroja' target='_blank' rel='noopener' style='color: inherit; text-decoration: none'>Find out more about me on <span style='text-decoration: underline'>LinkedIn</span></a> ◆",
           open_wood_photo: "Open wood photo",
           open_socials_photo: "Open socials photo",
           wood_placeholder: "put<br />wood-photo.jpg<br />here",
@@ -155,9 +155,9 @@
           next_track: "Traccia successiva",
           repeat_track: "Ripeti",
           sticky_coachella:
-            'studente di produzione multimediale, programmatore, attivista, essere umano, organismo eucariote<br /><br /><em style="font-size: 0.88rem"><a href="https://cv.sorinarseni.com" style="color: inherit">"duh"</a></em>',
+            'studente di produzione multimediale, programmatore, essere umano di successo, organismo eucariote<br /><br /><em style="font-size: 0.88rem"><a href="https://cv.sorinarseni.com" style="color: inherit">"duh"</a></em>',
           sticky_account:
-            "✦ ma tu chi sei siroja<br />per rubarmi l'account così?<br />ti sembra normale?? ✦",
+            "◆ <a href='https://www.linkedin.com/in/sorin-arseni-hodoroja' target='_blank' rel='noopener' style='color: inherit; text-decoration: none'>Scopri di più su di me su <span style='text-decoration: underline'>LinkedIn</span></a> ◆",
           open_wood_photo: "Apri la foto sul legno",
           open_socials_photo: "Apri la foto dei social",
           wood_placeholder: "metti<br />wood-photo.jpg<br />qui",
